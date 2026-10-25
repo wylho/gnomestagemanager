@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="stage-manager@wyliam">
+  <enum id="org.gnome.shell.extensions.stage-manager.GroupMode">
+    <value value="0" nick="one-at-a-time"/>
+    <value value="1" nick="all-at-once"/>
+  </enum>
+  <enum id="org.gnome.shell.extensions.stage-manager.GroupLayout">
+    <value value="0" nick="mosaic"/>
+    <value value="1" nick="free"/>
+  </enum>
+  <enum id="org.gnome.shell.extensions.stage-manager.PipCorner">
+    <value value="0" nick="bottom-right"/>
+    <value value="1" nick="bottom-left"/>
+    <value value="2" nick="top-right"/>
+    <value value="3" nick="top-left"/>
+  </enum>
+  <enum id="org.gnome.shell.extensions.stage-manager.Side">
+    <value value="0" nick="left"/>
+    <value value="1" nick="right"/>
+  </enum>
+
+  <schema id="org.gnome.shell.extensions.stage-manager" path="/org/gnome/shell/extensions/stage-manager/">
+    <key name="enabled" type="b">
+      <default>true</default>
+      <summary>Stage Manager on</summary>
+    </key>
+    <key name="show-recents" type="b">
+      <default>true</default>
+      <summary>Show recent apps</summary>
+      <description>When off, the strip only appears when the pointer touches the screen edge.</description>
+    </key>
+    <key name="group-mode" enum="org.gnome.shell.extensions.stage-manager.GroupMode">
+      <default>'one-at-a-time'</default>
+      <summary>Windows of an app</summary>
+      <description>"one-at-a-time": each new window gets its own stage. "all-at-once": windows of the same app go together.</description>
+    </key>
+    <key name="group-layout" enum="org.gnome.shell.extensions.stage-manager.GroupLayout">
+      <default>'mosaic'</default>
+      <summary>Group layout</summary>
+      <description>"mosaic": the group rearranges when a window joins or leaves, is resized, or is dropped onto another. "free": only arranges when the composition changes; the rest is free, like macOS.</description>
+    </key>
+    <key name="autotile" type="b">
+      <default>false</default>
+      <summary>Group autotiling</summary>
+      <description>On: windows on the stage fill the screen in a tree layout (like Pop Shell autotiling), leaving the app strip on the left. Resizing moves the divider; dropping a window onto another swaps them.</description>
+    </key>
+    <key name="autotile-margin" type="i">
+      <range min="0" max="200"/>
+      <default>10</default>
+      <summary>Autotiling margin (px)</summary>
+      <description>Distance between windows and the edge of the usable area (and the strip, when shown).</description>
+    </key>
+    <key name="autotile-gap" type="i">
+      <range min="0" max="200"/>
+      <default>10</default>
+      <summary>Autotiling gap between windows (px)</summary>
+    </key>
+    <key name="autotile-strip-always" type="b">
+      <default>true</default>
+      <summary>Strip always visible with autotiling</summary>
+      <description>On: with an autotiled group the app strip stays visible and windows leave room for it. Off: the strip hides (it appears when the pointer touches the edge) and windows use the whole screen.</description>
+    </key>
+    <key name="pip-enabled" type="b">
+      <default>true</default>
+      <summary>Picture-in-Picture as an exception</summary>
+      <description>PiP joins the stage group where it appears and only its width takes part in tiling; the height follows the video aspect ratio.</description>
+    </key>
+    <key name="pip-patterns" type="as">
+      <default>['picture.in.picture', 'imagem.em.imagem']</default>
+      <summary>Title patterns that identify PiP</summary>
+      <description>Regular expressions, case-insensitive. Firefox uses "Picture-in-Picture" and Chrome "Picture in picture".</description>
+    </key>
+    <key name="pip-corner" enum="org.gnome.shell.extensions.stage-manager.PipCorner">
+      <default>'bottom-right'</default>
+      <summary>PiP corner</summary>
+    </key>
+    <key name="pip-max-width" type="i">
+      <range min="10" max="60"/>
+      <default>35</default>
+      <summary>Maximum PiP width (% of the area)</summary>
+    </key>
+    <key name="strip-side" enum="org.gnome.shell.extensions.stage-manager.Side">
+      <default>'left'</default>
+      <summary>Strip side</summary>
+    </key>
+    <key name="thumbnail-width" type="i">
+      <range min="96" max="400"/>
+      <default>160</default>
+      <summary>Strip thumbnail width (px)</summary>
+      <description>Minimum 96 px.</description>
+    </key>
+    <key name="max-recents" type="i">
+      <range min="0" max="20"/>
+      <default>0</default>
+      <summary>Maximum items in the strip (0 = as many as fit)</summary>
+    </key>
+    <key name="always-center" type="b">
+      <default>true</default>
+      <summary>Center the window when entering the stage</summary>
+    </key>
+    <key name="lock-center" type="b">
+      <default>false</default>
+      <summary>Always keep centered</summary>
+      <description>Outside autotiling, the window (or group) returns to the center as soon as you drop it after dragging, finish resizing it, or the app changes its size/position.</description>
+    </key>
+    <key name="remember-position" type="b">
+      <default>true</default>
+      <summary>Remember the position of windows moved by hand</summary>
+      <description>On: a window you dragged stays where you left it, also when switching away and back. Off: always centers when entering the stage.</description>
+    </key>
+    <key name="recenter-after-resize" type="b">
+      <default>true</default>
+      <summary>Re-center after resizing</summary>
+    </key>
+    <key name="click-wallpaper" type="b">
+      <default>true</default>
+      <summary>Clicking the wallpaper shows the desktop</summary>
+    </key>
+    <key name="excluded-classes" type="as">
+      <default>['org.gnome.NautilusPreviewer']</default>
+      <summary>Window classes Stage Manager ignores</summary>
+      <description>Windows of these classes (WM_CLASS / app-id) stay loose: they do not join the stage or the strip and do not change the stage when opened. Default: GNOME Sushi (Nautilus previewer).</description>
+    </key>
+
+    <key name="toggle-stage-manager" type="as">
+      <default><![CDATA[['<Super><Alt>s']]]></default>
+      <summary>Turn Stage Manager on/off</summary>
+    </key>
+    <key name="pick-request" type="b">
+      <default>false</default>
+      <summary>Request (from preferences) to pick a window to ignore</summary>
+      <description>Internal use: the preferences window sets this and the extension opens the window picker.</description>
+    </key>
+    <key name="toggle-exception" type="as">
+      <default><![CDATA[['<Super><Alt>x']]]></default>
+      <summary>Ignore / manage again the focused window's app</summary>
+    </key>
+    <key name="pick-exception" type="as">
+      <default><![CDATA[['<Super><Alt>e']]]></default>
+      <summary>Pick a window to ignore with the mouse</summary>
+    </key>
+    <key name="toggle-autotile" type="as">
+      <default><![CDATA[['<Super><Alt>t']]]></default>
+      <summary>Turn group autotiling on/off</summary>
+    </key>
+    <key name="switch-recent" type="as">
+      <default><![CDATA[['<Super><Alt>Up']]]></default>
+      <summary>Switch to the most recent set in the strip</summary>
+    </key>
+    <key name="add-to-stage" type="as">
+      <default><![CDATA[['<Super><Alt>Right']]]></default>
+      <summary>Add the most recent set in the strip to the stage</summary>
+    </key>
+    <key name="remove-from-stage" type="as">
+      <default><![CDATA[['<Super><Alt>Left']]]></default>
+      <summary>Remove the focused window from its set (sends it to the strip)</summary>
+    </key>
+    <key name="arrange-group" type="as">
+      <default><![CDATA[['<Super><Alt>r']]]></default>
+      <summary>Rearrange the stage group as a mosaic</summary>
+    </key>
+    <key name="reveal-desktop" type="as">
+      <default><![CDATA[['<Super><Alt>d']]]></default>
+      <summary>Show the desktop</summary>
+    </key>
+  </schema>
+</schemalist>

@@ -1,0 +1,410 @@
+# Translations template for Stage Manager.
+# Copyright (C) 2026 Stage Manager contributors
+# This file is distributed under the same license as the Stage Manager project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Stage Manager 1\n"
+"Report-Msgid-Bugs-To: https://github.com/wylho/gnomestagemanager/issues\n"
+"POT-Creation-Date: 2026-10-25 17:05+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: extension/stage-manager@wyliam/lib/manager.js:353
+msgid "Could not identify the app of this window."
+msgstr ""
+
+#: extension/stage-manager@wyliam/lib/manager.js:359
+#, python-format
+msgid "Ignoring: %s"
+msgstr ""
+
+#: extension/stage-manager@wyliam/lib/manager.js:371
+#, python-format
+msgid "Managed again: %s"
+msgstr ""
+
+#: extension/stage-manager@wyliam/lib/picker.js:32
+msgid "Click the window Stage Manager should ignore. Esc cancels."
+msgstr ""
+
+#. TRANSLATORS: fallback name shown in the menu header when the app is unknown
+#: extension/stage-manager@wyliam/lib/strip.js:102
+msgid "Window"
+msgstr ""
+
+#: extension/stage-manager@wyliam/lib/strip.js:105
+#, python-format
+msgid "%s (%d window)"
+msgid_plural "%s (%d windows)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: extension/stage-manager@wyliam/lib/strip.js:111
+msgid "Bring to the stage"
+msgstr ""
+
+#: extension/stage-manager@wyliam/lib/strip.js:113
+msgid "Add to the stage group"
+msgstr ""
+
+#: extension/stage-manager@wyliam/lib/strip.js:116
+msgid "Bring only one window"
+msgstr ""
+
+#: extension/stage-manager@wyliam/lib/strip.js:118
+msgid "Untitled"
+msgstr ""
+
+#: extension/stage-manager@wyliam/lib/strip.js:120
+msgid "Split the windows in the strip"
+msgstr ""
+
+#: extension/stage-manager@wyliam/lib/strip.js:125
+msgid "New window"
+msgstr ""
+
+#: extension/stage-manager@wyliam/lib/strip.js:126
+msgid "Close all windows"
+msgstr ""
+
+#: extension/stage-manager@wyliam/lib/strip.js:126
+msgid "Close window"
+msgstr ""
+
+#: extension/stage-manager@wyliam/lib/strip.js:128
+msgid "Quit app"
+msgstr ""
+
+#: extension/stage-manager@wyliam/lib/strip.js:135
+msgid "Move to monitor"
+msgstr ""
+
+#: extension/stage-manager@wyliam/lib/strip.js:138
+#, python-format
+msgid "Monitor %d"
+msgstr ""
+
+#: extension/stage-manager@wyliam/lib/strip.js:143
+msgid "Move to workspace"
+msgstr ""
+
+#: extension/stage-manager@wyliam/lib/strip.js:147
+#, python-format
+msgid "Workspace %d"
+msgstr ""
+
+#: extension/stage-manager@wyliam/lib/strip.js:154
+msgid "Autotiling for groups"
+msgstr ""
+
+#: extension/stage-manager@wyliam/lib/strip.js:158
+msgid "Rearrange the stage group"
+msgstr ""
+
+#: extension/stage-manager@wyliam/lib/strip.js:159
+msgid "Back to the stage"
+msgstr ""
+
+#: extension/stage-manager@wyliam/lib/strip.js:161
+msgid "Ignore this app (do not manage)"
+msgstr ""
+
+#: extension/stage-manager@wyliam/lib/strip.js:162
+msgid "Preferences…"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:8
+msgid "Turn Stage Manager on/off"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:9
+msgid "Turn group autotiling on/off"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:10
+msgid "Ignore / manage again the focused window's app"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:11
+msgid "Pick a window to ignore with the mouse"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:12
+msgid "Switch to the most recent set in the strip"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:13
+msgid "Add the most recent set to the stage"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:14
+msgid "Remove the focused window from the group"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:15
+msgid "Rearrange the group as a mosaic"
+msgstr ""
+
+#: extension/stage-manager@wyliam/lib/strip.js:159 extension/stage-manager@wyliam/prefs.js:16
+msgid "Show the desktop"
+msgstr ""
+
+#: extension/stage-manager@wyliam/lib/indicator.js:12 extension/stage-manager@wyliam/lib/manager.js:353
+#: extension/stage-manager@wyliam/prefs.js:25
+msgid "Stage Manager"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:50
+msgid "General"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:52
+msgid "Stage Manager on"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:53
+msgid "Show recent apps"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:53
+msgid "When off, the strip only appears when the pointer touches the screen edge."
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:54
+msgid "Windows of an app"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:55
+msgid ""
+"One at a time: each new window gets its own stage. All at once: windows of the same app go to the"
+" same stage."
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:56
+msgid "One at a time"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:56
+msgid "All at once"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:57
+msgid "Center when entering the stage"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:57
+msgid "Super+Alt+R centers the window (or rearranges the group) whenever you want."
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:58
+msgid "Always keep centered (outside autotiling)"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:58
+msgid ""
+"The window returns to the center as soon as you drop it or finish resizing it. Overrides "
+"“remember position”."
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:59
+msgid "Remember the position of windows moved by hand"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:59
+msgid "When off, the window always returns to the center when entering the stage."
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:60
+msgid "Re-center after resizing"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:61
+msgid "Clicking the wallpaper shows the desktop"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:62
+msgid "Windows go to the strip; click again to bring them back."
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:65
+msgid "Window groups"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:66
+msgid ""
+"Drag a thumbnail from the strip onto the stage, or use Shift+click, or the + button on the "
+"thumbnail. To remove a window, drag it onto the strip."
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:69
+msgid "Autotiling (like Pop Shell)"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:70
+msgid ""
+"Windows on the stage fill the whole screen in a tree layout, leaving the app strip on the left. "
+"Resizing moves the divider; dropping a window onto another swaps them. Replaces the mosaic."
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:71
+msgid "Strip always visible with autotiling"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:72
+msgid ""
+"When off, the strip hides (it appears when the pointer touches the edge) and windows use the "
+"whole screen."
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:73
+msgid "Autotiling margin (px)"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:73
+msgid "Distance between windows and the screen edge (and the strip)."
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:74
+msgid "Autotiling gap between windows (px)"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:75
+msgid "Group layout"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:76
+msgid ""
+"Mosaic: rearranges when a window joins or leaves, is resized, or is dropped onto another. Free: "
+"only arranges when the composition of the group changes."
+msgstr ""
+
+#. TRANSLATORS: layout mode where the user arranges windows freely (no automatic rearranging)
+#: extension/stage-manager@wyliam/prefs.js:78
+msgid "Mosaic"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:78
+msgid "Free"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:81
+msgid "Picture-in-Picture"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:82
+msgid ""
+"Picture-in-Picture from Firefox and Chrome stays in the stage group where it appears (and goes "
+"away with it). Only its width takes part in tiling; the height follows the video aspect ratio. "
+"Drag the PiP to another corner to move it."
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:85
+msgid "Treat Picture-in-Picture as an exception"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:86
+msgid "PiP corner"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:86
+msgid "Bottom right"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:86
+msgid "Bottom left"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:86
+msgid "Top right"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:86
+msgid "Top left"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:87
+#, python-format
+msgid "Maximum PiP width (% of the area)"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:88
+msgid "PiP title patterns (comma-separated)"
+msgstr ""
+
+#. TRANSLATORS: the side column of app thumbnails (recent apps)
+#: extension/stage-manager@wyliam/prefs.js:94
+msgid "Strip"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:97
+msgid "Strip side"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:97
+msgid "Left"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:97
+msgid "Right"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:98
+msgid "Thumbnail width (px)"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:98
+msgid "Minimum 96 px."
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:99
+msgid "Maximum items in the strip"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:99
+msgid "0 = as many as fit the screen height."
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:102
+msgid "Shortcuts"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:103
+msgid "GTK format, for example &lt;Super&gt;&lt;Alt&gt;s. Leave empty to disable. Press Enter to apply."
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:128
+msgid "Exclusions"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:129
+msgid ""
+"Apps that Stage Manager ignores: they stay loose, outside the stage and the strip. Default: GNOME"
+" Sushi (org.gnome.NautilusPreviewer)."
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:135
+msgid "Pick an open window…"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:136
+msgid ""
+"After clicking here, click the window to ignore (for apps in the strip, click its thumbnail). Esc"
+" cancels."
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:143
+msgid "Add a class manually (WM_CLASS / app-id)"
+msgstr ""
+
+#: extension/stage-manager@wyliam/prefs.js:164
+msgid "Manage this app again"
+msgstr ""
+

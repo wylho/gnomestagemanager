@@ -1,0 +1,9 @@
+# estado gerado pelo shell de teste (sandbox)
+sandbox/out/
+sandbox/data/
+sandbox/cache/
+sandbox/config/
+# compilado localmente por install.sh / pack
+extension/*/schemas/gschemas.compiled
+*.zip
+__pycache__/

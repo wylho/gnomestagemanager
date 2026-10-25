@@ -1,0 +1,85 @@
+/* Tira do Organizador Visual */
+.sm-strip {
+}
+
+.sm-item {
+    padding: 0;
+    border-radius: 12px;
+    background-color: rgba(28, 28, 32, 0.55);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+}
+
+.sm-item:hover,
+.sm-item:focus {
+    background-color: rgba(60, 60, 68, 0.7);
+}
+
+.sm-strip:drop {
+    background-color: rgba(53, 132, 228, 0.22);
+    border-radius: 18px;
+}
+
+.sm-thumb {
+    border-radius: 8px;
+}
+
+.sm-badge {
+    icon-size: 22px;
+}
+
+.sm-edge {
+    background-color: transparent;
+}
+
+.sm-dropzone {
+    margin: 12px;
+    border: 2px dashed rgba(255, 255, 255, 0.4);
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.sm-add {
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    border-radius: 11px;
+    color: white;
+    background-color: rgba(53, 132, 228, 0.92);
+}
+
+.sm-add:hover {
+    background-color: rgba(98, 160, 234, 1);
+}
+
+.sm-placeholder {
+    border: 2px dashed rgba(255, 255, 255, 0.45);
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+.sm-placeholder:drop {
+    border-color: rgba(98, 160, 234, 1);
+    background-color: rgba(53, 132, 228, 0.28);
+}
+
+.sm-menu-title {
+    font-weight: bold;
+}
+
+.sm-picker-shield {
+    background-color: rgba(0, 0, 0, 0.12);
+}
+
+.sm-picker-frame {
+    border: 3px solid rgba(53, 132, 228, 0.95);
+    border-radius: 10px;
+    background-color: rgba(53, 132, 228, 0.18);
+}
+
+.sm-picker-hint {
+    padding: 10px 18px;
+    border-radius: 14px;
+    color: white;
+    font-weight: bold;
+    background-color: rgba(30, 30, 34, 0.92);
+}

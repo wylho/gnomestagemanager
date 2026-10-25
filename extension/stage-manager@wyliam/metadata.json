@@ -1,0 +1,10 @@
+{
+  "uuid": "stage-manager@wyliam",
+  "name": "Stage Manager",
+  "description": "A Stage Manager (macOS) for GNOME: one centered window or group on the stage, recent apps in a live-thumbnail strip, groups by drag or Shift+click, mosaic or Pop Shell-style autotiling, Picture-in-Picture handling, per-monitor stages.",
+  "shell-version": ["50"],
+  "settings-schema": "org.gnome.shell.extensions.stage-manager",
+  "gettext-domain": "stage-manager@wyliam",
+  "url": "https://github.com/wylho/gnomestagemanager",
+  "version": 1
+}
