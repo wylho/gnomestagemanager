@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 // Mede, por estratégia de esconder uma janela, se o cliente continua recebendo quadros
 // e se um Clutter.Clone dela continua renderizando.
 import Clutter from 'gi://Clutter';

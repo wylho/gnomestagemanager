@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 // A tira: coluna de miniaturas ao vivo dos conjuntos que não estão no palco.
 import Clutter from 'gi://Clutter';
 import GLib from 'gi://GLib';

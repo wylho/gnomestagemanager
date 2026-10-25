@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 // Seletor de janela (como o do Pop Shell): destaca a janela sob o ponteiro; clicar escolhe, Esc cancela.
 import Clutter from 'gi://Clutter';
 import Meta from 'gi://Meta';

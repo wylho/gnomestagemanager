@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 // Extensão-driver (só no sandbox): carrega o roteiro SANDBOX_SCRIPT e expõe helpers.
 import GLib from 'gi://GLib';
 import Clutter from 'gi://Clutter';

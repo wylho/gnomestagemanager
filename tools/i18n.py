@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: GPL-3.0-or-later
 """Ferramenta de tradução (usa o Babel; não precisa do pacote gettext).
 
   tools/i18n.py extract   gera po/stage-manager@wyliam.pot a partir de _() e ngettext() no código

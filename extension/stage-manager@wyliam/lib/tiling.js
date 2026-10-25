@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 // Autotiling (árvore BSP, como no Pop Shell). Sem dependência do Shell: testável fora do GNOME.
 // Cada nó é uma folha ({win}) ou uma divisão ({a, b, ratio, dir}); `dir` 'h' = lado a lado, 'v' = um sobre o outro.
 import {clamp} from './layout.js';

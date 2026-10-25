@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: GPL-3.0-or-later
 # Roda os testes unitários e o teste de caos (1 e 2 monitores, nos dois modos de áreas de trabalho).
 set -u
 HERE="$(cd "$(dirname "$0")/.." && pwd)"

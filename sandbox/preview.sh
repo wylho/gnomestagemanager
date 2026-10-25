@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: GPL-3.0-or-later
 # Prévia sem sair da sessão: sobe um GNOME Shell isolado, roda um roteiro e deixa PNGs em sandbox/out/.
 # Uso: preview.sh [roteiro] [monitores] [only-primary]
 #   roteiro:      nome em scenarios/ sem .js (padrão: interact)     ex.: mosaic, mosaic2, lifecycle, env, chaos

@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Stage Manager 1\n"
 "Report-Msgid-Bugs-To: https://github.com/wylho/gnomestagemanager/issues\n"
-"POT-Creation-Date: 2026-10-25 17:05+0000\n"
-"PO-Revision-Date: 2026-10-25 17:06+0000\n"
+"POT-Creation-Date: 2026-10-25 17:15+0000\n"
+"PO-Revision-Date: 2026-10-25 17:15+0000\n"
 "Last-Translator: Stage Manager contributors\n"
 "Language: zh_CN\n"
 "Language-Team: zh_CN <https://github.com/wylho/gnomestagemanager/issues>\n"
@@ -16,393 +16,393 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
 
-#: extension/stage-manager@wyliam/lib/indicator.js:12 extension/stage-manager@wyliam/lib/manager.js:353
-#: extension/stage-manager@wyliam/prefs.js:25
+#: extension/stage-manager@wyliam/lib/indicator.js:13 extension/stage-manager@wyliam/lib/manager.js:354
+#: extension/stage-manager@wyliam/prefs.js:26
 msgid "Stage Manager"
 msgstr "台前调度"
 
-#: extension/stage-manager@wyliam/lib/manager.js:353
+#: extension/stage-manager@wyliam/lib/manager.js:354
 msgid "Could not identify the app of this window."
 msgstr "无法识别此窗口所属的应用。"
 
-#: extension/stage-manager@wyliam/lib/manager.js:359
+#: extension/stage-manager@wyliam/lib/manager.js:360
 #, python-format
 msgid "Ignoring: %s"
 msgstr "正在忽略：%s"
 
-#: extension/stage-manager@wyliam/lib/manager.js:371
+#: extension/stage-manager@wyliam/lib/manager.js:372
 #, python-format
 msgid "Managed again: %s"
 msgstr "已恢复管理：%s"
 
-#: extension/stage-manager@wyliam/lib/picker.js:32
+#: extension/stage-manager@wyliam/lib/picker.js:33
 msgid "Click the window Stage Manager should ignore. Esc cancels."
 msgstr "点击“台前调度”应忽略的窗口。按 Esc 取消。"
 
 #. TRANSLATORS: fallback name shown in the menu header when the app is unknown
-#: extension/stage-manager@wyliam/lib/strip.js:102
+#: extension/stage-manager@wyliam/lib/strip.js:103
 msgid "Window"
 msgstr "窗口"
 
-#: extension/stage-manager@wyliam/lib/strip.js:105
+#: extension/stage-manager@wyliam/lib/strip.js:106
 #, python-format
 msgid "%s (%d window)"
 msgid_plural "%s (%d windows)"
 msgstr[0] "%s（%d 个窗口）"
 
-#: extension/stage-manager@wyliam/lib/strip.js:111
+#: extension/stage-manager@wyliam/lib/strip.js:112
 msgid "Bring to the stage"
 msgstr "带到台前"
 
-#: extension/stage-manager@wyliam/lib/strip.js:113
+#: extension/stage-manager@wyliam/lib/strip.js:114
 msgid "Add to the stage group"
 msgstr "添加到台前的组"
 
-#: extension/stage-manager@wyliam/lib/strip.js:116
+#: extension/stage-manager@wyliam/lib/strip.js:117
 msgid "Bring only one window"
 msgstr "只带出一个窗口"
 
-#: extension/stage-manager@wyliam/lib/strip.js:118
+#: extension/stage-manager@wyliam/lib/strip.js:119
 msgid "Untitled"
 msgstr "无标题"
 
-#: extension/stage-manager@wyliam/lib/strip.js:120
+#: extension/stage-manager@wyliam/lib/strip.js:121
 msgid "Split the windows in the strip"
 msgstr "在侧边栏中拆分窗口"
 
-#: extension/stage-manager@wyliam/lib/strip.js:125
+#: extension/stage-manager@wyliam/lib/strip.js:126
 msgid "New window"
 msgstr "新建窗口"
 
-#: extension/stage-manager@wyliam/lib/strip.js:126
+#: extension/stage-manager@wyliam/lib/strip.js:127
 msgid "Close all windows"
 msgstr "关闭所有窗口"
 
-#: extension/stage-manager@wyliam/lib/strip.js:126
+#: extension/stage-manager@wyliam/lib/strip.js:127
 msgid "Close window"
 msgstr "关闭窗口"
 
-#: extension/stage-manager@wyliam/lib/strip.js:128
+#: extension/stage-manager@wyliam/lib/strip.js:129
 msgid "Quit app"
 msgstr "退出应用"
 
-#: extension/stage-manager@wyliam/lib/strip.js:135
+#: extension/stage-manager@wyliam/lib/strip.js:136
 msgid "Move to monitor"
 msgstr "移动到显示器"
 
-#: extension/stage-manager@wyliam/lib/strip.js:138
+#: extension/stage-manager@wyliam/lib/strip.js:139
 #, python-format
 msgid "Monitor %d"
 msgstr "显示器 %d"
 
-#: extension/stage-manager@wyliam/lib/strip.js:143
+#: extension/stage-manager@wyliam/lib/strip.js:144
 msgid "Move to workspace"
 msgstr "移动到工作区"
 
-#: extension/stage-manager@wyliam/lib/strip.js:147
+#: extension/stage-manager@wyliam/lib/strip.js:148
 #, python-format
 msgid "Workspace %d"
 msgstr "工作区 %d"
 
-#: extension/stage-manager@wyliam/lib/strip.js:154
+#: extension/stage-manager@wyliam/lib/strip.js:155
 msgid "Autotiling for groups"
 msgstr "组的自动平铺"
 
-#: extension/stage-manager@wyliam/lib/strip.js:158
+#: extension/stage-manager@wyliam/lib/strip.js:159
 msgid "Rearrange the stage group"
 msgstr "重新排列台前的组"
 
-#: extension/stage-manager@wyliam/lib/strip.js:159
+#: extension/stage-manager@wyliam/lib/strip.js:160
 msgid "Back to the stage"
 msgstr "返回台前"
 
-#: extension/stage-manager@wyliam/lib/strip.js:159 extension/stage-manager@wyliam/prefs.js:16
+#: extension/stage-manager@wyliam/lib/strip.js:160 extension/stage-manager@wyliam/prefs.js:17
 msgid "Show the desktop"
 msgstr "显示桌面"
 
-#: extension/stage-manager@wyliam/lib/strip.js:161
+#: extension/stage-manager@wyliam/lib/strip.js:162
 msgid "Ignore this app (do not manage)"
 msgstr "忽略此应用（不管理）"
 
-#: extension/stage-manager@wyliam/lib/strip.js:162
+#: extension/stage-manager@wyliam/lib/strip.js:163
 msgid "Preferences…"
 msgstr "首选项…"
 
-#: extension/stage-manager@wyliam/prefs.js:8
+#: extension/stage-manager@wyliam/prefs.js:9
 msgid "Turn Stage Manager on/off"
 msgstr "开启/关闭台前调度"
 
-#: extension/stage-manager@wyliam/prefs.js:9
+#: extension/stage-manager@wyliam/prefs.js:10
 msgid "Turn group autotiling on/off"
 msgstr "开启/关闭组的自动平铺"
 
-#: extension/stage-manager@wyliam/prefs.js:10
+#: extension/stage-manager@wyliam/prefs.js:11
 msgid "Ignore / manage again the focused window's app"
 msgstr "忽略/重新管理焦点窗口所属的应用"
 
-#: extension/stage-manager@wyliam/prefs.js:11
+#: extension/stage-manager@wyliam/prefs.js:12
 msgid "Pick a window to ignore with the mouse"
 msgstr "用鼠标选择要忽略的窗口"
 
-#: extension/stage-manager@wyliam/prefs.js:12
+#: extension/stage-manager@wyliam/prefs.js:13
 msgid "Switch to the most recent set in the strip"
 msgstr "切换到侧边栏中最近的一组"
 
-#: extension/stage-manager@wyliam/prefs.js:13
+#: extension/stage-manager@wyliam/prefs.js:14
 msgid "Add the most recent set to the stage"
 msgstr "将最近的一组添加到台前"
 
-#: extension/stage-manager@wyliam/prefs.js:14
+#: extension/stage-manager@wyliam/prefs.js:15
 msgid "Remove the focused window from the group"
 msgstr "将焦点窗口移出组"
 
-#: extension/stage-manager@wyliam/prefs.js:15
+#: extension/stage-manager@wyliam/prefs.js:16
 msgid "Rearrange the group as a mosaic"
 msgstr "将组重新排列为马赛克"
 
-#: extension/stage-manager@wyliam/prefs.js:50
+#: extension/stage-manager@wyliam/prefs.js:51
 msgid "General"
 msgstr "常规"
 
-#: extension/stage-manager@wyliam/prefs.js:52
+#: extension/stage-manager@wyliam/prefs.js:53
 msgid "Stage Manager on"
 msgstr "台前调度已开启"
 
-#: extension/stage-manager@wyliam/prefs.js:53
+#: extension/stage-manager@wyliam/prefs.js:54
 msgid "Show recent apps"
 msgstr "显示最近使用的应用"
 
-#: extension/stage-manager@wyliam/prefs.js:53
+#: extension/stage-manager@wyliam/prefs.js:54
 msgid "When off, the strip only appears when the pointer touches the screen edge."
 msgstr "关闭后，只有指针碰到屏幕边缘时才会显示侧边栏。"
 
-#: extension/stage-manager@wyliam/prefs.js:54
+#: extension/stage-manager@wyliam/prefs.js:55
 msgid "Windows of an app"
 msgstr "应用的窗口"
 
-#: extension/stage-manager@wyliam/prefs.js:55
+#: extension/stage-manager@wyliam/prefs.js:56
 msgid ""
 "One at a time: each new window gets its own stage. All at once: windows of the same app go to the"
 " same stage."
 msgstr "逐个：每个新窗口使用自己的台前。全部一起：同一应用的窗口放在同一个台前。"
 
-#: extension/stage-manager@wyliam/prefs.js:56
+#: extension/stage-manager@wyliam/prefs.js:57
 msgid "One at a time"
 msgstr "逐个"
 
-#: extension/stage-manager@wyliam/prefs.js:56
+#: extension/stage-manager@wyliam/prefs.js:57
 msgid "All at once"
 msgstr "全部一起"
 
-#: extension/stage-manager@wyliam/prefs.js:57
+#: extension/stage-manager@wyliam/prefs.js:58
 msgid "Center when entering the stage"
 msgstr "进入台前时居中"
 
-#: extension/stage-manager@wyliam/prefs.js:57
+#: extension/stage-manager@wyliam/prefs.js:58
 msgid "Super+Alt+R centers the window (or rearranges the group) whenever you want."
 msgstr "随时按 Super+Alt+R 将窗口居中（或重新排列组）。"
 
-#: extension/stage-manager@wyliam/prefs.js:58
+#: extension/stage-manager@wyliam/prefs.js:59
 msgid "Always keep centered (outside autotiling)"
 msgstr "始终保持居中（自动平铺除外）"
 
-#: extension/stage-manager@wyliam/prefs.js:58
+#: extension/stage-manager@wyliam/prefs.js:59
 msgid ""
 "The window returns to the center as soon as you drop it or finish resizing it. Overrides "
 "“remember position”."
 msgstr "松开窗口或调整大小结束后，窗口立即回到中央。优先于“记住位置”。"
 
-#: extension/stage-manager@wyliam/prefs.js:59
+#: extension/stage-manager@wyliam/prefs.js:60
 msgid "Remember the position of windows moved by hand"
 msgstr "记住手动移动过的窗口位置"
 
-#: extension/stage-manager@wyliam/prefs.js:59
+#: extension/stage-manager@wyliam/prefs.js:60
 msgid "When off, the window always returns to the center when entering the stage."
 msgstr "关闭后，窗口进入台前时总是回到中央。"
 
-#: extension/stage-manager@wyliam/prefs.js:60
+#: extension/stage-manager@wyliam/prefs.js:61
 msgid "Re-center after resizing"
 msgstr "调整大小后重新居中"
 
-#: extension/stage-manager@wyliam/prefs.js:61
+#: extension/stage-manager@wyliam/prefs.js:62
 msgid "Clicking the wallpaper shows the desktop"
 msgstr "点击壁纸显示桌面"
 
-#: extension/stage-manager@wyliam/prefs.js:62
+#: extension/stage-manager@wyliam/prefs.js:63
 msgid "Windows go to the strip; click again to bring them back."
 msgstr "窗口会移到侧边栏；再次点击可带回。"
 
-#: extension/stage-manager@wyliam/prefs.js:65
+#: extension/stage-manager@wyliam/prefs.js:66
 msgid "Window groups"
 msgstr "窗口组"
 
-#: extension/stage-manager@wyliam/prefs.js:66
+#: extension/stage-manager@wyliam/prefs.js:67
 msgid ""
 "Drag a thumbnail from the strip onto the stage, or use Shift+click, or the + button on the "
 "thumbnail. To remove a window, drag it onto the strip."
 msgstr "把缩略图从侧边栏拖到台前，或使用 Shift+点击，或缩略图上的 + 按钮。要移出窗口，请把它拖到侧边栏。"
 
-#: extension/stage-manager@wyliam/prefs.js:69
+#: extension/stage-manager@wyliam/prefs.js:70
 msgid "Autotiling (like Pop Shell)"
 msgstr "自动平铺（类似 Pop Shell）"
 
-#: extension/stage-manager@wyliam/prefs.js:70
+#: extension/stage-manager@wyliam/prefs.js:71
 msgid ""
 "Windows on the stage fill the whole screen in a tree layout, leaving the app strip on the left. "
 "Resizing moves the divider; dropping a window onto another swaps them. Replaces the mosaic."
 msgstr "台前的窗口以树状结构铺满整个屏幕，应用侧边栏保留在左侧。调整大小会移动分隔条；把一个窗口放到另一个上会互换位置。取代马赛克。"
 
-#: extension/stage-manager@wyliam/prefs.js:71
+#: extension/stage-manager@wyliam/prefs.js:72
 msgid "Strip always visible with autotiling"
 msgstr "自动平铺时侧边栏始终可见"
 
-#: extension/stage-manager@wyliam/prefs.js:72
+#: extension/stage-manager@wyliam/prefs.js:73
 msgid ""
 "When off, the strip hides (it appears when the pointer touches the edge) and windows use the "
 "whole screen."
 msgstr "关闭后，侧边栏会隐藏（指针碰到边缘时出现），窗口使用整个屏幕。"
 
-#: extension/stage-manager@wyliam/prefs.js:73
+#: extension/stage-manager@wyliam/prefs.js:74
 msgid "Autotiling margin (px)"
 msgstr "自动平铺边距（px）"
 
-#: extension/stage-manager@wyliam/prefs.js:73
+#: extension/stage-manager@wyliam/prefs.js:74
 msgid "Distance between windows and the screen edge (and the strip)."
 msgstr "窗口与屏幕边缘（以及侧边栏）之间的距离。"
 
-#: extension/stage-manager@wyliam/prefs.js:74
+#: extension/stage-manager@wyliam/prefs.js:75
 msgid "Autotiling gap between windows (px)"
 msgstr "自动平铺的窗口间距（px）"
 
-#: extension/stage-manager@wyliam/prefs.js:75
+#: extension/stage-manager@wyliam/prefs.js:76
 msgid "Group layout"
 msgstr "组的布局"
 
-#: extension/stage-manager@wyliam/prefs.js:76
+#: extension/stage-manager@wyliam/prefs.js:77
 msgid ""
 "Mosaic: rearranges when a window joins or leaves, is resized, or is dropped onto another. Free: "
 "only arranges when the composition of the group changes."
 msgstr "马赛克：窗口加入或离开、调整大小、或放到另一个窗口上时重新排列。自由：只在组的构成变化时排列。"
 
 #. TRANSLATORS: layout mode where the user arranges windows freely (no automatic rearranging)
-#: extension/stage-manager@wyliam/prefs.js:78
+#: extension/stage-manager@wyliam/prefs.js:79
 msgid "Mosaic"
 msgstr "马赛克"
 
-#: extension/stage-manager@wyliam/prefs.js:78
+#: extension/stage-manager@wyliam/prefs.js:79
 msgid "Free"
 msgstr "自由"
 
-#: extension/stage-manager@wyliam/prefs.js:81
+#: extension/stage-manager@wyliam/prefs.js:82
 msgid "Picture-in-Picture"
 msgstr "画中画"
 
-#: extension/stage-manager@wyliam/prefs.js:82
+#: extension/stage-manager@wyliam/prefs.js:83
 msgid ""
 "Picture-in-Picture from Firefox and Chrome stays in the stage group where it appears (and goes "
 "away with it). Only its width takes part in tiling; the height follows the video aspect ratio. "
 "Drag the PiP to another corner to move it."
 msgstr "Firefox 和 Chrome 的画中画会留在它出现时所在的台前组中（并随之消失）。只有宽度参与平铺；高度由视频的宽高比决定。把窗口拖到另一个角即可移动。"
 
-#: extension/stage-manager@wyliam/prefs.js:85
+#: extension/stage-manager@wyliam/prefs.js:86
 msgid "Treat Picture-in-Picture as an exception"
 msgstr "将画中画视为例外"
 
-#: extension/stage-manager@wyliam/prefs.js:86
+#: extension/stage-manager@wyliam/prefs.js:87
 msgid "PiP corner"
 msgstr "画中画所在角落"
 
-#: extension/stage-manager@wyliam/prefs.js:86
+#: extension/stage-manager@wyliam/prefs.js:87
 msgid "Bottom right"
 msgstr "右下"
 
-#: extension/stage-manager@wyliam/prefs.js:86
+#: extension/stage-manager@wyliam/prefs.js:87
 msgid "Bottom left"
 msgstr "左下"
 
-#: extension/stage-manager@wyliam/prefs.js:86
+#: extension/stage-manager@wyliam/prefs.js:87
 msgid "Top right"
 msgstr "右上"
 
-#: extension/stage-manager@wyliam/prefs.js:86
+#: extension/stage-manager@wyliam/prefs.js:87
 msgid "Top left"
 msgstr "左上"
 
-#: extension/stage-manager@wyliam/prefs.js:87
+#: extension/stage-manager@wyliam/prefs.js:88
 #, python-format
 msgid "Maximum PiP width (% of the area)"
 msgstr "画中画最大宽度（占区域的 %）"
 
-#: extension/stage-manager@wyliam/prefs.js:88
+#: extension/stage-manager@wyliam/prefs.js:89
 msgid "PiP title patterns (comma-separated)"
 msgstr "画中画标题匹配模式（用逗号分隔）"
 
 #. TRANSLATORS: the side column of app thumbnails (recent apps)
-#: extension/stage-manager@wyliam/prefs.js:94
+#: extension/stage-manager@wyliam/prefs.js:95
 msgid "Strip"
 msgstr "侧边栏"
 
-#: extension/stage-manager@wyliam/prefs.js:97
+#: extension/stage-manager@wyliam/prefs.js:98
 msgid "Strip side"
 msgstr "侧边栏位置"
 
-#: extension/stage-manager@wyliam/prefs.js:97
+#: extension/stage-manager@wyliam/prefs.js:98
 msgid "Left"
 msgstr "左侧"
 
-#: extension/stage-manager@wyliam/prefs.js:97
+#: extension/stage-manager@wyliam/prefs.js:98
 msgid "Right"
 msgstr "右侧"
 
-#: extension/stage-manager@wyliam/prefs.js:98
+#: extension/stage-manager@wyliam/prefs.js:99
 msgid "Thumbnail width (px)"
 msgstr "缩略图宽度（px）"
 
-#: extension/stage-manager@wyliam/prefs.js:98
+#: extension/stage-manager@wyliam/prefs.js:99
 msgid "Minimum 96 px."
 msgstr "最小 96 px。"
 
-#: extension/stage-manager@wyliam/prefs.js:99
+#: extension/stage-manager@wyliam/prefs.js:100
 msgid "Maximum items in the strip"
 msgstr "侧边栏最多项目数"
 
-#: extension/stage-manager@wyliam/prefs.js:99
+#: extension/stage-manager@wyliam/prefs.js:100
 msgid "0 = as many as fit the screen height."
 msgstr "0 = 屏幕高度能容纳的数量。"
 
-#: extension/stage-manager@wyliam/prefs.js:102
+#: extension/stage-manager@wyliam/prefs.js:103
 msgid "Shortcuts"
 msgstr "快捷键"
 
-#: extension/stage-manager@wyliam/prefs.js:103
+#: extension/stage-manager@wyliam/prefs.js:104
 msgid "GTK format, for example &lt;Super&gt;&lt;Alt&gt;s. Leave empty to disable. Press Enter to apply."
 msgstr "GTK 格式，例如 &lt;Super&gt;&lt;Alt&gt;s。留空则禁用。按 Enter 应用。"
 
-#: extension/stage-manager@wyliam/prefs.js:128
+#: extension/stage-manager@wyliam/prefs.js:129
 msgid "Exclusions"
 msgstr "例外"
 
-#: extension/stage-manager@wyliam/prefs.js:129
+#: extension/stage-manager@wyliam/prefs.js:130
 msgid ""
 "Apps that Stage Manager ignores: they stay loose, outside the stage and the strip. Default: GNOME"
 " Sushi (org.gnome.NautilusPreviewer)."
 msgstr "台前调度忽略的应用：它们保持自由，不进入台前和侧边栏。默认：GNOME Sushi（org.gnome.NautilusPreviewer）。"
 
-#: extension/stage-manager@wyliam/prefs.js:135
+#: extension/stage-manager@wyliam/prefs.js:136
 msgid "Pick an open window…"
 msgstr "选择一个已打开的窗口…"
 
-#: extension/stage-manager@wyliam/prefs.js:136
+#: extension/stage-manager@wyliam/prefs.js:137
 msgid ""
 "After clicking here, click the window to ignore (for apps in the strip, click its thumbnail). Esc"
 " cancels."
 msgstr "点击此处后，再点击要忽略的窗口（侧边栏中的应用请点击其缩略图）。按 Esc 取消。"
 
-#: extension/stage-manager@wyliam/prefs.js:143
+#: extension/stage-manager@wyliam/prefs.js:144
 msgid "Add a class manually (WM_CLASS / app-id)"
 msgstr "手动添加类（WM_CLASS / app-id）"
 
-#: extension/stage-manager@wyliam/prefs.js:164
+#: extension/stage-manager@wyliam/prefs.js:165
 msgid "Manage this app again"
 msgstr "重新管理此应用"
 

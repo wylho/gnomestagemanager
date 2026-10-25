@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 // Controlador: liga o modelo (palco/tira) às janelas reais do mutter.
 import Clutter from 'gi://Clutter';
 import Gio from 'gi://Gio';

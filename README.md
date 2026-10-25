@@ -100,4 +100,5 @@ scenarios), `tests/`, `docs/` (research on the macOS behavior, in Portuguese). C
 
 ## License
 
-No license has been chosen yet (all rights reserved until one is added).
+Copyright (C) 2026 wylho. Licensed under the **GNU General Public License, version 3 or (at your option) any later
+version** (`GPL-3.0-or-later`); see [LICENSE](LICENSE). Contributions are accepted under the same license.

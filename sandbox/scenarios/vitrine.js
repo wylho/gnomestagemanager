@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 import {dump, mgr, itemCenter} from './helpers.js';
 export default async function (ctx) {
     ctx.move(300, 500);

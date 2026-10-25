@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 // gjs -m tests/unit.mjs  — testa layout.js e model.js sem o Shell
 import {layoutSet, layoutAux, stripSlots} from '../extension/stage-manager@wyliam/lib/layout.js';
 import * as T from '../extension/stage-manager@wyliam/lib/tiling.js';

@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import {mgr, winByTitle} from './helpers.js';
 const stageAt = (m, ws = null) => mgr()._stageFor(ws ?? mgr()._wsKey(m), m);

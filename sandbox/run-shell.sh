@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: GPL-3.0-or-later
 # Sobe um GNOME Shell isolado (headless, monitor virtual): bus D-Bus próprio, GSettings em arquivo
 # próprio, socket Wayland próprio. Não toca na sessão real.
 # Uso: run-shell.sh <roteiro.js> [segundos] [WxH] [extensões separadas por vírgula]

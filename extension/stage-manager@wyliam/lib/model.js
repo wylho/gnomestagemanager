@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 // Modelo puro do palco e da tira (sem dependência do Shell): testável fora do GNOME.
 // Janelas são identificadas por referência; qualquer objeto serve.
 

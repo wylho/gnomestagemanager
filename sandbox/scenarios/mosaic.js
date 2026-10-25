@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 import {dump, mgr, itemCenter, winByTitle} from './helpers.js';
 
 const rectOf = t => { const r = winByTitle(t).get_frame_rect(); return `${r.width}x${r.height}+${r.x}+${r.y}`; };

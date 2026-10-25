@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
 import {dump, mgr, itemCenter, winByTitle} from './helpers.js';
 const st = () => Extension.lookupByUUID('stage-manager@wyliam')._settings;

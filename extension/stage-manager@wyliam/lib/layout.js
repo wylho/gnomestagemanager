@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 // Geometria pura (sem dependência do Shell): testável fora do GNOME.
 
 export const clamp = (v, lo, hi) => Math.min(Math.max(v, lo), hi);

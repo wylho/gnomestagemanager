@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
 // App GTK4 de teste: janela colorida com contador. Grava em FRAMES_DIR/<titulo>.txt quantos quadros
 // o compositor pediu (tick callback só roda quando o compositor manda frame callback).
 import Gtk from 'gi://Gtk?version=4.0';

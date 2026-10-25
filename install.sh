@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: GPL-3.0-or-later
 # Installs (or updates) only the extension's own folder in ~/.local/share/gnome-shell/extensions.
 # It does not enable anything and does not touch other extensions or settings.
 # The swap is atomic (new folder + rename): the running GNOME Shell keeps files mapped in memory

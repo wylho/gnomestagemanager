@@ -79,4 +79,5 @@ que não podem ser minimizadas ficam visíveis.
 
 ## Licença
 
-Ainda não definida (todos os direitos reservados até que uma licença seja adicionada).
+Copyright (C) 2026 wylho. Licenciado sob a **GNU General Public License, versão 3 ou (a seu critério) qualquer versão
+posterior** (`GPL-3.0-or-later`); veja [LICENSE](LICENSE). Contribuições são aceitas sob a mesma licença.
