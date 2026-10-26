@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Stage Manager 1\n"
 "Report-Msgid-Bugs-To: https://github.com/wylho/gnomestagemanager/issues\n"
-"POT-Creation-Date: 2026-10-26 12:14+0000\n"
-"PO-Revision-Date: 2026-10-26 12:14+0000\n"
+"POT-Creation-Date: 2026-10-26 14:01+0000\n"
+"PO-Revision-Date: 2026-10-26 14:01+0000\n"
 "Last-Translator: Stage Manager contributors\n"
 "Language: ru\n"
 "Language-Team: ru <https://github.com/wylho/gnomestagemanager/issues>\n"
@@ -17,21 +17,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
 
-#: extension/stage-manager@wyliam/lib/indicator.js:13 extension/stage-manager@wyliam/lib/manager.js:354
+#: extension/stage-manager@wyliam/lib/indicator.js:13 extension/stage-manager@wyliam/lib/manager.js:367
 #: extension/stage-manager@wyliam/prefs.js:26
 msgid "Stage Manager"
 msgstr "Stage Manager"
 
-#: extension/stage-manager@wyliam/lib/manager.js:354
+#: extension/stage-manager@wyliam/lib/manager.js:367
 msgid "Could not identify the app of this window."
 msgstr "Не удалось определить приложение этого окна."
 
-#: extension/stage-manager@wyliam/lib/manager.js:360
+#: extension/stage-manager@wyliam/lib/manager.js:373
 #, python-format
 msgid "Ignoring: %s"
 msgstr "Игнорируется: %s"
 
-#: extension/stage-manager@wyliam/lib/manager.js:372
+#: extension/stage-manager@wyliam/lib/manager.js:385
 #, python-format
 msgid "Managed again: %s"
 msgstr "Снова под управлением: %s"
@@ -220,30 +220,38 @@ msgstr ""
 "приоритет над «запоминать положение»."
 
 #: extension/stage-manager@wyliam/prefs.js:60
+msgid "Hold Alt while resizing to resize from the center"
+msgstr "Удерживать Alt при изменении размера, чтобы менять его от центра"
+
+#: extension/stage-manager@wyliam/prefs.js:60
+msgid "The window grows or shrinks on both sides at once, keeping its center. Not used with autotiling."
+msgstr "Окно увеличивается или уменьшается с обеих сторон одновременно, сохраняя центр. При автотайлинге не применяется."
+
+#: extension/stage-manager@wyliam/prefs.js:61
 msgid "Remember the position of windows moved by hand"
 msgstr "Запоминать положение окон, перемещённых вручную"
 
-#: extension/stage-manager@wyliam/prefs.js:60
+#: extension/stage-manager@wyliam/prefs.js:61
 msgid "When off, the window always returns to the center when entering the stage."
 msgstr "Если выключено, окно всегда возвращается в центр при выходе на сцену."
 
-#: extension/stage-manager@wyliam/prefs.js:61
+#: extension/stage-manager@wyliam/prefs.js:62
 msgid "Re-center after resizing"
 msgstr "Центрировать заново после изменения размера"
 
-#: extension/stage-manager@wyliam/prefs.js:62
+#: extension/stage-manager@wyliam/prefs.js:63
 msgid "Clicking the wallpaper shows the desktop"
 msgstr "Щелчок по обоям показывает рабочий стол"
 
-#: extension/stage-manager@wyliam/prefs.js:63
+#: extension/stage-manager@wyliam/prefs.js:64
 msgid "Windows go to the strip; click again to bring them back."
 msgstr "Окна уходят на боковую панель; повторный щелчок возвращает их."
 
-#: extension/stage-manager@wyliam/prefs.js:66
+#: extension/stage-manager@wyliam/prefs.js:67
 msgid "Window groups"
 msgstr "Группы окон"
 
-#: extension/stage-manager@wyliam/prefs.js:67
+#: extension/stage-manager@wyliam/prefs.js:68
 msgid ""
 "Drag a thumbnail from the strip onto the stage, or use Shift+click, or the + button on the "
 "thumbnail. To remove a window, drag it onto the strip."
@@ -251,11 +259,11 @@ msgstr ""
 "Перетащите миниатюру с боковой панели на сцену, либо используйте Shift+щелчок или кнопку + на "
 "миниатюре. Чтобы убрать окно, перетащите его на боковую панель."
 
-#: extension/stage-manager@wyliam/prefs.js:70
+#: extension/stage-manager@wyliam/prefs.js:71
 msgid "Autotiling (like Pop Shell)"
 msgstr "Автотайлинг (как в Pop Shell)"
 
-#: extension/stage-manager@wyliam/prefs.js:71
+#: extension/stage-manager@wyliam/prefs.js:72
 msgid ""
 "Windows on the stage fill the whole screen in a tree layout, leaving the app strip on the left. "
 "Resizing moves the divider; dropping a window onto another swaps them. Replaces the mosaic."
@@ -263,11 +271,11 @@ msgstr ""
 "Окна на сцене заполняют весь экран в виде дерева, оставляя панель приложений слева. Изменение "
 "размера двигает разделитель; перетаскивание окна на другое меняет их местами. Заменяет мозаику."
 
-#: extension/stage-manager@wyliam/prefs.js:72
+#: extension/stage-manager@wyliam/prefs.js:73
 msgid "Strip always visible with autotiling"
 msgstr "Боковая панель всегда видна при автотайлинге"
 
-#: extension/stage-manager@wyliam/prefs.js:73
+#: extension/stage-manager@wyliam/prefs.js:74
 msgid ""
 "When off, the strip hides (it appears when the pointer touches the edge) and windows use the "
 "whole screen."
@@ -275,23 +283,23 @@ msgstr ""
 "Если выключено, боковая панель скрывается (появляется, когда указатель касается края), а окна "
 "занимают весь экран."
 
-#: extension/stage-manager@wyliam/prefs.js:74
+#: extension/stage-manager@wyliam/prefs.js:75
 msgid "Autotiling margin (px)"
 msgstr "Поле автотайлинга (px)"
 
-#: extension/stage-manager@wyliam/prefs.js:74
+#: extension/stage-manager@wyliam/prefs.js:75
 msgid "Distance between windows and the screen edge (and the strip)."
 msgstr "Расстояние между окнами и краем экрана (и боковой панелью)."
 
-#: extension/stage-manager@wyliam/prefs.js:75
+#: extension/stage-manager@wyliam/prefs.js:76
 msgid "Autotiling gap between windows (px)"
 msgstr "Промежуток между окнами при автотайлинге (px)"
 
-#: extension/stage-manager@wyliam/prefs.js:76
+#: extension/stage-manager@wyliam/prefs.js:77
 msgid "Group layout"
 msgstr "Расположение группы"
 
-#: extension/stage-manager@wyliam/prefs.js:77
+#: extension/stage-manager@wyliam/prefs.js:78
 msgid ""
 "Mosaic: rearranges when a window joins or leaves, is resized, or is dropped onto another. Free: "
 "only arranges when the composition of the group changes."
@@ -300,19 +308,19 @@ msgstr ""
 "перетаскивается на другое. Свободно: упорядочивает только при изменении состава группы."
 
 #. TRANSLATORS: layout mode where the user arranges windows freely (no automatic rearranging)
-#: extension/stage-manager@wyliam/prefs.js:79
+#: extension/stage-manager@wyliam/prefs.js:80
 msgid "Mosaic"
 msgstr "Мозаика"
 
-#: extension/stage-manager@wyliam/prefs.js:79
+#: extension/stage-manager@wyliam/prefs.js:80
 msgid "Free"
 msgstr "Свободно"
 
-#: extension/stage-manager@wyliam/prefs.js:82
+#: extension/stage-manager@wyliam/prefs.js:83
 msgid "Picture-in-Picture"
 msgstr "Картинка в картинке"
 
-#: extension/stage-manager@wyliam/prefs.js:83
+#: extension/stage-manager@wyliam/prefs.js:84
 msgid ""
 "Picture-in-Picture from Firefox and Chrome stays in the stage group where it appears (and goes "
 "away with it). Only its width takes part in tiling; the height follows the video aspect ratio. "
@@ -322,95 +330,95 @@ msgstr ""
 "исчезает вместе с ней). В тайлинге участвует только его ширина; высота определяется соотношением "
 "сторон видео. Перетащите окно в другой угол, чтобы переместить его."
 
-#: extension/stage-manager@wyliam/prefs.js:86
+#: extension/stage-manager@wyliam/prefs.js:87
 msgid "Treat Picture-in-Picture as an exception"
 msgstr "Считать «картинку в картинке» исключением"
 
-#: extension/stage-manager@wyliam/prefs.js:87
+#: extension/stage-manager@wyliam/prefs.js:88
 msgid "PiP corner"
 msgstr "Угол «картинки в картинке»"
 
-#: extension/stage-manager@wyliam/prefs.js:87
+#: extension/stage-manager@wyliam/prefs.js:88
 msgid "Bottom right"
 msgstr "Справа внизу"
 
-#: extension/stage-manager@wyliam/prefs.js:87
+#: extension/stage-manager@wyliam/prefs.js:88
 msgid "Bottom left"
 msgstr "Слева внизу"
 
-#: extension/stage-manager@wyliam/prefs.js:87
+#: extension/stage-manager@wyliam/prefs.js:88
 msgid "Top right"
 msgstr "Справа вверху"
 
-#: extension/stage-manager@wyliam/prefs.js:87
+#: extension/stage-manager@wyliam/prefs.js:88
 msgid "Top left"
 msgstr "Слева вверху"
 
-#: extension/stage-manager@wyliam/prefs.js:88
+#: extension/stage-manager@wyliam/prefs.js:89
 #, python-format
 msgid "Maximum PiP width (% of the area)"
 msgstr "Максимальная ширина «картинки в картинке» (% области)"
 
-#: extension/stage-manager@wyliam/prefs.js:89
+#: extension/stage-manager@wyliam/prefs.js:90
 msgid "PiP title patterns (comma-separated)"
 msgstr "Шаблоны заголовка «картинки в картинке» (через запятую)"
 
 #. TRANSLATORS: the side column of app thumbnails (recent apps)
-#: extension/stage-manager@wyliam/prefs.js:95
+#: extension/stage-manager@wyliam/prefs.js:96
 msgid "Strip"
 msgstr "Боковая панель"
 
-#: extension/stage-manager@wyliam/prefs.js:98
+#: extension/stage-manager@wyliam/prefs.js:99
 msgid "Strip side"
 msgstr "Сторона боковой панели"
 
-#: extension/stage-manager@wyliam/prefs.js:98
+#: extension/stage-manager@wyliam/prefs.js:99
 msgid "Left"
 msgstr "Слева"
 
-#: extension/stage-manager@wyliam/prefs.js:98
+#: extension/stage-manager@wyliam/prefs.js:99
 msgid "Right"
 msgstr "Справа"
 
-#: extension/stage-manager@wyliam/prefs.js:99
+#: extension/stage-manager@wyliam/prefs.js:100
 msgid "Show the + button on thumbnails"
 msgstr "Показывать кнопку + на миниатюрах"
 
-#: extension/stage-manager@wyliam/prefs.js:99
+#: extension/stage-manager@wyliam/prefs.js:100
 msgid "Adds the set to the stage group. Shift+click and dragging also work."
 msgstr "Добавляет набор в группу на сцене. Shift+щелчок и перетаскивание тоже работают."
 
-#: extension/stage-manager@wyliam/prefs.js:100
+#: extension/stage-manager@wyliam/prefs.js:101
 msgid "Thumbnail width (px)"
 msgstr "Ширина миниатюр (px)"
 
-#: extension/stage-manager@wyliam/prefs.js:100
+#: extension/stage-manager@wyliam/prefs.js:101
 msgid "Minimum 96 px."
 msgstr "Минимум 96 px."
 
-#: extension/stage-manager@wyliam/prefs.js:101
+#: extension/stage-manager@wyliam/prefs.js:102
 msgid "Maximum items in the strip"
 msgstr "Максимум элементов на боковой панели"
 
-#: extension/stage-manager@wyliam/prefs.js:101
+#: extension/stage-manager@wyliam/prefs.js:102
 msgid "0 = as many as fit the screen height."
 msgstr "0 = сколько поместится по высоте экрана."
 
-#: extension/stage-manager@wyliam/prefs.js:104
+#: extension/stage-manager@wyliam/prefs.js:105
 msgid "Shortcuts"
 msgstr "Сочетания клавиш"
 
-#: extension/stage-manager@wyliam/prefs.js:105
+#: extension/stage-manager@wyliam/prefs.js:106
 msgid "GTK format, for example &lt;Super&gt;&lt;Alt&gt;s. Leave empty to disable. Press Enter to apply."
 msgstr ""
 "Формат GTK, например &lt;Super&gt;&lt;Alt&gt;s. Оставьте пустым, чтобы отключить. Нажмите Enter, "
 "чтобы применить."
 
-#: extension/stage-manager@wyliam/prefs.js:130
+#: extension/stage-manager@wyliam/prefs.js:131
 msgid "Exclusions"
 msgstr "Исключения"
 
-#: extension/stage-manager@wyliam/prefs.js:131
+#: extension/stage-manager@wyliam/prefs.js:132
 msgid ""
 "Apps that Stage Manager ignores: they stay loose, outside the stage and the strip. Default: GNOME"
 " Sushi (org.gnome.NautilusPreviewer)."
@@ -418,11 +426,11 @@ msgstr ""
 "Приложения, которые Stage Manager игнорирует: они остаются свободными, вне сцены и боковой "
 "панели. По умолчанию: GNOME Sushi (org.gnome.NautilusPreviewer)."
 
-#: extension/stage-manager@wyliam/prefs.js:137
+#: extension/stage-manager@wyliam/prefs.js:138
 msgid "Pick an open window…"
 msgstr "Выбрать открытое окно…"
 
-#: extension/stage-manager@wyliam/prefs.js:138
+#: extension/stage-manager@wyliam/prefs.js:139
 msgid ""
 "After clicking here, click the window to ignore (for apps in the strip, click its thumbnail). Esc"
 " cancels."
@@ -430,11 +438,11 @@ msgstr ""
 "После щелчка здесь щёлкните окно, которое нужно игнорировать (для приложений на боковой панели — "
 "её миниатюру). Esc — отмена."
 
-#: extension/stage-manager@wyliam/prefs.js:145
+#: extension/stage-manager@wyliam/prefs.js:146
 msgid "Add a class manually (WM_CLASS / app-id)"
 msgstr "Добавить класс вручную (WM_CLASS / app-id)"
 
-#: extension/stage-manager@wyliam/prefs.js:166
+#: extension/stage-manager@wyliam/prefs.js:167
 msgid "Manage this app again"
 msgstr "Снова управлять этим приложением"
 

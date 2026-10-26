@@ -12,6 +12,7 @@ import {_} from './i18n.js';
 import {layoutAux, layoutSet} from './layout.js';
 import {Stage, aux} from './model.js';
 import * as Tiling from './tiling.js';
+import {CenterResize, dirOf} from './centerresize.js';
 import {WindowPicker} from './picker.js';
 import {Strip} from './strip.js';
 import {appKeyOf, classOf, isExcluded, isManageable, isMoveOp, isPip, isResizeOp, rootOf, setPipPatterns} from './windows.js';
@@ -21,6 +22,8 @@ const LAYOUT_MOSAIC = 0;
 const PIP_CORNERS = ['bottom-right', 'bottom-left', 'top-right', 'top-left'];
 const STICKY = 'sticky';   // chave de palco dos monitores secundários quando as áreas de trabalho só existem no primário
 const DRAG_POLL_MS = 60;
+
+const HANDOFF_TIMEOUT_MS = 400;   // quanto esperar o mutter encerrar o arrasto antes de desistir da simetria
 
 const rect = r => new Mtk.Rectangle({x: r.x, y: r.y, width: r.width, height: r.height});
 
@@ -47,6 +50,9 @@ export class StageManager {
         this._pipAspect = new Map();   // PiP -> proporção (largura/altura) do vídeo
         this._grabbing = false;        // há um arrasto/redimensionamento do usuário em andamento
         this._centerTimer = 0;
+        this._centerResize = null;
+        this._centerHandoff = 0;
+        this._handoff = null;
         this._centerBudget = 6;        // correções automáticas seguidas (evita laço com apps teimosos)
         this._pending = new Set();     // timeouts de janelas novas esperando o título
         this._pref = new Map();        // Meta.Window -> tamanho que o usuário escolheu (antes de encolher p/ caber)
@@ -92,6 +98,13 @@ export class StageManager {
         if (this._centerTimer)
             GLib.source_remove(this._centerTimer);
         this._centerTimer = 0;
+        if (this._centerHandoff)
+            GLib.source_remove(this._centerHandoff);
+        this._centerHandoff = 0;
+        this._centerResize?.destroy();
+        this._centerResize = null;
+        this._handoff = null;
+        this._keyboard = null;
         this._picker?.cancel();
         this._picker = null;
         aux.is = () => false;
@@ -556,6 +569,77 @@ export class StageManager {
                 w.move_frame(false, r.x, r.y);
         }));
         set.arranged = true;
+    }
+
+    // ---------- redimensionar a partir do centro (Alt)
+
+    /**
+     * Redimensionar com o mouse segurando Alt: a janela cresce/encolhe dos dois lados, mantendo o centro (como a
+     * tecla Option no macOS). O mutter começa o arrasto normalmente e não deixa ninguém mudar a conta dele, nem
+     * encerrá-lo por API; então cancelamos o arrasto com um Esc virtual (a janela volta ao tamanho inicial) e,
+     * quando o mutter avisa que terminou, o gesto passa para CenterResize. Só vale fora do autotiling.
+     * Devolve true quando assumiu o gesto.
+     */
+    _beginCenterResize(win, op) {
+        const dir = dirOf(op);
+        if (!dir || this._centerResize || this._handoff || !this._settings.get_boolean('resize-from-center'))
+            return false;
+        const [px, py, mods] = global.get_pointer();
+        if (!(mods & Clutter.ModifierType.MOD1_MASK))
+            return false;
+        const base = rootOf(win);
+        const set = this._setOf.get(base);
+        if (!set || set.stage.active !== set || base !== win || isPip(base) || this._tilingActive(set) ||
+            base.is_maximized() || base.is_fullscreen())
+            return false;
+        this._handoff = {
+            win: base, set, dir, pointer: [px, py], start: base.get_frame_rect(),
+            area: Main.layoutManager.getWorkAreaForMonitor(this._monitorOf(base)),
+        };
+        // Cancelar dentro do sinal que iniciou o arrasto é frágil: espera o mutter terminar de começá-lo.
+        this._centerHandoff = GLib.idle_add(GLib.PRIORITY_DEFAULT, () => {
+            this._centerHandoff = GLib.timeout_add(GLib.PRIORITY_DEFAULT, HANDOFF_TIMEOUT_MS, () => {
+                this._centerHandoff = 0;
+                this._handoff = null; // o mutter não encerrou o arrasto: ele segue valendo, sem simetria
+                return GLib.SOURCE_REMOVE;
+            });
+            this._pressEscape();
+            return GLib.SOURCE_REMOVE;
+        });
+        return true;
+    }
+
+    _pressEscape() {
+        this._keyboard ??= global.stage.context.get_backend().get_default_seat()
+            .create_virtual_device(Clutter.InputDeviceType.KEYBOARD_DEVICE);
+        const t = GLib.get_monotonic_time();
+        this._keyboard.notify_keyval(t, Clutter.KEY_Escape, Clutter.KeyState.PRESSED);
+        this._keyboard.notify_keyval(t + 1000, Clutter.KEY_Escape, Clutter.KeyState.RELEASED);
+    }
+
+    /** O mutter acabou de cancelar o arrasto que Alt iniciou: agora o gesto é nosso. */
+    _startCenterResize() {
+        const h = this._handoff;
+        this._handoff = null;
+        if (this._centerHandoff)
+            GLib.source_remove(this._centerHandoff);
+        this._centerHandoff = 0;
+        if (!h.win.get_compositor_private() || h.win.is_maximized())
+            return;
+        this._grabbing = true;
+        this._centerResize = new CenterResize(h.win, h.dir, h.start, h.pointer, h.area, (w, cancelled) => {
+            this._centerResize = null;
+            this._grabbing = false;
+            this._centerBudget = 6;
+            if (cancelled)
+                this._layoutSet(h.set);
+            else
+                this._afterUserResize(w);
+        });
+        if (!this._centerResize.running) {
+            this._centerResize = null;
+            this._grabbing = false;
+        }
     }
 
     /** Janela que o usuário moveu à mão e que deve ficar onde está. */
@@ -1148,6 +1232,8 @@ export class StageManager {
         if (!this._stages || !win)
             return;
         this._grabbing = true;
+        if (isResizeOp(op) && this._beginCenterResize(win, op))
+            return;
         if (!isMoveOp(op))
             return;
         const base = rootOf(win);
@@ -1177,6 +1263,14 @@ export class StageManager {
         if (!this._stages || !win)
             return;
         this._grabbing = false;
+        if (this._handoff) { // cancelado por nós para passar o gesto ao CenterResize
+            GLib.idle_add(GLib.PRIORITY_DEFAULT, () => {
+                if (this._handoff && this._stages)
+                    this._startCenterResize();
+                return GLib.SOURCE_REMOVE;
+            });
+            return;
+        }
         this._centerBudget = 6; // o usuário agiu: renova o crédito de correções automáticas
         const d = this._drag;
         if (d && rootOf(win) === d.win) {
@@ -1207,39 +1301,43 @@ export class StageManager {
             }
             return;
         }
-        if (isResizeOp(op)) {
-            const base = rootOf(win);
-            const set = this._setOf.get(base);
-            if (!set || set.stage.active !== set || base.is_maximized() || base.is_fullscreen()) {
-                this._pref.delete(base);
-                return;
-            }
-            if (isPip(base) && set.windows.some(w => !isPip(w))) {
-                // PiP redimensionado: nova largura/proporção; a coluna e as outras janelas se ajustam.
-                const r = base.get_frame_rect();
-                this._pref.set(base, {width: r.width, height: r.height});
-                this._pipAspect.set(base, r.width / Math.max(1, r.height));
-                this._layoutSet(set);
-                return;
-            }
-            if (set.windows.length === 1 && !this._tilingActive(set)) {
-                this._pref.delete(base); // o usuário escolheu este tamanho
-                if (this._lockCenter() || (this._settings.get_boolean('recenter-after-resize') && !this._isPlaced(base)))
-                    this._layoutSet(set); // recentraliza (sempre, se "manter centralizada"; senão só se não posicionada à mão)
-            } else if (this._tilingActive(set)) {
-                // Autotiling: o divisor acompanha a borda que o usuário puxou; as vizinhas se acomodam.
-                const old = set.tileRects?.get(base);
-                if (old)
-                    Tiling.adjustForResize(set.tree, base, old, base.get_frame_rect(), this._settings.get_int('autotile-gap'));
-                this._layoutSet(set);
-            } else if (this._isMosaic() || this._lockCenter()) {
-                // Autoajuste: a janela redimensionada FICA com o tamanho pedido e as vizinhas cedem.
-                const r = base.get_frame_rect();
-                this._pref.set(base, {width: r.width, height: r.height});
-                this._layoutSet(set, base);
-            } else {
-                this._pref.delete(base);
-            }
+        if (isResizeOp(op))
+            this._afterUserResize(win);
+    }
+
+    /** O usuário terminou de redimensionar `win` (arrasto do mutter ou Alt a partir do centro): ajusta o resto do palco. */
+    _afterUserResize(win) {
+        const base = rootOf(win);
+        const set = this._setOf.get(base);
+        if (!set || set.stage.active !== set || base.is_maximized() || base.is_fullscreen()) {
+            this._pref.delete(base);
+            return;
+        }
+        if (isPip(base) && set.windows.some(w => !isPip(w))) {
+            // PiP redimensionado: nova largura/proporção; a coluna e as outras janelas se ajustam.
+            const r = base.get_frame_rect();
+            this._pref.set(base, {width: r.width, height: r.height});
+            this._pipAspect.set(base, r.width / Math.max(1, r.height));
+            this._layoutSet(set);
+            return;
+        }
+        if (set.windows.length === 1 && !this._tilingActive(set)) {
+            this._pref.delete(base); // o usuário escolheu este tamanho
+            if (this._lockCenter() || (this._settings.get_boolean('recenter-after-resize') && !this._isPlaced(base)))
+                this._layoutSet(set); // recentraliza (sempre, se "manter centralizada"; senão só se não posicionada à mão)
+        } else if (this._tilingActive(set)) {
+            // Autotiling: o divisor acompanha a borda que o usuário puxou; as vizinhas se acomodam.
+            const old = set.tileRects?.get(base);
+            if (old)
+                Tiling.adjustForResize(set.tree, base, old, base.get_frame_rect(), this._settings.get_int('autotile-gap'));
+            this._layoutSet(set);
+        } else if (this._isMosaic() || this._lockCenter()) {
+            // Autoajuste: a janela redimensionada FICA com o tamanho pedido e as vizinhas cedem.
+            const r = base.get_frame_rect();
+            this._pref.set(base, {width: r.width, height: r.height});
+            this._layoutSet(set, base);
+        } else {
+            this._pref.delete(base);
         }
     }
 

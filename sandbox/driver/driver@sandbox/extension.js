@@ -83,6 +83,10 @@ function makeCtx() {
             mouse.notify_button(now(), Clutter.BUTTON_PRIMARY, Clutter.ButtonState.RELEASED); await ctx.sleep(80);
             if (shift) kbd.notify_keyval(now(), Clutter.KEY_Shift_L, Clutter.KeyState.RELEASED);
         },
+        keyDown(keyval) { kbd.notify_keyval(now(), keyval, Clutter.KeyState.PRESSED); },
+        keyUp(keyval) { kbd.notify_keyval(now(), keyval, Clutter.KeyState.RELEASED); },
+        mouseDown(button = Clutter.BUTTON_PRIMARY) { mouse.notify_button(now(), button, Clutter.ButtonState.PRESSED); },
+        mouseUp(button = Clutter.BUTTON_PRIMARY) { mouse.notify_button(now(), button, Clutter.ButtonState.RELEASED); },
         async key(keyval, times = 1) {
             for (let i = 0; i < times; i++) {
                 kbd.notify_keyval(now(), keyval, Clutter.KeyState.PRESSED); await ctx.sleep(30);

@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Stage Manager 1\n"
 "Report-Msgid-Bugs-To: https://github.com/wylho/gnomestagemanager/issues\n"
-"POT-Creation-Date: 2026-10-26 12:14+0000\n"
-"PO-Revision-Date: 2026-10-26 12:14+0000\n"
+"POT-Creation-Date: 2026-10-26 14:01+0000\n"
+"PO-Revision-Date: 2026-10-26 14:01+0000\n"
 "Last-Translator: Stage Manager contributors\n"
 "Language: pt_BR\n"
 "Language-Team: pt_BR <https://github.com/wylho/gnomestagemanager/issues>\n"
@@ -16,21 +16,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
 
-#: extension/stage-manager@wyliam/lib/indicator.js:13 extension/stage-manager@wyliam/lib/manager.js:354
+#: extension/stage-manager@wyliam/lib/indicator.js:13 extension/stage-manager@wyliam/lib/manager.js:367
 #: extension/stage-manager@wyliam/prefs.js:26
 msgid "Stage Manager"
 msgstr "Organizador Visual"
 
-#: extension/stage-manager@wyliam/lib/manager.js:354
+#: extension/stage-manager@wyliam/lib/manager.js:367
 msgid "Could not identify the app of this window."
 msgstr "Não foi possível identificar o aplicativo dessa janela."
 
-#: extension/stage-manager@wyliam/lib/manager.js:360
+#: extension/stage-manager@wyliam/lib/manager.js:373
 #, python-format
 msgid "Ignoring: %s"
 msgstr "Ignorando: %s"
 
-#: extension/stage-manager@wyliam/lib/manager.js:372
+#: extension/stage-manager@wyliam/lib/manager.js:385
 #, python-format
 msgid "Managed again: %s"
 msgstr "Voltou a ser gerenciado: %s"
@@ -218,30 +218,38 @@ msgstr ""
 "posição”."
 
 #: extension/stage-manager@wyliam/prefs.js:60
+msgid "Hold Alt while resizing to resize from the center"
+msgstr "Segurar Alt ao redimensionar redimensiona a partir do centro"
+
+#: extension/stage-manager@wyliam/prefs.js:60
+msgid "The window grows or shrinks on both sides at once, keeping its center. Not used with autotiling."
+msgstr "A janela cresce ou encolhe dos dois lados ao mesmo tempo, mantendo o centro. Não vale com autotiling."
+
+#: extension/stage-manager@wyliam/prefs.js:61
 msgid "Remember the position of windows moved by hand"
 msgstr "Lembrar a posição de janelas movidas à mão"
 
-#: extension/stage-manager@wyliam/prefs.js:60
+#: extension/stage-manager@wyliam/prefs.js:61
 msgid "When off, the window always returns to the center when entering the stage."
 msgstr "Desligado, a janela sempre volta ao centro ao entrar no palco."
 
-#: extension/stage-manager@wyliam/prefs.js:61
+#: extension/stage-manager@wyliam/prefs.js:62
 msgid "Re-center after resizing"
 msgstr "Recentralizar depois de redimensionar"
 
-#: extension/stage-manager@wyliam/prefs.js:62
+#: extension/stage-manager@wyliam/prefs.js:63
 msgid "Clicking the wallpaper shows the desktop"
 msgstr "Clicar no papel de parede mostra a área de trabalho"
 
-#: extension/stage-manager@wyliam/prefs.js:63
+#: extension/stage-manager@wyliam/prefs.js:64
 msgid "Windows go to the strip; click again to bring them back."
 msgstr "As janelas vão para a tira; clicar de novo traz de volta."
 
-#: extension/stage-manager@wyliam/prefs.js:66
+#: extension/stage-manager@wyliam/prefs.js:67
 msgid "Window groups"
 msgstr "Grupos de janelas"
 
-#: extension/stage-manager@wyliam/prefs.js:67
+#: extension/stage-manager@wyliam/prefs.js:68
 msgid ""
 "Drag a thumbnail from the strip onto the stage, or use Shift+click, or the + button on the "
 "thumbnail. To remove a window, drag it onto the strip."
@@ -249,11 +257,11 @@ msgstr ""
 "Arraste uma miniatura da tira para o palco, ou use Shift+clique, ou o botão + da miniatura. Para "
 "tirar, arraste a janela para a tira."
 
-#: extension/stage-manager@wyliam/prefs.js:70
+#: extension/stage-manager@wyliam/prefs.js:71
 msgid "Autotiling (like Pop Shell)"
 msgstr "Autotiling (como o Pop Shell)"
 
-#: extension/stage-manager@wyliam/prefs.js:71
+#: extension/stage-manager@wyliam/prefs.js:72
 msgid ""
 "Windows on the stage fill the whole screen in a tree layout, leaving the app strip on the left. "
 "Resizing moves the divider; dropping a window onto another swaps them. Replaces the mosaic."
@@ -261,33 +269,33 @@ msgstr ""
 "As janelas do palco preenchem a tela inteira em árvore, deixando a tira de apps à esquerda. "
 "Redimensionar move o divisor; soltar uma janela sobre outra troca as duas. Substitui o mosaico."
 
-#: extension/stage-manager@wyliam/prefs.js:72
+#: extension/stage-manager@wyliam/prefs.js:73
 msgid "Strip always visible with autotiling"
 msgstr "Tira sempre visível no autotiling"
 
-#: extension/stage-manager@wyliam/prefs.js:73
+#: extension/stage-manager@wyliam/prefs.js:74
 msgid ""
 "When off, the strip hides (it appears when the pointer touches the edge) and windows use the "
 "whole screen."
 msgstr "Desligado, a tira se esconde (aparece ao encostar na borda) e as janelas ocupam a tela toda."
 
-#: extension/stage-manager@wyliam/prefs.js:74
+#: extension/stage-manager@wyliam/prefs.js:75
 msgid "Autotiling margin (px)"
 msgstr "Margem do autotiling (px)"
 
-#: extension/stage-manager@wyliam/prefs.js:74
+#: extension/stage-manager@wyliam/prefs.js:75
 msgid "Distance between windows and the screen edge (and the strip)."
 msgstr "Distância entre as janelas e a borda da tela (e da tira)."
 
-#: extension/stage-manager@wyliam/prefs.js:75
+#: extension/stage-manager@wyliam/prefs.js:76
 msgid "Autotiling gap between windows (px)"
 msgstr "Espaçamento entre janelas no autotiling (px)"
 
-#: extension/stage-manager@wyliam/prefs.js:76
+#: extension/stage-manager@wyliam/prefs.js:77
 msgid "Group layout"
 msgstr "Organização do grupo"
 
-#: extension/stage-manager@wyliam/prefs.js:77
+#: extension/stage-manager@wyliam/prefs.js:78
 msgid ""
 "Mosaic: rearranges when a window joins or leaves, is resized, or is dropped onto another. Free: "
 "only arranges when the composition of the group changes."
@@ -296,19 +304,19 @@ msgstr ""
 "Livre: só organiza quando muda a composição."
 
 #. TRANSLATORS: layout mode where the user arranges windows freely (no automatic rearranging)
-#: extension/stage-manager@wyliam/prefs.js:79
+#: extension/stage-manager@wyliam/prefs.js:80
 msgid "Mosaic"
 msgstr "Mosaico"
 
-#: extension/stage-manager@wyliam/prefs.js:79
+#: extension/stage-manager@wyliam/prefs.js:80
 msgid "Free"
 msgstr "Livre"
 
-#: extension/stage-manager@wyliam/prefs.js:82
+#: extension/stage-manager@wyliam/prefs.js:83
 msgid "Picture-in-Picture"
 msgstr "Picture-in-Picture"
 
-#: extension/stage-manager@wyliam/prefs.js:83
+#: extension/stage-manager@wyliam/prefs.js:84
 msgid ""
 "Picture-in-Picture from Firefox and Chrome stays in the stage group where it appears (and goes "
 "away with it). Only its width takes part in tiling; the height follows the video aspect ratio. "
@@ -318,95 +326,95 @@ msgstr ""
 "largura entra no tiling; a altura vem da proporção do vídeo. Arraste o PiP para outro canto para "
 "mudar de lugar."
 
-#: extension/stage-manager@wyliam/prefs.js:86
+#: extension/stage-manager@wyliam/prefs.js:87
 msgid "Treat Picture-in-Picture as an exception"
 msgstr "Tratar Picture-in-Picture como exceção"
 
-#: extension/stage-manager@wyliam/prefs.js:87
+#: extension/stage-manager@wyliam/prefs.js:88
 msgid "PiP corner"
 msgstr "Canto do PiP"
 
-#: extension/stage-manager@wyliam/prefs.js:87
+#: extension/stage-manager@wyliam/prefs.js:88
 msgid "Bottom right"
 msgstr "Embaixo à direita"
 
-#: extension/stage-manager@wyliam/prefs.js:87
+#: extension/stage-manager@wyliam/prefs.js:88
 msgid "Bottom left"
 msgstr "Embaixo à esquerda"
 
-#: extension/stage-manager@wyliam/prefs.js:87
+#: extension/stage-manager@wyliam/prefs.js:88
 msgid "Top right"
 msgstr "Em cima à direita"
 
-#: extension/stage-manager@wyliam/prefs.js:87
+#: extension/stage-manager@wyliam/prefs.js:88
 msgid "Top left"
 msgstr "Em cima à esquerda"
 
-#: extension/stage-manager@wyliam/prefs.js:88
+#: extension/stage-manager@wyliam/prefs.js:89
 #, python-format
 msgid "Maximum PiP width (% of the area)"
 msgstr "Largura máxima do PiP (% da área)"
 
-#: extension/stage-manager@wyliam/prefs.js:89
+#: extension/stage-manager@wyliam/prefs.js:90
 msgid "PiP title patterns (comma-separated)"
 msgstr "Padrões do título do PiP (separados por vírgula)"
 
 #. TRANSLATORS: the side column of app thumbnails (recent apps)
-#: extension/stage-manager@wyliam/prefs.js:95
+#: extension/stage-manager@wyliam/prefs.js:96
 msgid "Strip"
 msgstr "Tira"
 
-#: extension/stage-manager@wyliam/prefs.js:98
+#: extension/stage-manager@wyliam/prefs.js:99
 msgid "Strip side"
 msgstr "Lado da tira"
 
-#: extension/stage-manager@wyliam/prefs.js:98
+#: extension/stage-manager@wyliam/prefs.js:99
 msgid "Left"
 msgstr "Esquerda"
 
-#: extension/stage-manager@wyliam/prefs.js:98
+#: extension/stage-manager@wyliam/prefs.js:99
 msgid "Right"
 msgstr "Direita"
 
-#: extension/stage-manager@wyliam/prefs.js:99
+#: extension/stage-manager@wyliam/prefs.js:100
 msgid "Show the + button on thumbnails"
 msgstr "Mostrar o botão + nas miniaturas"
 
-#: extension/stage-manager@wyliam/prefs.js:99
+#: extension/stage-manager@wyliam/prefs.js:100
 msgid "Adds the set to the stage group. Shift+click and dragging also work."
 msgstr "Adiciona o conjunto ao grupo do palco. Shift+clique e arrastar também funcionam."
 
-#: extension/stage-manager@wyliam/prefs.js:100
+#: extension/stage-manager@wyliam/prefs.js:101
 msgid "Thumbnail width (px)"
 msgstr "Largura das miniaturas (px)"
 
-#: extension/stage-manager@wyliam/prefs.js:100
+#: extension/stage-manager@wyliam/prefs.js:101
 msgid "Minimum 96 px."
 msgstr "Mínimo de 96 px."
 
-#: extension/stage-manager@wyliam/prefs.js:101
+#: extension/stage-manager@wyliam/prefs.js:102
 msgid "Maximum items in the strip"
 msgstr "Máximo de itens na tira"
 
-#: extension/stage-manager@wyliam/prefs.js:101
+#: extension/stage-manager@wyliam/prefs.js:102
 msgid "0 = as many as fit the screen height."
 msgstr "0 = o que couber na altura da tela."
 
-#: extension/stage-manager@wyliam/prefs.js:104
+#: extension/stage-manager@wyliam/prefs.js:105
 msgid "Shortcuts"
 msgstr "Atalhos"
 
-#: extension/stage-manager@wyliam/prefs.js:105
+#: extension/stage-manager@wyliam/prefs.js:106
 msgid "GTK format, for example &lt;Super&gt;&lt;Alt&gt;s. Leave empty to disable. Press Enter to apply."
 msgstr ""
 "Formato do GTK, por exemplo &lt;Super&gt;&lt;Alt&gt;s. Deixe vazio para desativar. Enter para "
 "aplicar."
 
-#: extension/stage-manager@wyliam/prefs.js:130
+#: extension/stage-manager@wyliam/prefs.js:131
 msgid "Exclusions"
 msgstr "Exclusões"
 
-#: extension/stage-manager@wyliam/prefs.js:131
+#: extension/stage-manager@wyliam/prefs.js:132
 msgid ""
 "Apps that Stage Manager ignores: they stay loose, outside the stage and the strip. Default: GNOME"
 " Sushi (org.gnome.NautilusPreviewer)."
@@ -414,11 +422,11 @@ msgstr ""
 "Aplicativos que o Organizador Visual ignora: ficam soltos, fora do palco e da tira. Padrão: o "
 "GNOME Sushi (org.gnome.NautilusPreviewer)."
 
-#: extension/stage-manager@wyliam/prefs.js:137
+#: extension/stage-manager@wyliam/prefs.js:138
 msgid "Pick an open window…"
 msgstr "Escolher uma janela aberta…"
 
-#: extension/stage-manager@wyliam/prefs.js:138
+#: extension/stage-manager@wyliam/prefs.js:139
 msgid ""
 "After clicking here, click the window to ignore (for apps in the strip, click its thumbnail). Esc"
 " cancels."
@@ -426,11 +434,11 @@ msgstr ""
 "Depois de clicar aqui, clique na janela que deve ser ignorada (para apps que estão na tira, "
 "clique na miniatura). Esc cancela."
 
-#: extension/stage-manager@wyliam/prefs.js:145
+#: extension/stage-manager@wyliam/prefs.js:146
 msgid "Add a class manually (WM_CLASS / app-id)"
 msgstr "Adicionar uma classe manualmente (WM_CLASS / app-id)"
 
-#: extension/stage-manager@wyliam/prefs.js:166
+#: extension/stage-manager@wyliam/prefs.js:167
 msgid "Manage this app again"
 msgstr "Voltar a gerenciar este aplicativo"
 

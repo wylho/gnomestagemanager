@@ -56,6 +56,7 @@
 | **Organização automática** do grupo (janelas nunca se sobrepõem) | Não (livres) | **Mosaico ou autotiling** |
 | **Autotiling** com margem e espaçamento configuráveis, divisores que seguem o redimensionamento | — | **Sim** |
 | Redimensionar uma janela e as outras abrem espaço (ela fica com o tamanho pedido) | — | **Sim** |
+| Segurar **Alt** ao redimensionar cresce/encolhe a partir do centro (fora do autotiling) | Tecla Option, depende do app | **Sim** |
 | Soltar uma janela sobre outra para trocar de lugar | — | **Sim** |
 | **Picture-in-Picture** tratado como tile só de largura num canto | — | **Sim** |
 | **Seletor de exceções**: clique em qualquer janela para ignorar o app (GNOME Sushi já vem ignorado) | — | **Sim** |

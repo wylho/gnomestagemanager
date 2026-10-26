@@ -108,6 +108,11 @@
       <summary>Always keep centered</summary>
       <description>Outside autotiling, the window (or group) returns to the center as soon as you drop it after dragging, finish resizing it, or the app changes its size/position.</description>
     </key>
+    <key name="resize-from-center" type="b">
+      <default>true</default>
+      <summary>Hold Alt while resizing to resize from the center</summary>
+      <description>While you drag a window edge or corner with the mouse, holding Alt makes the window grow or shrink on both sides at once, keeping its center (like the Option key on macOS). Not used with autotiling.</description>
+    </key>
     <key name="remember-position" type="b">
       <default>true</default>
       <summary>Remember the position of windows moved by hand</summary>
