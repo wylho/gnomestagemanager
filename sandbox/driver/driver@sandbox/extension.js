@@ -26,10 +26,10 @@ function makeCtx() {
         out: OUT,
         log: m => append(`${OUT}/run.log`, String(m)),
         sleep: ms => new Promise(r => GLib.timeout_add(GLib.PRIORITY_DEFAULT, ms, () => { r(); return GLib.SOURCE_REMOVE; })),
-        async shot(name) {
+        async shot(name, cursor = false) {
             const f = Gio.File.new_for_path(`${OUT}/${name}.png`);
             const st = f.replace(null, false, Gio.FileCreateFlags.NONE, null);
-            await new Shell.Screenshot().screenshot(false, st);
+            await new Shell.Screenshot().screenshot(cursor, st);
             st.close(null);
         },
         spawn(title, color = '#3584e4', w = 720, h = 460, appId = '', child = '', lateTitle = '') {
@@ -39,6 +39,18 @@ function makeCtx() {
             l.setenv('GSK_RENDERER', 'cairo', true);
             l.setenv('FRAMES_DIR', OUT, true);
             const p = l.spawnv(['sh', '-c', `exec gjs -m "${HERE}/testapp/testapp.js" "$0" "$1" "$2" "$3" "$4" "$5" "$6" > "${OUT}/app-${title}.log" 2>&1`, title, color, String(w), String(h), appId, child, lateTitle]);
+            procs.push(p);
+            return p;
+        },
+        /** Abre um app real (GTK) dentro do shell de teste. */
+        launch(argv, extraEnv = {}) {
+            const l = new Gio.SubprocessLauncher({flags: Gio.SubprocessFlags.NONE});
+            l.setenv('GDK_BACKEND', 'wayland', true);
+            l.setenv('WAYLAND_DISPLAY', 'wayland-sandbox', true);
+            l.setenv('GSK_RENDERER', 'cairo', true);
+            for (const [k, v] of Object.entries(extraEnv))
+                l.setenv(k, v, true);
+            const p = l.spawnv(argv);
             procs.push(p);
             return p;
         },

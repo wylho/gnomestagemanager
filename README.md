@@ -1,104 +1,163 @@
-# Stage Manager for GNOME
+<h1 align="center">Stage Manager for GNOME</h1>
 
-A Stage Manager (the macOS window organizer) for GNOME Shell: **one centered window or group on the stage**, recent
-apps in a **strip of live thumbnails** on the side, groups built by drag-and-drop, and an optional **Pop Shell-style
-autotiling**. Extension UUID: `stage-manager@wyliam`.
+<p align="center">
+  <b>The macOS window organizer, rebuilt for GNOME — plus everything Apple left out.</b><br>
+  One centered window. Everything else, one click away. Tiling when you want it.
+</p>
 
-Português: [README.pt-BR.md](README.pt-BR.md)
+<p align="center">
+  <img alt="GNOME Shell 50" src="https://img.shields.io/badge/GNOME%20Shell-50-4A86CF?logo=gnome&logoColor=white">
+  <img alt="Wayland" src="https://img.shields.io/badge/Wayland-tested-2ea44f">
+  <img alt="License" src="https://img.shields.io/badge/license-GPL--3.0--or--later-blue">
+  <img alt="Languages" src="https://img.shields.io/badge/languages-9-orange">
+</p>
 
-![Stage and strip](docs/screenshots/stage-and-strip.png)
-![Mosaic group](docs/screenshots/mosaic-group.png)
+<p align="center">
+  <img src="docs/screenshots/demo.gif" alt="Stage Manager for GNOME in action: swapping stages, building a group, autotiling, context menu" width="900">
+</p>
 
-## Features
+> Português: [README.pt-BR.md](README.pt-BR.md)
 
-- **Stage + strip.** The active window is centered; everything else sits in a strip (left by default) with live
-  thumbnails and the app icon. Click a thumbnail to swap; the previous window takes its slot, with the native
-  minimize animation flying to/from the strip.
-- **Groups.** Drag a thumbnail onto the stage, **Shift+click**, or use the **+** button on the thumbnail (can be turned off in Preferences). To remove a
-  window, drag it onto the strip (a drop target shows up even when the strip is empty) or use the shortcut.
-- **Mosaic layout** (default): 2 windows side by side, 3+ in justified rows keeping each window's aspect ratio.
-  Resizing a window keeps the size you asked for and the others make room; dropping a window onto another swaps them.
-- **Autotiling** (option, like Pop Shell): windows on the stage fill the screen in a tree layout, resizing moves the
-  divider, dropping onto another window swaps them. Configurable margin and gap; the strip can stay visible or hide.
-- **Always centered** option: the window (or group) snaps back to the center as soon as you drop or resize it.
-  Otherwise windows you moved by hand stay where you left them.
-- **Strip behind windows**, like macOS: a big window simply covers/cuts it; touch the screen edge to bring it forward when it is fully hidden.
-- **Picture-in-Picture** (Firefox, Chrome): joins the group of the stage where it appears and goes away with it. Only its
-  width takes part in tiling; the height follows the video aspect ratio, in the corner of your choice (drag it to move).
-- **Exceptions**: pick any open window with the mouse (like Pop Shell), toggle with a shortcut, or from the strip menu.
-  GNOME Sushi is ignored by default.
-- **Context menu on the strip** (right click): bring to stage, add to group, bring only one window, split, new window, close,
-  quit app, move to another monitor/workspace, toggle autotiling, rearrange, show desktop, ignore app, preferences.
-- Click the wallpaper to reveal the desktop; per-monitor and per-workspace stages; auto-hide strip; Quick Settings toggle.
-- Translated into 8 languages (see below).
+## Why you'll love it
 
-## Requirements
+- **Focus by default.** The active window (or group) sits centered on the *stage*. Everything else waits in a side *strip* of
+  **live thumbnails** that keep updating while hidden, with the native minimize animation flying to and from it.
+- **Groups in one gesture.** Drag a thumbnail onto the stage, **Shift+click** it, or hit the **+** button. Drag a window back to the
+  strip to remove it. The strip even shows a drop target when it is empty.
+- **Two ways to tile, your choice.** **Mosaic** keeps each window's shape and makes room when you resize one. **Autotiling**
+  (Pop Shell style) fills the screen with a tree layout, moves dividers as you resize, and swaps windows when you drop one onto another.
+- **Picture-in-Picture that behaves.** Firefox/Chrome PiP joins the stage where it appears and leaves with it; only its **width**
+  takes part in tiling, the height follows the video, in the corner you pick.
+- **Built for real setups.** One stage per monitor and per workspace, strip on either side (works with a bottom dock), wallpaper click to
+  peek at the desktop, GNOME Quick Settings toggle, Wayland-native.
+- **Yours to tweak.** 20+ options, 9 shortcuts, a right-click menu on every thumbnail, a point-and-click *exceptions* picker,
+  and 9 languages.
 
-GNOME Shell **50** (developed and tested on Ubuntu 26.04, Wayland). `glib-compile-schemas` (package `libglib2.0-bin`).
-Other GNOME Shell versions are not tested; PRs welcome.
+## Everything it does, next to macOS
+
+*macOS column: Apple's documentation and published reviews ("—" = not documented). See [docs/ESPECIFICACAO.pt-BR.md](docs/ESPECIFICACAO.pt-BR.md) for the research.*
+
+| | macOS Stage Manager | This extension |
+|---|:---:|:---:|
+| Active window/group centered on a stage | Yes | **Yes** |
+| Strip of recent apps with live thumbnails | Yes | **Yes** |
+| Click a thumbnail to swap (the old one takes its slot) | Yes | **Yes** |
+| Build groups by dragging from the strip | Yes | **Yes** |
+| Shift+click to add a window to the stage | Yes | **Yes** |
+| Drag a window back to the strip to remove it | Yes | **Yes** |
+| Strip tucked behind windows, revealed at the screen edge | Yes | **Yes** |
+| Auto-hide the strip | Yes | **Yes** |
+| Click the wallpaper to reveal the desktop | Yes | **Yes** |
+| "One at a time" / "All at once" windows per app | Yes | **Yes** |
+| One stage per display and per workspace | Yes | **Yes** |
+| Quick toggle in the system menu | Yes | **Yes** |
+| **Keyboard shortcuts** for toggling, switching, adding, removing, rearranging | No | **Yes (9, configurable)** |
+| **Right-click menu** on thumbnails (bring, add, split, close, quit, move to monitor/workspace, ignore…) | No | **Yes** |
+| **+ button** on thumbnails (can be turned off) | No | **Yes** |
+| **Automatic arrangement** of a group (windows never overlap) | No (free-floating) | **Mosaic or autotiling** |
+| **Autotiling** with configurable margin and gap, dividers that follow your resizing | — | **Yes** |
+| Resize one window and the others make room (it keeps the size you asked for) | — | **Yes** |
+| Drop a window onto another to swap places | — | **Yes** |
+| **Picture-in-Picture** handled as a width-only tile in a corner | — | **Yes** |
+| **Exceptions picker**: click any window to ignore its app (GNOME Sushi ignored by default) | — | **Yes** |
+| "**Always keep centered**" mode, or remember windows you moved by hand | — | **Yes** |
+| Move a set to another monitor or workspace from the menu | — | **Yes** |
+| Translations | System languages | **9 (EN, PT-BR, ES, FR, DE, RU, IT, ZH-CN, JA)** |
+
+## A quick tour
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/stage-and-strip.jpg" alt="The stage and the strip"><br><b>Stage and strip.</b> One centered window; the rest as live thumbnails.</td>
+    <td width="50%"><img src="docs/screenshots/mosaic-group.jpg" alt="A two-window mosaic group"><br><b>Mosaic.</b> Add a window to the stage and the group arranges itself.</td>
+  </tr>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/autotiling.jpg" alt="Autotiling layout"><br><b>Autotiling.</b> Windows fill the screen; the strip stays on the side.</td>
+    <td width="50%"><img src="docs/screenshots/context-menu.jpg" alt="The context menu on a thumbnail"><br><b>Right-click menu.</b> Everything you can do with a thumbnail.</td>
+  </tr>
+</table>
 
 ## Install
 
 ```bash
 git clone https://github.com/wylho/gnomestagemanager.git
 cd gnomestagemanager
-./install.sh                           # copies to ~/.local/share/gnome-shell/extensions (does not enable anything)
+./install.sh                           # copies to ~/.local/share/gnome-shell/extensions (enables nothing)
 # log out and back in (Wayland only discovers new extensions that way), then:
 gnome-extensions enable stage-manager@wyliam
 ```
 
-Tips: put the dock at the bottom (`gsettings set org.gnome.shell.extensions.dash-to-dock dock-position BOTTOM`);
-stop GNOME from auto-maximizing new windows (`gsettings set org.gnome.mutter auto-maximize false`);
-disable other tiling/window managers (e.g. Pop Shell), they fight over window positions.
+Requires **GNOME Shell 50** (developed and tested on Ubuntu 26.04, Wayland) and `glib-compile-schemas` (`libglib2.0-bin`).
+Tips: dock at the bottom (`gsettings set org.gnome.shell.extensions.dash-to-dock dock-position BOTTOM`); stop GNOME from auto-maximizing
+new windows (`gsettings set org.gnome.mutter auto-maximize false`); turn off other tiling/window managers (Pop Shell, etc.), they fight over positions.
 
-## Shortcuts (configurable in Preferences)
+## Shortcuts (all configurable)
 
 | Action | Default |
 |---|---|
-| Turn Stage Manager on/off | Super+Alt+S |
-| Turn autotiling on/off | Super+Alt+T |
-| Switch to the most recent set in the strip | Super+Alt+Up |
-| Add the most recent set to the stage | Super+Alt+Right |
-| Remove the focused window from the group | Super+Alt+Left |
-| Rearrange / center the group | Super+Alt+R |
-| Show the desktop | Super+Alt+D |
-| Pick a window to ignore (mouse) | Super+Alt+E |
-| Ignore / manage again the focused app | Super+Alt+X |
+| Turn Stage Manager on/off | `Super+Alt+S` |
+| Turn autotiling on/off | `Super+Alt+T` |
+| Switch to the most recent set in the strip | `Super+Alt+Up` |
+| Add the most recent set to the stage | `Super+Alt+Right` |
+| Remove the focused window from the group | `Super+Alt+Left` |
+| Rearrange / center the group | `Super+Alt+R` |
+| Show the desktop | `Super+Alt+D` |
+| Pick a window to ignore (with the mouse) | `Super+Alt+E` |
+| Ignore / manage again the focused app | `Super+Alt+X` |
+
+## Make it yours
+
+Open *Preferences* (or right-click a thumbnail > Preferences). Highlights: strip side and thumbnail width, show/hide recents, one-at-a-time
+vs all-at-once, mosaic vs free vs autotiling (margin, gap, strip visibility), always-center and remember-position, PiP corner/width/title
+patterns, the + button, wallpaper click, exceptions list, and every shortcut.
+
+## Built to be trusted
+
+Window managers are unforgiving, so this one is tested like it:
+
+- **Isolated GNOME Shell sandbox** (`sandbox/`): a headless shell with its own D-Bus, settings and Wayland socket that runs scripted scenarios
+  (mouse, keyboard, real GNOME apps) and saves screenshots, so changes are checked without logging out. The demo above was recorded in it.
+- **Chaos test**: random open/close/swap/minimize/maximize/move-to-monitor/toggle operations, checking invariants after every step,
+  on 1 and 2 monitors in both GNOME workspace modes.
+- Unit tests for the layout, tiling tree and model; atomic installs that never touch a running Shell's files.
+- Designed from a study of Apple's docs, Ars Technica, MacStories, Six Colors, Eclectic Light and others, including what reviewers
+  disliked (no shortcuts, laborious grouping, strip getting in the way).
+
+```bash
+sandbox/preview.sh interact                    # try it without logging out -> sandbox/out/*.png
+sandbox/preview.sh mosaic2 1920x1080,1280x720  # two monitors
+tests/run-all.sh                               # unit + chaos tests
+```
 
 ## Translations
 
-English (source), plus: Brazilian Portuguese, Spanish, French, German, Russian, Italian, Simplified Chinese and Japanese
-(`po/*.po`). **The translations were produced with AI assistance and have not been reviewed by native speakers**:
-corrections are very welcome. To improve or add a language:
+English (source) plus Brazilian Portuguese, Spanish, French, German, Russian, Italian, Simplified Chinese and Japanese (`po/*.po`).
+**They were produced with AI assistance and not yet reviewed by native speakers: corrections are very welcome.**
 
 ```bash
 sudo apt install python3-babel
-# edit po/<lang>.po  (or add the language to LANGS in tools/i18n.py, then:)
 python3 tools/i18n.py extract && python3 tools/i18n.py update   # refresh from the code
-python3 tools/i18n.py check                                     # nothing missing, formats match
-python3 tools/i18n.py compile                                   # writes the .mo files used by the extension
+python3 tools/i18n.py check && python3 tools/i18n.py compile    # verify, then build the .mo files
 ```
 
-## Development
+## Honest limits
 
-No need to log out to try changes: `sandbox/` runs an isolated headless GNOME Shell (own D-Bus, GSettings and Wayland
-socket) with scripted scenarios that simulate mouse and keyboard and save screenshots.
+- GNOME Shell **50 only** for now (other versions untested); developed on Wayland, X11 untested.
+- Picture-in-Picture is recognized by window title (`Picture-in-Picture`, `Picture in picture`; editable). It was tested with simulated PiP windows; real Firefox/Chrome PiP needs more field testing, so please report what you see.
+- Groups are not persisted across restarts. Windows that cannot be minimized stay visible. Code of an extension already running only reloads after you log out and in (a Wayland limitation).
+- Code comments are in Portuguese.
 
-```bash
-sandbox/preview.sh interact                   # click, Shift+click, drag, remove  -> sandbox/out/*.png
-sandbox/preview.sh mosaic2 1920x1080,1280x720 # two monitors
-tests/run-all.sh                              # unit tests + random "chaos" test (1 and 2 monitors)
-```
+## See also
 
-Layout of the repo: `extension/` (the extension), `po/` (translations), `tools/` (i18n helper), `sandbox/` (isolated shell +
-scenarios), `tests/`, `docs/` (research on the macOS behavior, in Portuguese). Code comments are in Portuguese.
+Other GNOME projects with the same inspiration, with different goals and strengths, worth a look:
+[Stage Manager (extensions.gnome.org)](https://extensions.gnome.org/extension/9528/stage-manager/)
+(GNOME 46–50, X11 and Wayland, several sidebar modes). Pick the one that fits your setup.
 
-## Limitations
+## Contributing
 
-- Groups are not persisted across restarts. Code changes of an extension in use only load after logging out and in (Wayland).
-- Windows that cannot be minimized stay visible. Desktop-icon extensions that use their own window sit above the strip.
+Issues and PRs are welcome, especially translations, other GNOME versions and X11 testing. Run `tests/run-all.sh` before sending a PR.
 
 ## License
 
-Copyright (C) 2026 wylho. Licensed under the **GNU General Public License, version 3 or (at your option) any later
-version** (`GPL-3.0-or-later`); see [LICENSE](LICENSE). Contributions are accepted under the same license.
+Copyright (C) 2026 wylho. Licensed under the **GNU General Public License, version 3 or (at your option) any later version**
+(`GPL-3.0-or-later`); see [LICENSE](LICENSE). Contributions are accepted under the same license.
