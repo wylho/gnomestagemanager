@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Stage Manager 1\n"
 "Report-Msgid-Bugs-To: https://github.com/wylho/gnomestagemanager/issues\n"
-"POT-Creation-Date: 2026-10-25 17:15+0000\n"
-"PO-Revision-Date: 2026-10-25 17:15+0000\n"
+"POT-Creation-Date: 2026-10-26 12:14+0000\n"
+"PO-Revision-Date: 2026-10-26 12:14+0000\n"
 "Last-Translator: Stage Manager contributors\n"
 "Language: es\n"
 "Language-Team: es <https://github.com/wylho/gnomestagemanager/issues>\n"
@@ -372,36 +372,44 @@ msgid "Right"
 msgstr "Derecha"
 
 #: extension/stage-manager@wyliam/prefs.js:99
+msgid "Show the + button on thumbnails"
+msgstr "Mostrar el botón + en las miniaturas"
+
+#: extension/stage-manager@wyliam/prefs.js:99
+msgid "Adds the set to the stage group. Shift+click and dragging also work."
+msgstr "Añade el conjunto al grupo del escenario. Mayús+clic y arrastrar también funcionan."
+
+#: extension/stage-manager@wyliam/prefs.js:100
 msgid "Thumbnail width (px)"
 msgstr "Anchura de las miniaturas (px)"
 
-#: extension/stage-manager@wyliam/prefs.js:99
+#: extension/stage-manager@wyliam/prefs.js:100
 msgid "Minimum 96 px."
 msgstr "Mínimo de 96 px."
 
-#: extension/stage-manager@wyliam/prefs.js:100
+#: extension/stage-manager@wyliam/prefs.js:101
 msgid "Maximum items in the strip"
 msgstr "Máximo de elementos en la barra lateral"
 
-#: extension/stage-manager@wyliam/prefs.js:100
+#: extension/stage-manager@wyliam/prefs.js:101
 msgid "0 = as many as fit the screen height."
 msgstr "0 = los que quepan en la altura de la pantalla."
 
-#: extension/stage-manager@wyliam/prefs.js:103
+#: extension/stage-manager@wyliam/prefs.js:104
 msgid "Shortcuts"
 msgstr "Atajos"
 
-#: extension/stage-manager@wyliam/prefs.js:104
+#: extension/stage-manager@wyliam/prefs.js:105
 msgid "GTK format, for example &lt;Super&gt;&lt;Alt&gt;s. Leave empty to disable. Press Enter to apply."
 msgstr ""
 "Formato de GTK, por ejemplo &lt;Super&gt;&lt;Alt&gt;s. Déjalo vacío para desactivar. Pulsa Intro "
 "para aplicar."
 
-#: extension/stage-manager@wyliam/prefs.js:129
+#: extension/stage-manager@wyliam/prefs.js:130
 msgid "Exclusions"
 msgstr "Exclusiones"
 
-#: extension/stage-manager@wyliam/prefs.js:130
+#: extension/stage-manager@wyliam/prefs.js:131
 msgid ""
 "Apps that Stage Manager ignores: they stay loose, outside the stage and the strip. Default: GNOME"
 " Sushi (org.gnome.NautilusPreviewer)."
@@ -409,11 +417,11 @@ msgstr ""
 "Aplicaciones que Organizador visual ignora: quedan sueltas, fuera del escenario y de la barra "
 "lateral. Predeterminado: GNOME Sushi (org.gnome.NautilusPreviewer)."
 
-#: extension/stage-manager@wyliam/prefs.js:136
+#: extension/stage-manager@wyliam/prefs.js:137
 msgid "Pick an open window…"
 msgstr "Elegir una ventana abierta…"
 
-#: extension/stage-manager@wyliam/prefs.js:137
+#: extension/stage-manager@wyliam/prefs.js:138
 msgid ""
 "After clicking here, click the window to ignore (for apps in the strip, click its thumbnail). Esc"
 " cancels."
@@ -421,11 +429,11 @@ msgstr ""
 "Tras hacer clic aquí, haz clic en la ventana que se debe ignorar (para aplicaciones de la barra "
 "lateral, haz clic en su miniatura). Esc cancela."
 
-#: extension/stage-manager@wyliam/prefs.js:144
+#: extension/stage-manager@wyliam/prefs.js:145
 msgid "Add a class manually (WM_CLASS / app-id)"
 msgstr "Añadir una clase manualmente (WM_CLASS / app-id)"
 
-#: extension/stage-manager@wyliam/prefs.js:165
+#: extension/stage-manager@wyliam/prefs.js:166
 msgid "Manage this app again"
 msgstr "Volver a gestionar esta aplicación"
 

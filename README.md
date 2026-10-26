@@ -14,7 +14,7 @@ Português: [README.pt-BR.md](README.pt-BR.md)
 - **Stage + strip.** The active window is centered; everything else sits in a strip (left by default) with live
   thumbnails and the app icon. Click a thumbnail to swap; the previous window takes its slot, with the native
   minimize animation flying to/from the strip.
-- **Groups.** Drag a thumbnail onto the stage, **Shift+click**, or use the **+** button on the thumbnail. To remove a
+- **Groups.** Drag a thumbnail onto the stage, **Shift+click**, or use the **+** button on the thumbnail (can be turned off in Preferences). To remove a
   window, drag it onto the strip (a drop target shows up even when the strip is empty) or use the shortcut.
 - **Mosaic layout** (default): 2 windows side by side, 3+ in justified rows keeping each window's aspect ratio.
   Resizing a window keeps the size you asked for and the others make room; dropping a window onto another swaps them.

@@ -29,10 +29,10 @@ const aspectOf = win => {
     return r.width > 0 ? r.height / r.width : 0.62;
 };
 
-const signature = (set, w, h) => {
+const signature = (set, w, h, addButton) => {
     const top = set.top;
     const r = top ? top.get_frame_rect() : {width: 0, height: 0};
-    return [w, h, top?.get_id(), set.windows.map(x => x.get_id()).join(','), r.width, r.height].join('|');
+    return [w, h, top?.get_id(), set.windows.map(x => x.get_id()).join(','), r.width, r.height, addButton].join('|');
 };
 
 class StripItem {
@@ -194,13 +194,15 @@ class StripItem {
 
     /** Recria as miniaturas se algo mudou (membros, janela do topo, tamanho). */
     update(w, h) {
-        const sig = signature(this.set, w, h);
+        const showAdd = this._strip.settings.get_boolean('show-add-button');
+        const sig = signature(this.set, w, h, showAdd);
         if (sig === this._sig)
             return;
         this._sig = sig;
         this.actor.set_size(w, h);
         this.content.set_size(w, h);
         this.content.destroy_all_children();
+        this._add = null;
 
         const top = this.set.top;
         if (!top)
@@ -222,6 +224,19 @@ class StripItem {
                 topThumb = t;
         }
 
+        if (showAdd)
+            this._buildAddButton(w);
+
+        const app = Shell.WindowTracker.get_default().get_window_app(top);
+        if (app && topThumb) {
+            const icon = new St.Icon({gicon: app.get_icon(), icon_size: 22, style_class: 'sm-badge'});
+            icon.set_position(topThumb.x + 6, topThumb.y + topThumb.height - 28);
+            this.content.add_child(icon);
+        }
+    }
+
+    /** Botão + (aparece ao passar o mouse): adiciona o conjunto ao grupo do palco. */
+    _buildAddButton(w) {
         this._add = new St.Button({
             style_class: 'sm-add',
             child: new St.Icon({icon_name: 'list-add-symbolic', icon_size: 14}),
@@ -230,13 +245,6 @@ class StripItem {
         });
         this._add.connect('clicked', () => this._strip.manager.addSetToStage(this.set));
         this.content.add_child(this._add);
-
-        const app = Shell.WindowTracker.get_default().get_window_app(top);
-        if (app && topThumb) {
-            const icon = new St.Icon({gicon: app.get_icon(), icon_size: 22, style_class: 'sm-badge'});
-            icon.set_position(topThumb.x + 6, topThumb.y + topThumb.height - 28);
-            this.content.add_child(icon);
-        }
     }
 
     _makeThumb(win, w, h) {
@@ -336,6 +344,7 @@ export class Strip {
         this.manager = manager;
         this.monitor = monitor;
         this.settings = settings;
+        this._addBtnId = settings.connect('changed::show-add-button', () => this.refresh());
         this._settings = settings;
         this._menuOpen = false;
         this._stage = null;
@@ -652,6 +661,7 @@ export class Strip {
 
     destroy() {
         this._dead = true;
+        this.settings.disconnect(this._addBtnId);
         if (this._watch)
             GLib.source_remove(this._watch);
         this._zone?.destroy();

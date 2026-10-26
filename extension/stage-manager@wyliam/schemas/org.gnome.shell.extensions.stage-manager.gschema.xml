@@ -79,6 +79,11 @@
       <default>35</default>
       <summary>Maximum PiP width (% of the area)</summary>
     </key>
+    <key name="show-add-button" type="b">
+      <default>true</default>
+      <summary>Show the + button on thumbnails</summary>
+      <description>The + button that appears over a thumbnail in the strip when you hover it adds that set to the stage group. Shift+click and dragging do the same.</description>
+    </key>
     <key name="strip-side" enum="org.gnome.shell.extensions.stage-manager.Side">
       <default>'left'</default>
       <summary>Strip side</summary>

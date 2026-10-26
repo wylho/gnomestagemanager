@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Stage Manager 1\n"
 "Report-Msgid-Bugs-To: https://github.com/wylho/gnomestagemanager/issues\n"
-"POT-Creation-Date: 2026-10-25 17:15+0000\n"
-"PO-Revision-Date: 2026-10-25 17:15+0000\n"
+"POT-Creation-Date: 2026-10-26 12:14+0000\n"
+"PO-Revision-Date: 2026-10-26 12:14+0000\n"
 "Last-Translator: Stage Manager contributors\n"
 "Language: ja\n"
 "Language-Team: ja <https://github.com/wylho/gnomestagemanager/issues>\n"
@@ -357,54 +357,62 @@ msgid "Right"
 msgstr "右"
 
 #: extension/stage-manager@wyliam/prefs.js:99
+msgid "Show the + button on thumbnails"
+msgstr "サムネイルに + ボタンを表示"
+
+#: extension/stage-manager@wyliam/prefs.js:99
+msgid "Adds the set to the stage group. Shift+click and dragging also work."
+msgstr "セットをステージのグループに追加します。Shift+クリックやドラッグでも追加できます。"
+
+#: extension/stage-manager@wyliam/prefs.js:100
 msgid "Thumbnail width (px)"
 msgstr "サムネイルの幅 (px)"
 
-#: extension/stage-manager@wyliam/prefs.js:99
+#: extension/stage-manager@wyliam/prefs.js:100
 msgid "Minimum 96 px."
 msgstr "最小 96 px。"
 
-#: extension/stage-manager@wyliam/prefs.js:100
+#: extension/stage-manager@wyliam/prefs.js:101
 msgid "Maximum items in the strip"
 msgstr "サイドバーの最大項目数"
 
-#: extension/stage-manager@wyliam/prefs.js:100
+#: extension/stage-manager@wyliam/prefs.js:101
 msgid "0 = as many as fit the screen height."
 msgstr "0 = 画面の高さに収まる数。"
 
-#: extension/stage-manager@wyliam/prefs.js:103
+#: extension/stage-manager@wyliam/prefs.js:104
 msgid "Shortcuts"
 msgstr "ショートカット"
 
-#: extension/stage-manager@wyliam/prefs.js:104
+#: extension/stage-manager@wyliam/prefs.js:105
 msgid "GTK format, for example &lt;Super&gt;&lt;Alt&gt;s. Leave empty to disable. Press Enter to apply."
 msgstr "GTK 形式（例: &lt;Super&gt;&lt;Alt&gt;s）。無効にするには空にします。Enter で適用します。"
 
-#: extension/stage-manager@wyliam/prefs.js:129
+#: extension/stage-manager@wyliam/prefs.js:130
 msgid "Exclusions"
 msgstr "除外"
 
-#: extension/stage-manager@wyliam/prefs.js:130
+#: extension/stage-manager@wyliam/prefs.js:131
 msgid ""
 "Apps that Stage Manager ignores: they stay loose, outside the stage and the strip. Default: GNOME"
 " Sushi (org.gnome.NautilusPreviewer)."
 msgstr "ステージマネージャが無視するアプリ: ステージやサイドバーに入らず、自由な状態になります。既定: GNOME Sushi (org.gnome.NautilusPreviewer)。"
 
-#: extension/stage-manager@wyliam/prefs.js:136
+#: extension/stage-manager@wyliam/prefs.js:137
 msgid "Pick an open window…"
 msgstr "開いているウィンドウを選択…"
 
-#: extension/stage-manager@wyliam/prefs.js:137
+#: extension/stage-manager@wyliam/prefs.js:138
 msgid ""
 "After clicking here, click the window to ignore (for apps in the strip, click its thumbnail). Esc"
 " cancels."
 msgstr "ここをクリックしたあと、無視するウィンドウをクリックします（サイドバーにあるアプリはサムネイルをクリック）。Esc でキャンセルします。"
 
-#: extension/stage-manager@wyliam/prefs.js:144
+#: extension/stage-manager@wyliam/prefs.js:145
 msgid "Add a class manually (WM_CLASS / app-id)"
 msgstr "クラスを手動で追加（WM_CLASS / app-id）"
 
-#: extension/stage-manager@wyliam/prefs.js:165
+#: extension/stage-manager@wyliam/prefs.js:166
 msgid "Manage this app again"
 msgstr "このアプリを再び管理する"
 
