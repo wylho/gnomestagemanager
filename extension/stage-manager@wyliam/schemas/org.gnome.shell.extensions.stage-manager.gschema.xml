@@ -14,6 +14,11 @@
     <value value="2" nick="top-right"/>
     <value value="3" nick="top-left"/>
   </enum>
+  <enum id="org.gnome.shell.extensions.stage-manager.CenterResize">
+    <value value="0" nick="off"/>
+    <value value="1" nick="alt"/>
+    <value value="2" nick="always"/>
+  </enum>
   <enum id="org.gnome.shell.extensions.stage-manager.Side">
     <value value="0" nick="left"/>
     <value value="1" nick="right"/>
@@ -108,10 +113,10 @@
       <summary>Always keep centered</summary>
       <description>Outside autotiling, the window (or group) returns to the center as soon as you drop it after dragging, finish resizing it, or the app changes its size/position.</description>
     </key>
-    <key name="resize-from-center" type="b">
-      <default>true</default>
-      <summary>Hold Alt while resizing to resize from the center</summary>
-      <description>While you drag a window edge or corner with the mouse, holding Alt makes the window grow or shrink on both sides at once, keeping its center (like the Option key on macOS). Not used with autotiling.</description>
+    <key name="center-resize" enum="org.gnome.shell.extensions.stage-manager.CenterResize">
+      <default>'always'</default>
+      <summary>Resize from the center</summary>
+      <description>When dragging a window edge or corner with the mouse, the window grows or shrinks on both sides at once, keeping its center (like the Option key on macOS). “alt” does it only while Alt is held; “always” does it by default and Alt gives the regular resize. Not used with autotiling.</description>
     </key>
     <key name="remember-position" type="b">
       <default>true</default>

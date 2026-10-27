@@ -578,7 +578,7 @@ export class StageManager {
     // ---------- redimensionar a partir do centro (Alt)
 
     /**
-     * Redimensionar com o mouse segurando Alt: a janela cresce/encolhe dos dois lados, mantendo o centro (como a
+     * Redimensionar com o mouse (por padrão, ou segurando Alt, conforme `center-resize`): a janela cresce/encolhe dos dois lados, mantendo o centro (como a
      * tecla Option no macOS). O mutter começa o arrasto normalmente e não deixa ninguém mudar a conta dele, nem
      * encerrá-lo por API; então cancelamos o arrasto com um Esc virtual (a janela volta ao tamanho inicial) e,
      * quando o mutter avisa que terminou, o gesto passa para CenterResize. Só vale fora do autotiling.
@@ -586,11 +586,12 @@ export class StageManager {
      */
     _beginCenterResize(win, op) {
         const dir = dirOf(op);
-        if (!dir || this._centerResize || this._handoff || !this._settings.get_boolean('resize-from-center'))
+        const mode = this._settings.get_string('center-resize');
+        if (!dir || this._centerResize || this._handoff || mode === 'off')
             return false;
         const [px, py, mods] = global.get_pointer();
-        if (!(mods & Clutter.ModifierType.MOD1_MASK))
-            return false;
+        if (!!(mods & Clutter.ModifierType.MOD1_MASK) !== (mode === 'alt'))
+            return false; // 'alt': só com Alt; 'always': só SEM Alt (Alt devolve o redimensionamento normal)
         const base = rootOf(win);
         const set = this._setOf.get(base);
         if (!set || set.stage.active !== set || base !== win || isPip(base) || this._tilingActive(set) ||

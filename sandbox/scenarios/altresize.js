@@ -39,11 +39,19 @@ export default async function (ctx) {
     const left = r => [r.x - 3, r.y + r.height / 2];
     const se = r => [r.x + r.width + 3, r.y + r.height + 3];
     const log = (n, o) => ctx.log(`${n}: ${JSON.stringify(o)}`);
-    log('1. borda direita +100 SEM Alt (esperado: +100 de largura, janela cresce para a direita)', await resize(ctx, 'B', right, [100, 0], false));
-    log('2. borda direita +100 COM Alt (esperado: +200 de largura, centro parado)', await resize(ctx, 'B', right, [100, 0], true));
-    log('3. borda esquerda -60 COM Alt (esperado: +120 de largura, centro parado)', await resize(ctx, 'B', left, [-60, 0], true));
-    log('4. canto sudeste +80,+60 COM Alt (esperado: +160 x +120, centro parado)', await resize(ctx, 'B', se, [80, 60], true));
-    log('5. borda direita -80 COM Alt (encolher: esperado -160, centro parado)', await resize(ctx, 'B', right, [-80, 0], true));
-    st().set_boolean('resize-from-center', false);
-    log('6. opção DESLIGADA, borda direita +100 COM Alt (esperado: comportamento normal, +100)', await resize(ctx, 'B', right, [100, 0], true));
+    const mode = m => st().set_string('center-resize', m);
+    mode('alt');
+    log('1. alt: borda direita +100 SEM Alt (esperado: +100 normal)', await resize(ctx, 'B', right, [100, 0], false));
+    log('2. alt: borda direita +100 COM Alt (esperado: +200, centro parado)', await resize(ctx, 'B', right, [100, 0], true));
+    log('3. alt: borda esquerda -60 COM Alt (esperado: +120, centro parado)', await resize(ctx, 'B', left, [-60, 0], true));
+    log('4. alt: canto sudeste +80,+60 COM Alt (esperado: +160 x +120, centro parado)', await resize(ctx, 'B', se, [80, 60], true));
+    log('5. alt: borda direita -80 COM Alt (encolher: esperado -160, centro parado)', await resize(ctx, 'B', right, [-80, 0], true));
+    mode('always');
+    log('6. always: borda direita +100 SEM Alt (esperado: +200, centro parado)', await resize(ctx, 'B', right, [100, 0], false));
+    log('7. always: canto sudeste +80,+60 SEM Alt (esperado: +160 x +120, centro parado)', await resize(ctx, 'B', se, [80, 60], false));
+    log('8. always: borda esquerda -60 SEM Alt (esperado: +120, centro parado)', await resize(ctx, 'B', left, [-60, 0], false));
+    log('9. always: borda direita +100 COM Alt (esperado: normal, +100)', await resize(ctx, 'B', right, [100, 0], true));
+    mode('off');
+    log('10. off: borda direita +100 SEM Alt (esperado: +100 normal)', await resize(ctx, 'B', right, [100, 0], false));
+    log('11. off: borda direita +100 COM Alt (esperado: +100 normal)', await resize(ctx, 'B', right, [100, 0], true));
 }

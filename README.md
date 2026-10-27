@@ -57,7 +57,7 @@
 | **Automatic arrangement** of a group (windows never overlap) | No (free-floating) | **Mosaic or autotiling** |
 | **Autotiling** with configurable margin and gap, dividers that follow your resizing | — | **Yes** |
 | Resize one window and the others make room (it keeps the size you asked for) | — | **Yes** |
-| Hold **Alt** while resizing to grow or shrink from the center (outside autotiling) | Option key, app-dependent | **Yes** |
+| Resize from the center: on by default, or only while holding **Alt** (outside autotiling) | Option key, app-dependent | **Yes** |
 | Drop a window onto another to swap places | — | **Yes** |
 | **Picture-in-Picture** handled as a width-only tile in a corner | — | **Yes** |
 | **Exceptions picker**: click any window to ignore its app (GNOME Sushi ignored by default) | — | **Yes** |

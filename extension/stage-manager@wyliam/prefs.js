@@ -57,7 +57,9 @@ export default class StageManagerPrefs extends ExtensionPreferences {
             [_('One at a time'), _('All at once')]);
         switchRow(general, 'always-center', _('Center when entering the stage'), _('Super+Alt+R centers the window (or rearranges the group) whenever you want.'));
         switchRow(general, 'lock-center', _('Always keep centered (outside autotiling)'), _('The window returns to the center as soon as you drop it or finish resizing it. Overrides “remember position”.'));
-        switchRow(general, 'resize-from-center', _('Hold Alt while resizing to resize from the center'), _('The window grows or shrinks on both sides at once, keeping its center. Not used with autotiling.'));
+        comboRow(general, 'center-resize', _('Resize from the center'),
+            _('The window grows or shrinks on both sides at once, keeping its center. Not used with autotiling.'),
+            [_('Off'), _('While holding Alt'), _('Always (Alt gives the regular resize)')]);
         switchRow(general, 'remember-position', _('Remember the position of windows moved by hand'), _('When off, the window always returns to the center when entering the stage.'));
         switchRow(general, 'recenter-after-resize', _('Re-center after resizing'));
         switchRow(general, 'click-wallpaper', _('Clicking the wallpaper shows the desktop'),
