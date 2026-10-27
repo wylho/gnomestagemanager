@@ -9,6 +9,7 @@ import Mtk from 'gi://Mtk';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import {_} from './i18n.js';
+import {AltTabOrder} from './alttab.js';
 import {layoutAux, layoutSet} from './layout.js';
 import {Stage, aux} from './model.js';
 import * as Tiling from './tiling.js';
@@ -32,6 +33,7 @@ export class StageManager {
 
     constructor(settings) {
         this._settings = settings;
+        this._altTab = new AltTabOrder();
         this._mutter = new Gio.Settings({schema_id: 'org.gnome.mutter'});
         this._started = false;
     }
@@ -107,6 +109,7 @@ export class StageManager {
         this._keyboard = null;
         this._picker?.cancel();
         this._picker = null;
+        this._altTab.stop();
         aux.is = () => false;
         setPipPatterns([], false);
 
@@ -141,6 +144,7 @@ export class StageManager {
             return;
         this._buildStrips();
 
+        this._altTab.start();
         const d = global.display;
         this._on(d, 'notify::focus-window', () => this._onFocus());
         this._on(d, 'grab-op-begin', (_d, win, op) => this._onGrabBegin(win, op));
@@ -1154,6 +1158,7 @@ export class StageManager {
         }
         const stage = set.stage;
         if (win.minimized) {
+            this._altTab.demote(win); // e para o fim do Alt+Tab, como no Windows
             // O usuário minimizou: a janela vai para a tira.
             if (stage.active !== set)
                 return;

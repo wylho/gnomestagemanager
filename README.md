@@ -63,6 +63,7 @@
 | **Exceptions picker**: click any window to ignore its app (GNOME Sushi ignored by default) | — | **Yes** |
 | "**Always keep centered**" mode, or remember windows you moved by hand | — | **Yes** |
 | Move a set to another monitor or workspace from the menu | — | **Yes** |
+| **Alt+Tab in order of use** with several monitors (one tap = the app you just left) | Yes (Command-Tab) | **Yes** |
 | Translations | System languages | **9 (EN, PT-BR, ES, FR, DE, RU, IT, ZH-CN, JA)** |
 
 ## A quick tour

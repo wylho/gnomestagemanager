@@ -133,3 +133,7 @@ A página de lançamento do Ventura na Newsroom da Apple deu 404.
   representa o conjunto na tira). Só a largura participa do tiling: coluna no canto (4 cantos, por conjunto, arrastável) com altura pela
   proporção do vídeo; o restante da área é ladrilhado normalmente (autotiling ou mosaico).
 - A cópia da tira na frente das janelas só existe quando a de trás está totalmente escondida; parcialmente coberta, usa-se a de trás.
+- **Alt+Tab na ordem de uso**: o GNOME põe janelas visíveis antes das minimizadas no Alt+Tab; como o Organizador minimiza o que sai
+  do palco, com dois monitores a janela do outro monitor passava à frente do app anterior. A extensão guarda a ordem de foco e a
+  usa nas janelas de troca do Shell (`lib/alttab.js`); minimizar à mão ainda manda para o fim. Detalhes, testes e diagnóstico em
+  [ALT-TAB.pt-BR.md](ALT-TAB.pt-BR.md).

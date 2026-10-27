@@ -32,6 +32,8 @@ if [[ ",$EXTS," == *",ubuntu-dock@ubuntu.com,"* ]]; then
     set -- $kv; gsettings set org.gnome.shell.extensions.dash-to-dock "$1" "$2"
   done
 fi
-timeout --signal=TERM "$LIFE" dbus-run-session -- gnome-shell --headless --wayland --no-x11 \
+# SANDBOX_X11=1 liga o Xwayland (apps X11 como Chrome, Figma, Steam); padrão: só Wayland.
+X11FLAG=--no-x11; [ -n "${SANDBOX_X11:-}" ] && X11FLAG=
+timeout --signal=TERM "$LIFE" dbus-run-session -- gnome-shell --headless --wayland $X11FLAG \
   --wayland-display=wayland-sandbox "${VM[@]}" > "$SANDBOX_OUT/shell.log" 2>&1
 echo "== run.log"; cat "$SANDBOX_OUT/run.log" 2>/dev/null
