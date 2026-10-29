@@ -24,6 +24,7 @@ const PIP_CORNERS = ['bottom-right', 'bottom-left', 'top-right', 'top-left'];
 const STICKY = 'sticky';   // chave de palco dos monitores secundários quando as áreas de trabalho só existem no primário
 const DRAG_POLL_MS = 60;
 
+const BUTTON_MASKS = Clutter.ModifierType.BUTTON1_MASK | Clutter.ModifierType.BUTTON2_MASK | Clutter.ModifierType.BUTTON3_MASK;
 const HANDOFF_TIMEOUT_MS = 400;   // quanto esperar o mutter encerrar o arrasto antes de desistir da simetria
 
 const rect = r => new Mtk.Rectangle({x: r.x, y: r.y, width: r.width, height: r.height});
@@ -575,14 +576,14 @@ export class StageManager {
         set.arranged = true;
     }
 
-    // ---------- redimensionar a partir do centro (Alt)
+    // ---------- redimensionar a partir do centro
 
     /**
-     * Redimensionar com o mouse (por padrão, ou segurando Alt, conforme `center-resize`): a janela cresce/encolhe dos dois lados, mantendo o centro (como a
-     * tecla Option no macOS). O mutter começa o arrasto normalmente e não deixa ninguém mudar a conta dele, nem
-     * encerrá-lo por API; então cancelamos o arrasto com um Esc virtual (a janela volta ao tamanho inicial) e,
-     * quando o mutter avisa que terminou, o gesto passa para CenterResize. Só vale fora do autotiling.
-     * Devolve true quando assumiu o gesto.
+     * Redimensionar com o mouse (por padrão ou só com Alt, conforme `center-resize`): a janela cresce/encolhe
+     * dos dois lados, mantendo o centro (como a tecla Option no macOS). O mutter começa o arrasto normalmente e
+     * não deixa mudar a conta dele nem encerrá-lo por API; então cancelamos o arrasto com um Esc virtual (a janela
+     * volta ao tamanho inicial) e, quando o mutter avisa que terminou, o gesto passa para CenterResize.
+     * Só vale fora do autotiling. Devolve true quando assumiu o gesto.
      */
     _beginCenterResize(win, op) {
         const dir = dirOf(op);
@@ -592,22 +593,33 @@ export class StageManager {
         const [px, py, mods] = global.get_pointer();
         if (!!(mods & Clutter.ModifierType.MOD1_MASK) !== (mode === 'alt'))
             return false; // 'alt': só com Alt; 'always': só SEM Alt (Alt devolve o redimensionamento normal)
+        const held = mods & BUTTON_MASKS; // toque/caneta/atalho de teclado não têm botão: ficam com o mutter
+        if (!held)
+            return false;
         const base = rootOf(win);
         const set = this._setOf.get(base);
         if (!set || set.stage.active !== set || base !== win || isPip(base) || this._tilingActive(set) ||
             base.is_maximized() || base.is_fullscreen())
             return false;
         this._handoff = {
-            win: base, set, dir, pointer: [px, py], start: base.get_frame_rect(),
+            win: base, set, dir, pointer: [px, py], held, escSent: false, start: base.get_frame_rect(),
             area: Main.layoutManager.getWorkAreaForMonitor(this._monitorOf(base)),
         };
         // Cancelar dentro do sinal que iniciou o arrasto é frágil: espera o mutter terminar de começá-lo.
         this._centerHandoff = GLib.idle_add(GLib.PRIORITY_DEFAULT, () => {
+            this._centerHandoff = 0;
+            const h = this._handoff;
+            if (!h || !this._grabbing || !(global.get_pointer()[2] & h.held)) {
+                // Soltou antes de o Esc sair (clique na borda): sem arrasto não há o que assumir, e um Esc agora iria para o app.
+                this._handoff = null;
+                return GLib.SOURCE_REMOVE;
+            }
             this._centerHandoff = GLib.timeout_add(GLib.PRIORITY_DEFAULT, HANDOFF_TIMEOUT_MS, () => {
                 this._centerHandoff = 0;
                 this._handoff = null; // o mutter não encerrou o arrasto: ele segue valendo, sem simetria
                 return GLib.SOURCE_REMOVE;
             });
+            h.escSent = true;
             this._pressEscape();
             return GLib.SOURCE_REMOVE;
         });
@@ -632,7 +644,7 @@ export class StageManager {
         if (!h.win.get_compositor_private() || h.win.is_maximized())
             return;
         this._grabbing = true;
-        this._centerResize = new CenterResize(h.win, h.dir, h.start, h.pointer, h.area, (w, cancelled) => {
+        this._centerResize = new CenterResize(h.win, h.dir, h.start, h.pointer, h.held, h.area, (w, cancelled) => {
             this._centerResize = null;
             this._grabbing = false;
             this._centerBudget = 6;
@@ -1269,13 +1281,19 @@ export class StageManager {
         if (!this._stages || !win)
             return;
         this._grabbing = false;
-        if (this._handoff) { // cancelado por nós para passar o gesto ao CenterResize
+        if (this._handoff?.escSent) { // cancelado por nós para passar o gesto ao CenterResize
             GLib.idle_add(GLib.PRIORITY_DEFAULT, () => {
                 if (this._handoff && this._stages)
                     this._startCenterResize();
                 return GLib.SOURCE_REMOVE;
             });
             return;
+        }
+        if (this._handoff) { // o arrasto acabou sozinho antes do nosso Esc: nada a assumir
+            if (this._centerHandoff)
+                GLib.source_remove(this._centerHandoff);
+            this._centerHandoff = 0;
+            this._handoff = null;
         }
         this._centerBudget = 6; // o usuário agiu: renova o crédito de correções automáticas
         const d = this._drag;

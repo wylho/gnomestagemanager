@@ -260,3 +260,20 @@ export function layoutAux(area, pips, {corner = 'bottom-right', maxFrac = 0.35, 
         : {x: area.x + used, y: area.y, width: Math.max(1, area.width - used), height: area.height};
     return {rects, rest};
 }
+
+/**
+ * Resize from the center: the window grows (or shrinks) on both sides of the edge the user pulls, keeping its
+ * center. `dir` is the pulled side per axis (-1 left/top, 0 none, +1 right/bottom), (dx, dy) the pointer travel
+ * since the gesture began. The size stays inside [min(minSize, current), area]; the position is kept inside `area`.
+ */
+export function centeredResize(start, dir, dx, dy, area, minSize = {width: 240, height: 160}) {
+    const clamp = (v, lo, hi) => Math.min(Math.max(v, lo), Math.max(lo, hi));
+    const width = Math.round(clamp(start.width + 2 * dir.h * dx, Math.min(minSize.width, start.width), area.width));
+    const height = Math.round(clamp(start.height + 2 * dir.v * dy, Math.min(minSize.height, start.height), area.height));
+    return {
+        x: Math.round(clamp(start.x + start.width / 2 - width / 2, area.x, area.x + area.width - width)),
+        y: Math.round(clamp(start.y + start.height / 2 - height / 2, area.y, area.y + area.height - height)),
+        width,
+        height,
+    };
+}

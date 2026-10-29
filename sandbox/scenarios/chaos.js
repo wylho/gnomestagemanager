@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Operações aleatórias (semente fixa) + verificação de invariantes depois de cada uma.
+import Clutter from 'gi://Clutter';
 import Meta from 'gi://Meta';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
@@ -39,6 +40,7 @@ function invariants(ctx, label) {
             }
         }
     }
+    if (m._centerResize || m._handoff || m._grabbing) errs.push(`gesto de redimensionamento preso (centerResize=${!!m._centerResize} handoff=${!!m._handoff} grabbing=${m._grabbing}) modalCount=${Main.modalCount}`);
     for (const win of m._setOf.keys()) if (!seen.has(win)) errs.push(`_setOf tem ${win.get_title()} fora de qualquer conjunto`);
     for (const a of global.get_window_actors()) {
         const win = a.meta_window;
@@ -72,10 +74,31 @@ export default async function (ctx) {
         async autotile() { st().set_boolean('autotile', !st().get_boolean('autotile')); return `autotile=${st().get_boolean('autotile')}`; },
         async arrange() { mgr().arrangeGroup(); return 'arrange'; },
         async groupMode() { st().set_enum('group-mode', Math.floor(rnd() * 2)); return 'groupMode'; },
+        async edgeResize() {
+            const a = stage().active; if (!a) return 'edgeResize -';
+            const w = pick(a.windows); const r = w.get_frame_rect();
+            const [sx, sy] = pick([[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [-1, 1], [1, -1], [-1, -1]]);
+            const gx = sx > 0 ? r.x + r.width + 3 : sx < 0 ? r.x - 3 : r.x + r.width / 2;
+            const gy = sy > 0 ? r.y + r.height + 3 : sy < 0 ? r.y - 3 : r.y + r.height / 2;
+            const mode = pick(['always', 'always', 'alt', 'off']); st().set_string('center-resize', mode);
+            const alt = rnd() > 0.5;
+            const dx = Math.round((rnd() - 0.5) * 300), dy = Math.round((rnd() - 0.5) * 240);
+            const fate = rnd();
+            if (alt) ctx.keyDown(Clutter.KEY_Alt_L);
+            ctx.move(gx, gy); await ctx.sleep(150);
+            ctx.mouseDown(); await ctx.sleep(120);
+            await ctx.moveSmooth(gx, gy, gx + dx, gy + dy, 8);
+            let end = 'solta';
+            if (fate < 0.15) { w.delete(now()); end = 'fecha a janela'; }
+            else if (fate < 0.3) { await ctx.key(Clutter.KEY_Escape); end = 'Esc'; }
+            await ctx.sleep(100);
+            ctx.mouseUp(); if (alt) ctx.keyUp(Clutter.KEY_Alt_L);
+            return `edgeResize ${w.get_title()} lado=${sx},${sy} d=${dx},${dy} modo=${mode} alt=${alt} fim=${end}`;
+        },
         async toggleEnabled() { st().set_boolean('enabled', false); await ctx.sleep(500); st().set_boolean('enabled', true); return 'toggle enabled off/on'; },
     };
     const names = Object.keys(ops);
-    const weights = {spawn: 4, spawnPip: 2, close: 3, clickItem: 5, shiftClick: 3, userMinimize: 2, userActivate: 4, removeFocused: 2, reveal: 1, maximize: 1, arrange: 1, autotile: 2, moveMonitor: 3, groupMode: 1, toggleEnabled: 1};
+    const weights = {spawn: 4, spawnPip: 2, close: 3, clickItem: 5, shiftClick: 3, userMinimize: 2, userActivate: 4, removeFocused: 2, reveal: 1, maximize: 1, arrange: 1, autotile: 2, moveMonitor: 3, groupMode: 1, toggleEnabled: 1, edgeResize: 6};
     const bag = names.flatMap(k => new Array(weights[k]).fill(k));
 
     for (let i = 0; i < 4; i++) await ops.spawn();
@@ -86,6 +109,7 @@ export default async function (ctx) {
         const op = pick(bag);
         let desc;
         try { desc = await ops[op](); } catch (e) { desc = `${op} EXC ${e}`; ctx.log(`!! exceção em ${op}: ${e}\n${e.stack}`); failures++; }
+        if (desc.startsWith('edgeResize')) ctx.log(`passo ${step}: ${desc}`);
         await ctx.sleep(750);
         const errs = invariants(ctx, `passo ${step} (${desc})`);
         total += errs.length;

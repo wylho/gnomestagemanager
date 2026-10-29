@@ -28,6 +28,13 @@ app.connect('activate', () => {
         try { GLib.file_set_contents(`${dir}/${title}.txt`, String(frames)); } catch (_e) { /* ignora */ }
         return GLib.SOURCE_CONTINUE;
     });
+    // Registro das teclas que chegam à janela (para detectar Esc ou outras teclas vazando do shell).
+    const keys = new Gtk.EventControllerKey();
+    keys.connect('key-pressed', (_c, keyval) => {
+        try { GLib.file_set_contents(`${dir}/${title}.keys`, (GLib.file_test(`${dir}/${title}.keys`, GLib.FileTest.EXISTS) ? new TextDecoder().decode(GLib.file_get_contents(`${dir}/${title}.keys`)[1]) : '') + `${Gdk.keyval_name(keyval)}\n`); } catch (_e) { /* ignora */ }
+        return false;
+    });
+    win.add_controller(keys);
     win.present();
     if (lateTitle)
         GLib.timeout_add(GLib.PRIORITY_DEFAULT, 500, () => { win.set_title(lateTitle); return GLib.SOURCE_REMOVE; });

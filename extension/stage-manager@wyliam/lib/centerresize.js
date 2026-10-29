@@ -11,7 +11,9 @@ import St from 'gi://St';
 
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-const MIN_SIZE = {w: 240, h: 160};
+import {centeredResize} from './layout.js';
+
+const MIN_SIZE = {width: 240, height: 160};
 const POLL_MS = 16;   // the shield does not always see the button release (the client held the implicit grab)
 
 const CURSORS = {
@@ -37,16 +39,18 @@ export class CenterResize {
      * @param {{h:number, v:number}} dir sides the user grabbed
      * @param {Mtk.Rectangle} start frame rect when the gesture began
      * @param {[number, number]} pointer pointer position when the gesture began
+     * @param {number} held Clutter.ModifierType button mask that was down when the gesture began
      * @param {Mtk.Rectangle} area work area limiting the size
      * @param {(win: Meta.Window, cancelled: boolean) => void} onDone called once when the gesture ends
      */
-    constructor(win, dir, start, pointer, area, onDone) {
+    constructor(win, dir, start, pointer, held, area, onDone) {
         this._win = win;
         this._dir = dir;
         this._area = area;
         this._onDone = onDone;
         this._start = start;
         [this._px, this._py] = pointer;
+        this._held = held;
 
         this._shield = new St.Widget({
             reactive: true, x: 0, y: 0,
@@ -75,7 +79,7 @@ export class CenterResize {
         }
         this._poll = GLib.timeout_add(GLib.PRIORITY_DEFAULT, POLL_MS, () => {
             const [, , mods] = global.get_pointer();
-            if (mods & Clutter.ModifierType.BUTTON1_MASK)
+            if (mods & this._held)
                 return GLib.SOURCE_CONTINUE;
             this._poll = 0;
             this._finish(false);
@@ -102,27 +106,24 @@ export class CenterResize {
             this._finish(true);
             return;
         }
-        const s = this._start, a = this._area;
-        const clamp = (v, lo, hi) => Math.min(Math.max(v, lo), Math.max(lo, hi));
-        const w = Math.round(clamp(s.width + 2 * this._dir.h * (x - this._px), Math.min(MIN_SIZE.w, s.width), a.width));
-        const h = Math.round(clamp(s.height + 2 * this._dir.v * (y - this._py), Math.min(MIN_SIZE.h, s.height), a.height));
-        const nx = Math.round(clamp(s.x + s.width / 2 - w / 2, a.x, a.x + a.width - w));
-        const ny = Math.round(clamp(s.y + s.height / 2 - h / 2, a.y, a.y + a.height - h));
-        this._win.move_resize_frame(true, nx, ny, w, h);
+        const r = centeredResize(this._start, this._dir, x - this._px, y - this._py, this._area, MIN_SIZE);
+        this._win.move_resize_frame(true, r.x, r.y, r.width, r.height);
     }
 
     _finish(cancelled) {
         if (this._done)
             return;
+        if (!cancelled) {
+            const [x, y] = global.get_pointer();
+            this._move(x, y); // a última posição pode ter chegado depois do último movimento visto
+            if (this._done) // a janela sumiu e o próprio _move já encerrou
+                return;
+        }
         this._done = true;
         this._stopPoll();
         if (cancelled && this._win.get_compositor_private())
             this._win.move_resize_frame(true, this._start.x, this._start.y, this._start.width, this._start.height);
-        global.stage.set_cursor_type(Clutter.CursorType.DEFAULT);
-        Main.popModal(this._grab);
-        this._grab = null;
-        this._shield.destroy();
-        this._shield = null;
+        this._release();
         this._onDone(this._win, cancelled);
     }
 
@@ -132,10 +133,16 @@ export class CenterResize {
             return;
         this._done = true;
         this._stopPoll();
+        this._release();
+    }
+
+    _release() {
         global.stage.set_cursor_type(Clutter.CursorType.DEFAULT);
-        Main.popModal(this._grab);
+        try {
+            Main.popModal(this._grab);
+        } catch (_e) { /* grab already gone (shield destroyed, session locked...) */ }
+        this._grab = null;
         this._shield.destroy();
         this._shield = null;
-        this._grab = null;
     }
 }

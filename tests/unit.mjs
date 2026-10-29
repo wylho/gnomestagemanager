@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // gjs -m tests/unit.mjs  — testa layout.js e model.js sem o Shell
-import {layoutSet, layoutAux, stripSlots} from '../extension/stage-manager@wyliam/lib/layout.js';
+import {centeredResize, layoutSet, layoutAux, stripSlots} from '../extension/stage-manager@wyliam/lib/layout.js';
 import * as T from '../extension/stage-manager@wyliam/lib/tiling.js';
 import {Stage} from '../extension/stage-manager@wyliam/lib/model.js';
 
@@ -193,6 +193,21 @@ m = T.layoutTree(tree, TA, 10);
 eq([Math.abs(m.get('b').width - grown.width) <= 2, m.get('a').width < 945], [true, true], 'depois do ajuste b tem o tamanho pedido e a vizinha cedeu');
 tree = T.removeLeaf(T.removeLeaf(tree, 'a'), 'b');
 eq(tree, null, 'árvore vazia depois de remover tudo');
+
+// Redimensionar a partir do centro
+{
+    const st = {x: 610, y: 330, width: 700, height: 440};
+    const ar = {x: 0, y: 32, width: 1920, height: 1000};
+    eq(centeredResize(st, {h: 1, v: 0}, 100, 0, ar), {x: 510, y: 330, width: 900, height: 440}, 'borda direita +100: largura +200, centro parado');
+    eq(centeredResize(st, {h: -1, v: 0}, -60, 0, ar), {x: 550, y: 330, width: 820, height: 440}, 'borda esquerda -60: largura +120');
+    eq(centeredResize(st, {h: 1, v: 1}, 80, 60, ar), {x: 530, y: 270, width: 860, height: 560}, 'canto SE: cresce nos dois eixos');
+    eq(centeredResize(st, {h: 1, v: 0}, -80, 0, ar), {x: 690, y: 330, width: 540, height: 440}, 'puxar a borda para dentro encolhe dos dois lados');
+    eq(centeredResize(st, {h: 1, v: 0}, -400, 0, ar).width, 240, 'não encolhe abaixo do mínimo');
+    eq(centeredResize({...st, width: 200}, {h: 1, v: 0}, -50, 0, ar).width, 200, 'janela já menor que o mínimo não é forçada a crescer');
+    eq(centeredResize(st, {h: 1, v: 0}, 5000, 0, ar), {x: 0, y: 330, width: 1920, height: 440}, 'não passa da área de trabalho');
+    eq(centeredResize({x: 20, y: 330, width: 700, height: 440}, {h: 1, v: 0}, 100, 0, ar).x, 0, 'perto da borda da tela o crescimento não sai da área');
+    eq(centeredResize(st, {h: 0, v: 0}, 300, 300, ar), st, 'sem lado puxado nada muda');
+}
 
 print(fails ? `\n${fails} FALHA(S)` : '\nTODOS OS TESTES PASSARAM');
 imports.system.exit(fails ? 1 : 0);
