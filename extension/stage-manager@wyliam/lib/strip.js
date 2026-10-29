@@ -35,6 +35,14 @@ const signature = (set, w, h, addButton) => {
     return [w, h, top?.get_id(), set.windows.map(x => x.get_id()).join(','), r.width, r.height, addButton].join('|');
 };
 
+/** Alvo de soltura para itens vindos da tira de OUTRO monitor: o gerenciador decide pelo ponto onde o ponteiro está. */
+const foreignTarget = strip => ({
+    handleDragOver: source => (source instanceof StripItem && source.set.stage.monitor !== strip.monitor
+        ? DND.DragMotionResult.MOVE_DROP : DND.DragMotionResult.NO_DROP),
+    acceptDrop: source => source instanceof StripItem && source.set.stage.monitor !== strip.monitor &&
+        strip.manager.dropItemAtPointer(source.set),
+});
+
 class StripItem {
     constructor(strip, set) {
         this._strip = strip;
@@ -277,6 +285,19 @@ class StripItem {
         return box;
     }
 
+    /** Item de OUTRA tira arrastado até aqui: largar agrupa com este conjunto. */
+    handleDragOver(source) { return foreignTarget(this._strip).handleDragOver(source); }
+
+    acceptDrop(source) { return foreignTarget(this._strip).acceptDrop(source); }
+
+    /** Uma janela arrastada de outro monitor está sobre este item: largar aqui agrupa com ele. */
+    setDropTarget(on) {
+        if (on)
+            this.actor.add_style_pseudo_class('drop');
+        else
+            this.actor.remove_style_pseudo_class('drop');
+    }
+
     fadeOutAndDestroy() {
         this.actor.reactive = false;
         this.actor.ease({
@@ -331,6 +352,30 @@ class DropZone {
     }
 }
 
+/** Cobre a área útil de outro monitor enquanto um item da tira é arrastado: largar aqui move o conjunto para ele. */
+export class ScreenZone {
+    constructor(manager, monitor, below) {
+        const area = Main.layoutManager.getWorkAreaForMonitor(monitor);
+        this._target = {
+            handleDragOver: source => (source instanceof StripItem && source.set.stage.monitor !== monitor
+                ? DND.DragMotionResult.MOVE_DROP : DND.DragMotionResult.NO_DROP),
+            acceptDrop: source => source instanceof StripItem && source.set.stage.monitor !== monitor &&
+                manager.dropItemAtPointer(source.set),
+        };
+        this.actor = new St.Widget({reactive: true, x: area.x, y: area.y, width: area.width, height: area.height});
+        this.actor._delegate = this._target;
+        Main.layoutManager.addChrome(this.actor);
+        // Fica logo abaixo da tira da frente, para ela e seus itens receberem a soltura primeiro.
+        if (below?.get_parent() === this.actor.get_parent())
+            this.actor.get_parent().set_child_below_sibling(this.actor, below);
+    }
+
+    destroy() {
+        Main.layoutManager.removeChrome(this.actor);
+        this.actor.destroy();
+    }
+}
+
 /**
  * Uma tira por monitor, em duas camadas que nunca trocam de pai (reparentar um ator dentro do próprio
  * evento derruba o Shell):
@@ -356,6 +401,9 @@ export class Strip {
         this._sessionHidden = false; // visão geral aberta
         this._hover = false;
         this._drag = null;           // {over, multi} enquanto se arrasta uma janela
+        this._incoming = null;       // {zone: 'item'|'slot', set} enquanto uma janela vem arrastada de outro monitor
+        this._incomingKey = '';
+        this._foreign = false;       // um item de outra tira está sendo arrastado: esta tira vira alvo
         this._itemDrag = false;
         this._dead = false;
         this._fullscreen = false;
@@ -373,6 +421,7 @@ export class Strip {
         });
         this.actor.connect('enter-event', () => { this._setHover(true); return Clutter.EVENT_PROPAGATE; });
         this.actor.connect('destroy', () => { this._dead = true; });
+        this.actor._delegate = foreignTarget(this);
         // A camada da frente NÃO usa trackFullscreen: o Shell força `visible=true` nesses atores e anularia o
         // "escondida". A tela cheia é tratada aqui mesmo (setFullscreen).
         if (front)
@@ -486,14 +535,63 @@ export class Strip {
             this._apply();
     }
 
+    /**
+     * Janela arrastada de OUTRO monitor sobre esta tira: a tira aparece, o item sob o ponteiro fica marcado
+     * (agrupar com ele) e, no resto da coluna, aparece o "quadradinho" para só mudar a janela de monitor.
+     */
+    setIncoming(state) {
+        if (this._dead)
+            return;
+        const key = state ? `${state.zone}:${state.set?.id ?? ''}` : '';
+        const changed = key !== this._incomingKey;
+        this._incoming = state;
+        this._incomingKey = key;
+        this._syncPlaceholder();
+        for (const [set, item] of this._items)
+            item.setDropTarget(state?.zone === 'item' && state.set === set);
+        if (changed)
+            this._apply();
+    }
+
+    /** Item arrastado de outra tira: esta tira aparece, com o "quadradinho" para recebê-lo. */
+    setForeignDrag(on) {
+        if (this._dead || this._foreign === on)
+            return;
+        this._foreign = on;
+        this._syncPlaceholder();
+        this._apply();
+    }
+
+    /** O que há sob o ponto para uma janela vinda de outro monitor: um item, o resto da coluna, ou nada. */
+    incomingAt(x, y) {
+        const g = this.geometry();
+        const sets = this._stage?.recents ?? [];
+        const s = this._slots(sets);
+        for (let i = 0; i < s.count; i++) {
+            const r = s.rects[i];
+            if (x >= r.x && x <= r.x + r.width && y >= r.y && y <= r.y + r.height)
+                return {zone: 'item', set: sets[i]};
+        }
+        const reach = FRAME_PAD + 6;
+        const x0 = g.left ? g.mon.x : g.x - reach;
+        const x1 = g.left ? g.x + g.thumbW + reach : g.mon.x + g.mon.width;
+        if (x >= x0 && x <= x1 && y >= g.area.y && y <= g.area.y + g.area.height)
+            return {zone: 'slot', set: null};
+        return null;
+    }
+
     /** Sem itens na tira, arrastar uma janela do grupo mostra um alvo para largá-la. */
     _syncPlaceholder() {
-        const need = this.front && !!this._drag?.multi && this._count === 0;
+        const need = this.front && ((!!this._drag?.multi && this._count === 0) || !!this._incoming || this._foreign);
         if (need && !this._ph) {
             const g = this.geometry();
             const h = Math.round(g.thumbW * 0.6);
-            this._phBox = {x: g.x, y: g.area.y + Math.round((g.area.height - h) / 2), width: g.thumbW, height: h};
-            this._ph = new St.Widget({style_class: 'sm-placeholder', reactive: false, opacity: 0, ...this._phBox});
+            // Sem itens: no meio da coluna. Com itens: logo abaixo do último.
+            const below = this._count > 0 ? this._slots(this._stage?.recents ?? []).bottom + 2 * FRAME_PAD : 0;
+            const y = this._count > 0 ? Math.min(below, g.area.y + g.area.height - h) : g.area.y + Math.round((g.area.height - h) / 2);
+            this._phBox = {x: g.x, y, width: g.thumbW, height: h};
+            this._ph = new St.Widget({style_class: 'sm-placeholder', reactive: true, opacity: 0, ...this._phBox});
+            this._ph._delegate = foreignTarget(this);
             Main.layoutManager.addChrome(this._ph);
             this._ph.ease({opacity: 255, duration: 150, mode: Clutter.AnimationMode.EASE_OUT_QUAD});
         } else if (!need && this._ph) {
@@ -503,7 +601,7 @@ export class Strip {
             this._phBox = null;
         }
         if (this._ph) {
-            if (this._drag?.over)
+            if (this._drag?.over || this._incoming?.zone === 'slot')
                 this._ph.add_style_pseudo_class('drop');
             else
                 this._ph.remove_style_pseudo_class('drop');
@@ -580,8 +678,8 @@ export class Strip {
             show = !!have && (!autoHide || this._menuOpen);
         } else {
             // À frente: só quando a de trás estaria oculta/coberta, ou como alvo de arrasto.
-            const dragReveal = !!this._drag?.multi || this._itemDrag;
-            const hoverReveal = (this._hover || this._menuOpen) && !this._drag && !this._itemDrag && (this._covered || autoHide);
+            const dragReveal = !!this._drag?.multi || this._itemDrag || !!this._incoming || this._foreign;
+            const hoverReveal = (this._hover || this._menuOpen) && !this._drag && !this._itemDrag && !this._incoming && !this._foreign && (this._covered || autoHide);
             show = !!have && (dragReveal || hoverReveal);
             this.actor.remove_style_pseudo_class('drop');
             if (this._drag?.multi && this._drag.over)
@@ -648,12 +746,14 @@ export class Strip {
 
     dragBegin(_item) {
         this._itemDrag = true;
+        this.manager.onItemDragBegin(_item.set);
         this._zone = new DropZone(this);
         this._apply();
     }
 
     dragEnd() {
         this._itemDrag = false;
+        this.manager.onItemDragEnd();
         this._zone?.destroy();
         this._zone = null;
         this._apply();

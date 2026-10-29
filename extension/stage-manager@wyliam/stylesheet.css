@@ -4,14 +4,13 @@
 
 .sm-item {
     padding: 0;
-    border-radius: 12px;
-    background-color: rgba(28, 28, 32, 0.55);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+    background-color: transparent;
 }
 
-.sm-item:hover,
-.sm-item:focus {
-    background-color: rgba(60, 60, 68, 0.7);
+/* Só a janela aparece: sem cartão atrás da miniatura. O destaque vai na própria miniatura. */
+.sm-item:hover .sm-thumb,
+.sm-item:focus .sm-thumb {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.75), 0 6px 18px rgba(0, 0, 0, 0.5);
 }
 
 .sm-strip:drop {
@@ -21,6 +20,7 @@
 
 .sm-thumb {
     border-radius: 8px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
 }
 
 .sm-badge {
@@ -82,4 +82,26 @@
     color: white;
     font-weight: bold;
     background-color: rgba(30, 30, 34, 0.92);
+}
+
+/* Janela vinda de outro monitor sobre uma janela aberta: agrupar ou só mudar de monitor */
+.sm-choice {
+    border: 2px dashed rgba(255, 255, 255, 0.5);
+    border-radius: 14px;
+    background-color: rgba(20, 20, 24, 0.55);
+}
+
+.sm-choice:drop {
+    border-color: rgba(98, 160, 234, 1);
+    background-color: rgba(53, 132, 228, 0.4);
+}
+
+.sm-choice-label {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.sm-item:drop .sm-thumb {
+    box-shadow: 0 0 0 3px rgba(98, 160, 234, 1), 0 6px 18px rgba(0, 0, 0, 0.5);
 }

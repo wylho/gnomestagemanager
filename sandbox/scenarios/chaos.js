@@ -95,10 +95,37 @@ export default async function (ctx) {
             ctx.mouseUp(); if (alt) ctx.keyUp(Clutter.KEY_Alt_L);
             return `edgeResize ${w.get_title()} lado=${sx},${sy} d=${dx},${dy} modo=${mode} alt=${alt} fim=${end}`;
         },
+        async crossDrag() {
+            if (nMon < 2) return 'crossDrag -';
+            const a = stage().active; if (!a) return 'crossDrag -';
+            const w = pick(a.windows); const r = w.get_frame_rect();
+            const to = (curMon + 1) % nMon, ts = mgr()._stageFor(mgr()._wsKey(to), to);
+            const g = mgr()._strips.get(to).geometry(), area = g.area;
+            const kind = pick(['coluna', 'item', 'janela', 'tela']);
+            let tx = area.x + area.width / 2, ty = area.y + area.height / 2;
+            if (kind === 'coluna') { tx = g.x + g.thumbW / 2; ty = area.y + area.height - 60; }
+            else if (kind === 'item' && ts.recents.length) { const rr = mgr()._strips.get(to).slotRect(pick(ts.recents)); tx = rr.x + rr.width / 2; ty = rr.y + rr.height / 2; }
+            else if (kind === 'janela' && ts.active?.top) { const fr = ts.active.top.get_frame_rect(); tx = fr.x + fr.width * (rnd() > 0.5 ? 0.4 : 0.85); ty = fr.y + fr.height / 2; }
+            await ctx.drag(r.x + r.width / 2, r.y + 18, tx, ty);
+            return `crossDrag ${w.get_title()} m${curMon}->m${to} alvo=${kind}`;
+        },
+        async crossItem() {
+            if (nMon < 2) return 'crossItem -';
+            const s = stage(); if (!s.recents.length) return 'crossItem -';
+            const set = pick(s.recents); const rr = mgr()._strips.get(curMon).slotRect(set);
+            const to = (curMon + 1) % nMon, ts = mgr()._stageFor(mgr()._wsKey(to), to);
+            const g = mgr()._strips.get(to).geometry();
+            const kind = pick(['coluna', 'item', 'tela']);
+            let tx = g.area.x + g.area.width / 2, ty = g.area.y + g.area.height / 2;
+            if (kind === 'coluna') { tx = g.x + g.thumbW / 2; ty = g.area.y + g.area.height - 60; }
+            else if (kind === 'item' && ts.recents.length) { const ir = mgr()._strips.get(to).slotRect(pick(ts.recents)); tx = ir.x + ir.width / 2; ty = ir.y + ir.height / 2; }
+            await ctx.drag(rr.x + rr.width / 2, rr.y + rr.height / 2, tx, ty);
+            return `crossItem m${curMon}->m${to} alvo=${kind}`;
+        },
         async toggleEnabled() { st().set_boolean('enabled', false); await ctx.sleep(500); st().set_boolean('enabled', true); return 'toggle enabled off/on'; },
     };
     const names = Object.keys(ops);
-    const weights = {spawn: 4, spawnPip: 2, close: 3, clickItem: 5, shiftClick: 3, userMinimize: 2, userActivate: 4, removeFocused: 2, reveal: 1, maximize: 1, arrange: 1, autotile: 2, moveMonitor: 3, groupMode: 1, toggleEnabled: 1, edgeResize: 6};
+    const weights = {spawn: 4, spawnPip: 2, close: 3, clickItem: 5, shiftClick: 3, userMinimize: 2, userActivate: 4, removeFocused: 2, reveal: 1, maximize: 1, arrange: 1, autotile: 2, moveMonitor: 3, groupMode: 1, toggleEnabled: 1, edgeResize: 6, crossDrag: 4, crossItem: 4};
     const bag = names.flatMap(k => new Array(weights[k]).fill(k));
 
     for (let i = 0; i < 4; i++) await ops.spawn();
@@ -109,7 +136,7 @@ export default async function (ctx) {
         const op = pick(bag);
         let desc;
         try { desc = await ops[op](); } catch (e) { desc = `${op} EXC ${e}`; ctx.log(`!! exceção em ${op}: ${e}\n${e.stack}`); failures++; }
-        if (desc.startsWith('edgeResize')) ctx.log(`passo ${step}: ${desc}`);
+        if (desc.startsWith('edgeResize') || desc.startsWith('cross')) ctx.log(`passo ${step}: ${desc}`);
         await ctx.sleep(750);
         const errs = invariants(ctx, `passo ${step} (${desc})`);
         total += errs.length;

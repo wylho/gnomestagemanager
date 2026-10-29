@@ -15,7 +15,8 @@ import {Stage, aux} from './model.js';
 import * as Tiling from './tiling.js';
 import {CenterResize, dirOf} from './centerresize.js';
 import {WindowPicker} from './picker.js';
-import {Strip} from './strip.js';
+import {DropChoice} from './dropchoice.js';
+import {ScreenZone, Strip} from './strip.js';
 import {appKeyOf, classOf, isExcluded, isManageable, isMoveOp, isPip, isResizeOp, rootOf, setPipPatterns} from './windows.js';
 
 const ALL_AT_ONCE = 1;
@@ -65,6 +66,8 @@ export class StageManager {
         this._busy = 0;
         this._drag = null;
         this._dragTimer = 0;
+        this._itemDrag = null;         // item da tira sendo arrastado: {set, timer, zones}
+        this._choice = null;           // sobreposição "agrupar / só mudar de monitor"
 
         aux.is = isPip;
         this._applyPipSettings();
@@ -101,6 +104,9 @@ export class StageManager {
         if (this._centerTimer)
             GLib.source_remove(this._centerTimer);
         this._centerTimer = 0;
+        this.onItemDragEnd();
+        this._choice?.destroy();
+        this._choice = null;
         if (this._centerHandoff)
             GLib.source_remove(this._centerHandoff);
         this._centerHandoff = 0;
@@ -1270,11 +1276,172 @@ export class StageManager {
         const d = this._drag;
         if (!d)
             return;
-        const strip = this._frontOf(d.set.stage);
-        if (!strip)
-            return;
         const [x, y] = global.get_pointer();
-        strip.setWindowDrag({multi: d.multi, over: strip.containsPoint(x, y)});
+        const strip = this._frontOf(d.set.stage);
+        strip?.setWindowDrag({multi: d.multi, over: strip.containsPoint(x, y)});
+        this._showCross(this._targetAt(d.set.stage, x, y, d.win));
+    }
+
+    // ---------- arrastar entre monitores (janela ou item da tira)
+
+    /** Monitor sob o ponto, ou -1. */
+    _monitorAt(x, y) {
+        return global.display.get_monitor_index_for_rect(new Mtk.Rectangle({x, y, width: 1, height: 1}));
+    }
+
+    /** Janela aberta do palco sob o ponto: o alvo "agrupar" (metade esquerda) ou "só mudar de monitor" (direita). */
+    _windowTargetAt(stage, x, y, exclude) {
+        const wins = (stage.active?.windows ?? []).filter(w => w !== exclude && !w.minimized);
+        const top = global.display.sort_windows_by_stacking(wins).reverse().find(w => {
+            const r = w.get_frame_rect();
+            return x >= r.x && x <= r.x + r.width && y >= r.y && y <= r.y + r.height;
+        });
+        if (!top)
+            return null;
+        const rect = top.get_frame_rect();
+        return {kind: DropChoice.zoneAt(rect, x), rect};
+    }
+
+    /**
+     * Para algo arrastado de `from` até o ponto: em outro monitor, o que seria feito se largasse agora.
+     * kind: 'item' (agrupar com um conjunto da tira), 'slot' (só entrar na tira), 'group' / 'move' (sobre uma
+     * janela aberta: agrupar com ela / só mudar de monitor), 'monitor' (resto da tela: vira o palco de lá).
+     */
+    _targetAt(from, x, y, exclude) {
+        const m = this._monitorAt(x, y);
+        if (m < 0 || m === from.monitor || (exclude && isPip(exclude)))
+            return null;
+        const stage = this._currentStage(m);
+        if (stage === from)
+            return null;
+        const inc = this._frontOf(stage)?.incomingAt(x, y);
+        if (inc)
+            return {kind: inc.zone, stage, set: inc.set};
+        const onWin = this._windowTargetAt(stage, x, y, exclude);
+        if (onWin)
+            return {...onWin, stage};
+        return {kind: 'monitor', stage};
+    }
+
+    /** Mostra o que o alvo faria: tira revelada com item/quadradinho, ou as duas metades sobre a janela. */
+    _showCross(t) {
+        const slotOrItem = t && (t.kind === 'item' || t.kind === 'slot');
+        for (const [monitor, strip] of this._fronts)
+            strip.setIncoming(slotOrItem && t.stage.monitor === monitor ? {zone: t.kind, set: t.set} : null);
+        if (t?.rect) {
+            this._choice ??= new DropChoice();
+            this._choice.show(t.rect);
+            this._choice.highlight(t.kind);
+        } else {
+            this._choice?.hide();
+        }
+    }
+
+    onItemDragBegin(set) {
+        this.onItemDragEnd();
+        const from = set.stage;
+        const zones = [];
+        for (const [monitor, front] of this._fronts) {
+            if (monitor === from.monitor || this._currentStage(monitor) === from)
+                continue;
+            front.setForeignDrag(true);
+            zones.push(new ScreenZone(this, monitor, front.actor));
+        }
+        this._itemDrag = {
+            set, zones,
+            timer: GLib.timeout_add(GLib.PRIORITY_DEFAULT, DRAG_POLL_MS, () => {
+                const [x, y] = global.get_pointer();
+                this._showCross(this._targetAt(set.stage, x, y, null));
+                return GLib.SOURCE_CONTINUE;
+            }),
+        };
+    }
+
+    onItemDragEnd() {
+        const d = this._itemDrag;
+        if (!d)
+            return;
+        this._itemDrag = null;
+        GLib.source_remove(d.timer);
+        d.zones.forEach(z => z.destroy());
+        this._fronts.forEach(f => f.setForeignDrag(false));
+        this._showCross(null);
+    }
+
+    /** Soltou um item da tira de outro monitor: faz o que o alvo sob o ponteiro indicava. */
+    dropItemAtPointer(set) {
+        const [x, y] = global.get_pointer();
+        const t = this._targetAt(set.stage, x, y, null);
+        if (!t)
+            return false;
+        this._showCross(null);
+        const to = t.stage.monitor;
+        if (t.kind === 'item') {
+            this.dropSetOnSet(set, t.set);
+        } else if (t.kind === 'group') {
+            this.moveSetToMonitor(set, to);
+            this.addSetToStage(set);
+        } else if (t.kind === 'slot') {
+            this.moveSetToMonitor(set, to);
+        } else {
+            this.moveSetToMonitor(set, to);
+            this.activateSet(set);
+        }
+        return true;
+    }
+
+    /** Junta o conjunto `src` (de outra tira) a `dst` e o traz para o palco de `dst`. */
+    dropSetOnSet(src, dst) {
+        const from = src.stage;
+        const top = src.top;
+        from.removeSet(src);
+        for (const w of src.windows) {
+            dst.add(w);
+            this._setOf.set(w, dst);
+        }
+        dst.lastFocused = top ?? dst.lastFocused;
+        this._sync(from, {focus: false});
+        this.activateSet(dst);
+    }
+
+    /** Larga uma janela arrastada de outro monitor sobre `t` (ver _targetAt). */
+    _dropWindow(d, t) {
+        const win = d.win;
+        const tstage = t.stage;
+        if (t.kind === 'move' || t.kind === 'monitor') {
+            this._onWorkspaceMonitorMoved(win, tstage);
+            return;
+        }
+        const r = this._removeFromModel(win);
+        if (this._monitorOf(win) !== tstage.monitor) {
+            const area = Main.layoutManager.getWorkAreaForMonitor(tstage.monitor);
+            const fr = win.get_frame_rect();
+            this._internal(() => win.move_frame(true, area.x + Math.round((area.width - fr.width) / 2), area.y + Math.round((area.height - fr.height) / 2)));
+        }
+        if (r) {
+            if (r.wasActive && r.emptied && r.stage.recents[0])
+                this.activateSet(r.stage.recents[0], {focus: false});
+            else
+                this._sync(r.stage, {focus: false, layout: r.wasActive});
+        }
+        if (t.kind === 'item' && t.set.stage === tstage) {
+            t.set.add(win);
+            this._setOf.set(win, t.set);
+            t.set.lastFocused = win;
+            this.activateSet(t.set);
+        } else if (t.kind === 'group' && tstage.active) {
+            tstage.active.add(win);
+            this._setOf.set(win, tstage.active);
+            tstage.active.lastFocused = win;
+            this._sync(tstage, {focus: true, layout: true});
+        } else if (t.kind === 'slot') {
+            const set = this._newSetFor(win, tstage);
+            if (!tstage.sets.includes(set))
+                tstage.recents.unshift(set);
+            this._sync(tstage, {focus: true, layout: true});
+        } else if (this._eligible(win)) {
+            this.activateSet(this._newSetFor(win, tstage));
+        }
     }
 
     _onGrabEnd(win, op) {
@@ -1307,8 +1474,12 @@ export class StageManager {
             const strip = this._frontOf(stage);
             const [x, y] = global.get_pointer();
             const dropped = !!strip && d.multi && strip.containsPoint(x, y);
+            const cross = stage.active === d.set ? this._targetAt(stage, x, y, d.win) : null;
             strip?.setWindowDrag(null);
-            if (dropped && stage.active === d.set && d.set.windows.length > 1) {
+            this._showCross(null);
+            if (cross) {
+                this._dropWindow(d, cross);
+            } else if (dropped && stage.active === d.set && d.set.windows.length > 1) {
                 const n = stage.detach(d.win);
                 this._setOf.set(d.win, n);
                 this._sync(stage, {focus: true, layout: true});
@@ -1377,7 +1548,7 @@ export class StageManager {
     }
 
     /** A janela foi arrastada para outro monitor: passa a viver no palco de lá. */
-    _onWorkspaceMonitorMoved(win) {
+    _onWorkspaceMonitorMoved(win, stage = null) {
         const r = this._removeFromModel(win);
         if (r) {
             if (r.wasActive && r.emptied && r.stage.recents[0])
@@ -1385,8 +1556,13 @@ export class StageManager {
             else
                 this._sync(r.stage, {focus: false, layout: r.wasActive});
         }
+        if (stage && this._monitorOf(win) !== stage.monitor) {
+            const area = Main.layoutManager.getWorkAreaForMonitor(stage.monitor);
+            const fr = win.get_frame_rect();
+            this._internal(() => win.move_frame(true, area.x + Math.round((area.width - fr.width) / 2), area.y + Math.round((area.height - fr.height) / 2)));
+        }
         if (this._eligible(win))
-            this.activateSet(this._newSetFor(win, this._stageForWindow(win)));
+            this.activateSet(this._newSetFor(win, stage ?? this._stageForWindow(win)));
     }
 
     // ------------------------------------------------------------------ clique no papel de parede

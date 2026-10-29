@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Stage Manager 1\n"
 "Report-Msgid-Bugs-To: https://github.com/wylho/gnomestagemanager/issues\n"
-"POT-Creation-Date: 2026-10-27 14:24+0000\n"
-"PO-Revision-Date: 2026-10-27 14:24+0000\n"
+"POT-Creation-Date: 2026-10-29 13:38+0000\n"
+"PO-Revision-Date: 2026-10-29 13:38+0000\n"
 "Last-Translator: Stage Manager contributors\n"
 "Language: zh_CN\n"
 "Language-Team: zh_CN <https://github.com/wylho/gnomestagemanager/issues>\n"
@@ -16,21 +16,29 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
 
-#: extension/stage-manager@wyliam/lib/indicator.js:13 extension/stage-manager@wyliam/lib/manager.js:371
+#: extension/stage-manager@wyliam/lib/dropchoice.js:49
+msgid "Group"
+msgstr "编组"
+
+#: extension/stage-manager@wyliam/lib/dropchoice.js:50
+msgid "Only move here"
+msgstr "仅移动到此显示器"
+
+#: extension/stage-manager@wyliam/lib/indicator.js:13 extension/stage-manager@wyliam/lib/manager.js:378
 #: extension/stage-manager@wyliam/prefs.js:26
 msgid "Stage Manager"
 msgstr "台前调度"
 
-#: extension/stage-manager@wyliam/lib/manager.js:371
+#: extension/stage-manager@wyliam/lib/manager.js:378
 msgid "Could not identify the app of this window."
 msgstr "无法识别此窗口所属的应用。"
 
-#: extension/stage-manager@wyliam/lib/manager.js:377
+#: extension/stage-manager@wyliam/lib/manager.js:384
 #, python-format
 msgid "Ignoring: %s"
 msgstr "正在忽略：%s"
 
-#: extension/stage-manager@wyliam/lib/manager.js:389
+#: extension/stage-manager@wyliam/lib/manager.js:396
 #, python-format
 msgid "Managed again: %s"
 msgstr "已恢复管理：%s"
@@ -40,91 +48,91 @@ msgid "Click the window Stage Manager should ignore. Esc cancels."
 msgstr "点击“台前调度”应忽略的窗口。按 Esc 取消。"
 
 #. TRANSLATORS: fallback name shown in the menu header when the app is unknown
-#: extension/stage-manager@wyliam/lib/strip.js:103
+#: extension/stage-manager@wyliam/lib/strip.js:111
 msgid "Window"
 msgstr "窗口"
 
-#: extension/stage-manager@wyliam/lib/strip.js:106
+#: extension/stage-manager@wyliam/lib/strip.js:114
 #, python-format
 msgid "%s (%d window)"
 msgid_plural "%s (%d windows)"
 msgstr[0] "%s（%d 个窗口）"
 
-#: extension/stage-manager@wyliam/lib/strip.js:112
+#: extension/stage-manager@wyliam/lib/strip.js:120
 msgid "Bring to the stage"
 msgstr "带到台前"
 
-#: extension/stage-manager@wyliam/lib/strip.js:114
+#: extension/stage-manager@wyliam/lib/strip.js:122
 msgid "Add to the stage group"
 msgstr "添加到台前的组"
 
-#: extension/stage-manager@wyliam/lib/strip.js:117
+#: extension/stage-manager@wyliam/lib/strip.js:125
 msgid "Bring only one window"
 msgstr "只带出一个窗口"
 
-#: extension/stage-manager@wyliam/lib/strip.js:119
+#: extension/stage-manager@wyliam/lib/strip.js:127
 msgid "Untitled"
 msgstr "无标题"
 
-#: extension/stage-manager@wyliam/lib/strip.js:121
+#: extension/stage-manager@wyliam/lib/strip.js:129
 msgid "Split the windows in the strip"
 msgstr "在侧边栏中拆分窗口"
 
-#: extension/stage-manager@wyliam/lib/strip.js:126
+#: extension/stage-manager@wyliam/lib/strip.js:134
 msgid "New window"
 msgstr "新建窗口"
 
-#: extension/stage-manager@wyliam/lib/strip.js:127
+#: extension/stage-manager@wyliam/lib/strip.js:135
 msgid "Close all windows"
 msgstr "关闭所有窗口"
 
-#: extension/stage-manager@wyliam/lib/strip.js:127
+#: extension/stage-manager@wyliam/lib/strip.js:135
 msgid "Close window"
 msgstr "关闭窗口"
 
-#: extension/stage-manager@wyliam/lib/strip.js:129
+#: extension/stage-manager@wyliam/lib/strip.js:137
 msgid "Quit app"
 msgstr "退出应用"
 
-#: extension/stage-manager@wyliam/lib/strip.js:136
+#: extension/stage-manager@wyliam/lib/strip.js:144
 msgid "Move to monitor"
 msgstr "移动到显示器"
 
-#: extension/stage-manager@wyliam/lib/strip.js:139
+#: extension/stage-manager@wyliam/lib/strip.js:147
 #, python-format
 msgid "Monitor %d"
 msgstr "显示器 %d"
 
-#: extension/stage-manager@wyliam/lib/strip.js:144
+#: extension/stage-manager@wyliam/lib/strip.js:152
 msgid "Move to workspace"
 msgstr "移动到工作区"
 
-#: extension/stage-manager@wyliam/lib/strip.js:148
+#: extension/stage-manager@wyliam/lib/strip.js:156
 #, python-format
 msgid "Workspace %d"
 msgstr "工作区 %d"
 
-#: extension/stage-manager@wyliam/lib/strip.js:155
+#: extension/stage-manager@wyliam/lib/strip.js:163
 msgid "Autotiling for groups"
 msgstr "组的自动平铺"
 
-#: extension/stage-manager@wyliam/lib/strip.js:159
+#: extension/stage-manager@wyliam/lib/strip.js:167
 msgid "Rearrange the stage group"
 msgstr "重新排列台前的组"
 
-#: extension/stage-manager@wyliam/lib/strip.js:160
+#: extension/stage-manager@wyliam/lib/strip.js:168
 msgid "Back to the stage"
 msgstr "返回台前"
 
-#: extension/stage-manager@wyliam/lib/strip.js:160 extension/stage-manager@wyliam/prefs.js:17
+#: extension/stage-manager@wyliam/lib/strip.js:168 extension/stage-manager@wyliam/prefs.js:17
 msgid "Show the desktop"
 msgstr "显示桌面"
 
-#: extension/stage-manager@wyliam/lib/strip.js:162
+#: extension/stage-manager@wyliam/lib/strip.js:170
 msgid "Ignore this app (do not manage)"
 msgstr "忽略此应用（不管理）"
 
-#: extension/stage-manager@wyliam/lib/strip.js:163
+#: extension/stage-manager@wyliam/lib/strip.js:171
 msgid "Preferences…"
 msgstr "首选项…"
 

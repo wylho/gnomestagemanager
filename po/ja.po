@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Stage Manager 1\n"
 "Report-Msgid-Bugs-To: https://github.com/wylho/gnomestagemanager/issues\n"
-"POT-Creation-Date: 2026-10-27 14:24+0000\n"
-"PO-Revision-Date: 2026-10-27 14:24+0000\n"
+"POT-Creation-Date: 2026-10-29 13:38+0000\n"
+"PO-Revision-Date: 2026-10-29 13:38+0000\n"
 "Last-Translator: Stage Manager contributors\n"
 "Language: ja\n"
 "Language-Team: ja <https://github.com/wylho/gnomestagemanager/issues>\n"
@@ -16,21 +16,29 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
 
-#: extension/stage-manager@wyliam/lib/indicator.js:13 extension/stage-manager@wyliam/lib/manager.js:371
+#: extension/stage-manager@wyliam/lib/dropchoice.js:49
+msgid "Group"
+msgstr "グループ化"
+
+#: extension/stage-manager@wyliam/lib/dropchoice.js:50
+msgid "Only move here"
+msgstr "このモニターへ移動のみ"
+
+#: extension/stage-manager@wyliam/lib/indicator.js:13 extension/stage-manager@wyliam/lib/manager.js:378
 #: extension/stage-manager@wyliam/prefs.js:26
 msgid "Stage Manager"
 msgstr "ステージマネージャ"
 
-#: extension/stage-manager@wyliam/lib/manager.js:371
+#: extension/stage-manager@wyliam/lib/manager.js:378
 msgid "Could not identify the app of this window."
 msgstr "このウィンドウのアプリを特定できませんでした。"
 
-#: extension/stage-manager@wyliam/lib/manager.js:377
+#: extension/stage-manager@wyliam/lib/manager.js:384
 #, python-format
 msgid "Ignoring: %s"
 msgstr "無視中: %s"
 
-#: extension/stage-manager@wyliam/lib/manager.js:389
+#: extension/stage-manager@wyliam/lib/manager.js:396
 #, python-format
 msgid "Managed again: %s"
 msgstr "再び管理対象になりました: %s"
@@ -40,91 +48,91 @@ msgid "Click the window Stage Manager should ignore. Esc cancels."
 msgstr "ステージマネージャが無視するウィンドウをクリックしてください。Esc でキャンセルします。"
 
 #. TRANSLATORS: fallback name shown in the menu header when the app is unknown
-#: extension/stage-manager@wyliam/lib/strip.js:103
+#: extension/stage-manager@wyliam/lib/strip.js:111
 msgid "Window"
 msgstr "ウィンドウ"
 
-#: extension/stage-manager@wyliam/lib/strip.js:106
+#: extension/stage-manager@wyliam/lib/strip.js:114
 #, python-format
 msgid "%s (%d window)"
 msgid_plural "%s (%d windows)"
 msgstr[0] "%s（%d 個のウィンドウ）"
 
-#: extension/stage-manager@wyliam/lib/strip.js:112
+#: extension/stage-manager@wyliam/lib/strip.js:120
 msgid "Bring to the stage"
 msgstr "ステージに持ってくる"
 
-#: extension/stage-manager@wyliam/lib/strip.js:114
+#: extension/stage-manager@wyliam/lib/strip.js:122
 msgid "Add to the stage group"
 msgstr "ステージのグループに追加"
 
-#: extension/stage-manager@wyliam/lib/strip.js:117
+#: extension/stage-manager@wyliam/lib/strip.js:125
 msgid "Bring only one window"
 msgstr "ウィンドウを 1 つだけ持ってくる"
 
-#: extension/stage-manager@wyliam/lib/strip.js:119
+#: extension/stage-manager@wyliam/lib/strip.js:127
 msgid "Untitled"
 msgstr "無題"
 
-#: extension/stage-manager@wyliam/lib/strip.js:121
+#: extension/stage-manager@wyliam/lib/strip.js:129
 msgid "Split the windows in the strip"
 msgstr "サイドバーでウィンドウを分離"
 
-#: extension/stage-manager@wyliam/lib/strip.js:126
+#: extension/stage-manager@wyliam/lib/strip.js:134
 msgid "New window"
 msgstr "新しいウィンドウ"
 
-#: extension/stage-manager@wyliam/lib/strip.js:127
+#: extension/stage-manager@wyliam/lib/strip.js:135
 msgid "Close all windows"
 msgstr "すべてのウィンドウを閉じる"
 
-#: extension/stage-manager@wyliam/lib/strip.js:127
+#: extension/stage-manager@wyliam/lib/strip.js:135
 msgid "Close window"
 msgstr "ウィンドウを閉じる"
 
-#: extension/stage-manager@wyliam/lib/strip.js:129
+#: extension/stage-manager@wyliam/lib/strip.js:137
 msgid "Quit app"
 msgstr "アプリを終了"
 
-#: extension/stage-manager@wyliam/lib/strip.js:136
+#: extension/stage-manager@wyliam/lib/strip.js:144
 msgid "Move to monitor"
 msgstr "モニターへ移動"
 
-#: extension/stage-manager@wyliam/lib/strip.js:139
+#: extension/stage-manager@wyliam/lib/strip.js:147
 #, python-format
 msgid "Monitor %d"
 msgstr "モニター %d"
 
-#: extension/stage-manager@wyliam/lib/strip.js:144
+#: extension/stage-manager@wyliam/lib/strip.js:152
 msgid "Move to workspace"
 msgstr "ワークスペースへ移動"
 
-#: extension/stage-manager@wyliam/lib/strip.js:148
+#: extension/stage-manager@wyliam/lib/strip.js:156
 #, python-format
 msgid "Workspace %d"
 msgstr "ワークスペース %d"
 
-#: extension/stage-manager@wyliam/lib/strip.js:155
+#: extension/stage-manager@wyliam/lib/strip.js:163
 msgid "Autotiling for groups"
 msgstr "グループのオートタイリング"
 
-#: extension/stage-manager@wyliam/lib/strip.js:159
+#: extension/stage-manager@wyliam/lib/strip.js:167
 msgid "Rearrange the stage group"
 msgstr "ステージのグループを並べ直す"
 
-#: extension/stage-manager@wyliam/lib/strip.js:160
+#: extension/stage-manager@wyliam/lib/strip.js:168
 msgid "Back to the stage"
 msgstr "ステージに戻る"
 
-#: extension/stage-manager@wyliam/lib/strip.js:160 extension/stage-manager@wyliam/prefs.js:17
+#: extension/stage-manager@wyliam/lib/strip.js:168 extension/stage-manager@wyliam/prefs.js:17
 msgid "Show the desktop"
 msgstr "デスクトップを表示"
 
-#: extension/stage-manager@wyliam/lib/strip.js:162
+#: extension/stage-manager@wyliam/lib/strip.js:170
 msgid "Ignore this app (do not manage)"
 msgstr "このアプリを無視（管理しない）"
 
-#: extension/stage-manager@wyliam/lib/strip.js:163
+#: extension/stage-manager@wyliam/lib/strip.js:171
 msgid "Preferences…"
 msgstr "設定…"
 

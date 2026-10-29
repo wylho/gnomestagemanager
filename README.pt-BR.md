@@ -62,6 +62,7 @@
 | **Seletor de exceções**: clique em qualquer janela para ignorar o app (GNOME Sushi já vem ignorado) | — | **Sim** |
 | Modo "**manter sempre centralizada**", ou lembrar o que você moveu à mão | — | **Sim** |
 | Mover um conjunto para outro monitor ou área de trabalho pelo menu | — | **Sim** |
+| Arrastar janelas **e miniaturas da tira entre monitores**: soltar sobre um item da tira agrupa, na tira só muda de monitor, sobre uma janela aberta você escolhe *Agrupar* ou *Só mudar de monitor* | — | **Sim** |
 | **Alt+Tab na ordem de uso** com vários monitores (um toque = o app que você acabou de deixar) | Sim (Command-Tab) | **Sim** |
 | Traduções | Idiomas do sistema | **9 (EN, PT-BR, ES, FR, DE, RU, IT, ZH-CN, JA)** |
 
