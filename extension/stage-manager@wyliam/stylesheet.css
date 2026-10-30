@@ -38,6 +38,19 @@
     background-color: rgba(255, 255, 255, 0.05);
 }
 
+.sm-close {
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    border-radius: 11px;
+    color: white;
+    background-color: rgba(20, 20, 24, 0.85);
+}
+
+.sm-close:hover {
+    background-color: rgba(224, 27, 36, 0.95);
+}
+
 .sm-add {
     width: 22px;
     height: 22px;

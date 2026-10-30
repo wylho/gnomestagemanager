@@ -54,6 +54,7 @@
 | **Keyboard shortcuts** for toggling, switching, adding, removing, rearranging | No | **Yes (9, configurable)** |
 | **Right-click menu** on thumbnails (bring, add, split, close, quit, move to monitor/workspace, ignore…) | No | **Yes** |
 | **+ button** on thumbnails (can be turned off) | No | **Yes** |
+| **Close button** on thumbnails (can be turned off) and **middle-click to close** | No | **Yes** |
 | **Automatic arrangement** of a group (windows never overlap) | No (free-floating) | **Mosaic or autotiling** |
 | **Autotiling** with configurable margin and gap, dividers that follow your resizing | — | **Yes** |
 | Resize one window and the others make room (it keeps the size you asked for) | — | **Yes** |

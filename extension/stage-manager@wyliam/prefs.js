@@ -100,6 +100,7 @@ export default class StageManagerPrefs extends ExtensionPreferences {
         page.add(strip);
         comboRow(strip, 'strip-side', _('Strip side'), '', [_('Left'), _('Right')]);
         switchRow(strip, 'show-add-button', _('Show the + button on thumbnails'), _('Adds the set to the stage group. Shift+click and dragging also work.'));
+        switchRow(strip, 'show-close-button', _('Show a close button on thumbnails'), _('Closes the window (all windows of a group). Middle-clicking a thumbnail always closes it.'));
         spinRow(strip, 'thumbnail-width', _('Thumbnail width (px)'), _('Minimum 96 px.'), 400, 96);
         spinRow(strip, 'max-recents', _('Maximum items in the strip'), _('0 = as many as fit the screen height.'), 20);
 

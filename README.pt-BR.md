@@ -53,6 +53,7 @@
 | **Atalhos de teclado** para ligar, trocar, adicionar, remover, reorganizar | Não | **Sim (9, configuráveis)** |
 | **Menu de botão direito** nas miniaturas (trazer, adicionar, separar, fechar, sair, mover de monitor/área, ignorar…) | Não | **Sim** |
 | **Botão +** nas miniaturas (dá para desligar) | Não | **Sim** |
+| **Botão de fechar** nas miniaturas (dá para desligar) e **clique do meio para fechar** | Não | **Sim** |
 | **Organização automática** do grupo (janelas nunca se sobrepõem) | Não (livres) | **Mosaico ou autotiling** |
 | **Autotiling** com margem e espaçamento configuráveis, divisores que seguem o redimensionamento | — | **Sim** |
 | Redimensionar uma janela e as outras abrem espaço (ela fica com o tamanho pedido) | — | **Sim** |

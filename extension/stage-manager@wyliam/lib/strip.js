@@ -29,10 +29,10 @@ const aspectOf = win => {
     return r.width > 0 ? r.height / r.width : 0.62;
 };
 
-const signature = (set, w, h, addButton) => {
+const signature = (set, w, h, addButton, closeButton) => {
     const top = set.top;
     const r = top ? top.get_frame_rect() : {width: 0, height: 0};
-    return [w, h, top?.get_id(), set.windows.map(x => x.get_id()).join(','), r.width, r.height, addButton].join('|');
+    return [w, h, top?.get_id(), set.windows.map(x => x.get_id()).join(','), r.width, r.height, addButton, closeButton].join('|');
 };
 
 /** Alvo de soltura para itens vindos da tira de OUTRO monitor: o gerenciador decide pelo ponto onde o ponteiro está. */
@@ -60,6 +60,10 @@ class StripItem {
 
         this.actor.connect('clicked', () => this._onClicked());
         this.actor.connect('notify::hover', () => this._onHover());
+
+        const middleClick = new Clutter.ClickGesture({required_button: Clutter.BUTTON_MIDDLE, recognize_on_press: true});
+        middleClick.connect('recognize', () => this._strip.manager.closeSet(this.set));
+        this.actor.add_action(middleClick);
 
         const rightClick = new Clutter.ClickGesture({
             required_button: Clutter.BUTTON_SECONDARY,
@@ -191,7 +195,8 @@ class StripItem {
     _onHover() {
         this.actor.set_pivot_point(0.5, 0.5);
         const hovered = this.actor.hover;
-        this._add?.ease({opacity: hovered ? 255 : 0, duration: 120, mode: Clutter.AnimationMode.EASE_OUT_QUAD});
+        for (const b of [this._add, this._close])
+            b?.ease({opacity: hovered ? 255 : 0, duration: 120, mode: Clutter.AnimationMode.EASE_OUT_QUAD});
         this.actor.ease({
             scale_x: hovered ? 1.05 : 1,
             scale_y: hovered ? 1.05 : 1,
@@ -203,7 +208,8 @@ class StripItem {
     /** Recria as miniaturas se algo mudou (membros, janela do topo, tamanho). */
     update(w, h) {
         const showAdd = this._strip.settings.get_boolean('show-add-button');
-        const sig = signature(this.set, w, h, showAdd);
+        const showClose = this._strip.settings.get_boolean('show-close-button');
+        const sig = signature(this.set, w, h, showAdd, showClose);
         if (sig === this._sig)
             return;
         this._sig = sig;
@@ -211,6 +217,7 @@ class StripItem {
         this.content.set_size(w, h);
         this.content.destroy_all_children();
         this._add = null;
+        this._close = null;
 
         const top = this.set.top;
         if (!top)
@@ -234,6 +241,8 @@ class StripItem {
 
         if (showAdd)
             this._buildAddButton(w);
+        if (showClose)
+            this._buildCloseButton();
 
         const app = Shell.WindowTracker.get_default().get_window_app(top);
         if (app && topThumb) {
@@ -253,6 +262,18 @@ class StripItem {
         });
         this._add.connect('clicked', () => this._strip.manager.addSetToStage(this.set));
         this.content.add_child(this._add);
+    }
+
+    /** Botão × (aparece ao passar o mouse): fecha as janelas do conjunto. */
+    _buildCloseButton() {
+        this._close = new St.Button({
+            style_class: 'sm-close',
+            child: new St.Icon({icon_name: 'window-close-symbolic', icon_size: 14}),
+            opacity: this.actor.hover ? 255 : 0,
+            x: 6, y: 6,
+        });
+        this._close.connect('clicked', () => this._strip.manager.closeSet(this.set));
+        this.content.add_child(this._close);
     }
 
     _makeThumb(win, w, h) {
@@ -390,6 +411,7 @@ export class Strip {
         this.monitor = monitor;
         this.settings = settings;
         this._addBtnId = settings.connect('changed::show-add-button', () => this.refresh());
+        this._closeBtnId = settings.connect('changed::show-close-button', () => this.refresh());
         this._settings = settings;
         this._menuOpen = false;
         this._stage = null;
@@ -762,6 +784,7 @@ export class Strip {
     destroy() {
         this._dead = true;
         this.settings.disconnect(this._addBtnId);
+        this.settings.disconnect(this._closeBtnId);
         if (this._watch)
             GLib.source_remove(this._watch);
         this._zone?.destroy();

@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Stage Manager 1\n"
 "Report-Msgid-Bugs-To: https://github.com/wylho/gnomestagemanager/issues\n"
-"POT-Creation-Date: 2026-10-29 13:38+0000\n"
-"PO-Revision-Date: 2026-10-29 13:38+0000\n"
+"POT-Creation-Date: 2026-10-30 11:50+0000\n"
+"PO-Revision-Date: 2026-10-30 11:50+0000\n"
 "Last-Translator: Stage Manager contributors\n"
 "Language: es\n"
 "Language-Team: es <https://github.com/wylho/gnomestagemanager/issues>\n"
@@ -48,92 +48,92 @@ msgid "Click the window Stage Manager should ignore. Esc cancels."
 msgstr "Haz clic en la ventana que Organizador visual debe ignorar. Esc cancela."
 
 #. TRANSLATORS: fallback name shown in the menu header when the app is unknown
-#: extension/stage-manager@wyliam/lib/strip.js:111
+#: extension/stage-manager@wyliam/lib/strip.js:115
 msgid "Window"
 msgstr "Ventana"
 
-#: extension/stage-manager@wyliam/lib/strip.js:114
+#: extension/stage-manager@wyliam/lib/strip.js:118
 #, python-format
 msgid "%s (%d window)"
 msgid_plural "%s (%d windows)"
 msgstr[0] "%s (%d ventana)"
 msgstr[1] "%s (%d ventanas)"
 
-#: extension/stage-manager@wyliam/lib/strip.js:120
+#: extension/stage-manager@wyliam/lib/strip.js:124
 msgid "Bring to the stage"
 msgstr "Traer al escenario"
 
-#: extension/stage-manager@wyliam/lib/strip.js:122
+#: extension/stage-manager@wyliam/lib/strip.js:126
 msgid "Add to the stage group"
 msgstr "Añadir al grupo del escenario"
 
-#: extension/stage-manager@wyliam/lib/strip.js:125
+#: extension/stage-manager@wyliam/lib/strip.js:129
 msgid "Bring only one window"
 msgstr "Traer solo una ventana"
 
-#: extension/stage-manager@wyliam/lib/strip.js:127
+#: extension/stage-manager@wyliam/lib/strip.js:131
 msgid "Untitled"
 msgstr "Sin título"
 
-#: extension/stage-manager@wyliam/lib/strip.js:129
+#: extension/stage-manager@wyliam/lib/strip.js:133
 msgid "Split the windows in the strip"
 msgstr "Separar las ventanas en la barra lateral"
 
-#: extension/stage-manager@wyliam/lib/strip.js:134
+#: extension/stage-manager@wyliam/lib/strip.js:138
 msgid "New window"
 msgstr "Nueva ventana"
 
-#: extension/stage-manager@wyliam/lib/strip.js:135
+#: extension/stage-manager@wyliam/lib/strip.js:139
 msgid "Close all windows"
 msgstr "Cerrar todas las ventanas"
 
-#: extension/stage-manager@wyliam/lib/strip.js:135
+#: extension/stage-manager@wyliam/lib/strip.js:139
 msgid "Close window"
 msgstr "Cerrar ventana"
 
-#: extension/stage-manager@wyliam/lib/strip.js:137
+#: extension/stage-manager@wyliam/lib/strip.js:141
 msgid "Quit app"
 msgstr "Salir de la aplicación"
 
-#: extension/stage-manager@wyliam/lib/strip.js:144
+#: extension/stage-manager@wyliam/lib/strip.js:148
 msgid "Move to monitor"
 msgstr "Mover al monitor"
 
-#: extension/stage-manager@wyliam/lib/strip.js:147
+#: extension/stage-manager@wyliam/lib/strip.js:151
 #, python-format
 msgid "Monitor %d"
 msgstr "Monitor %d"
 
-#: extension/stage-manager@wyliam/lib/strip.js:152
+#: extension/stage-manager@wyliam/lib/strip.js:156
 msgid "Move to workspace"
 msgstr "Mover al espacio de trabajo"
 
-#: extension/stage-manager@wyliam/lib/strip.js:156
+#: extension/stage-manager@wyliam/lib/strip.js:160
 #, python-format
 msgid "Workspace %d"
 msgstr "Espacio de trabajo %d"
 
-#: extension/stage-manager@wyliam/lib/strip.js:163
+#: extension/stage-manager@wyliam/lib/strip.js:167
 msgid "Autotiling for groups"
 msgstr "Autotiling para los grupos"
 
-#: extension/stage-manager@wyliam/lib/strip.js:167
+#: extension/stage-manager@wyliam/lib/strip.js:171
 msgid "Rearrange the stage group"
 msgstr "Reorganizar el grupo del escenario"
 
-#: extension/stage-manager@wyliam/lib/strip.js:168
+#: extension/stage-manager@wyliam/lib/strip.js:172
 msgid "Back to the stage"
 msgstr "Volver al escenario"
 
-#: extension/stage-manager@wyliam/lib/strip.js:168 extension/stage-manager@wyliam/prefs.js:17
+#: extension/stage-manager@wyliam/lib/strip.js:172 extension/stage-manager@wyliam/prefs.js:17
 msgid "Show the desktop"
 msgstr "Mostrar el escritorio"
 
-#: extension/stage-manager@wyliam/lib/strip.js:170
+#: extension/stage-manager@wyliam/lib/strip.js:174
 msgid "Ignore this app (do not manage)"
 msgstr "Ignorar esta aplicación (no gestionar)"
 
-#: extension/stage-manager@wyliam/lib/strip.js:171
+#: extension/stage-manager@wyliam/lib/strip.js:175
 msgid "Preferences…"
 msgstr "Preferencias…"
 
@@ -410,36 +410,44 @@ msgid "Adds the set to the stage group. Shift+click and dragging also work."
 msgstr "Añade el conjunto al grupo del escenario. Mayús+clic y arrastrar también funcionan."
 
 #: extension/stage-manager@wyliam/prefs.js:103
+msgid "Show a close button on thumbnails"
+msgstr "Mostrar el botón de cerrar en las miniaturas"
+
+#: extension/stage-manager@wyliam/prefs.js:103
+msgid "Closes the window (all windows of a group). Middle-clicking a thumbnail always closes it."
+msgstr "Cierra la ventana (todas las de un grupo). El clic central en una miniatura siempre la cierra."
+
+#: extension/stage-manager@wyliam/prefs.js:104
 msgid "Thumbnail width (px)"
 msgstr "Anchura de las miniaturas (px)"
 
-#: extension/stage-manager@wyliam/prefs.js:103
+#: extension/stage-manager@wyliam/prefs.js:104
 msgid "Minimum 96 px."
 msgstr "Mínimo de 96 px."
 
-#: extension/stage-manager@wyliam/prefs.js:104
+#: extension/stage-manager@wyliam/prefs.js:105
 msgid "Maximum items in the strip"
 msgstr "Máximo de elementos en la barra lateral"
 
-#: extension/stage-manager@wyliam/prefs.js:104
+#: extension/stage-manager@wyliam/prefs.js:105
 msgid "0 = as many as fit the screen height."
 msgstr "0 = los que quepan en la altura de la pantalla."
 
-#: extension/stage-manager@wyliam/prefs.js:107
+#: extension/stage-manager@wyliam/prefs.js:108
 msgid "Shortcuts"
 msgstr "Atajos"
 
-#: extension/stage-manager@wyliam/prefs.js:108
+#: extension/stage-manager@wyliam/prefs.js:109
 msgid "GTK format, for example &lt;Super&gt;&lt;Alt&gt;s. Leave empty to disable. Press Enter to apply."
 msgstr ""
 "Formato de GTK, por ejemplo &lt;Super&gt;&lt;Alt&gt;s. Déjalo vacío para desactivar. Pulsa Intro "
 "para aplicar."
 
-#: extension/stage-manager@wyliam/prefs.js:133
+#: extension/stage-manager@wyliam/prefs.js:134
 msgid "Exclusions"
 msgstr "Exclusiones"
 
-#: extension/stage-manager@wyliam/prefs.js:134
+#: extension/stage-manager@wyliam/prefs.js:135
 msgid ""
 "Apps that Stage Manager ignores: they stay loose, outside the stage and the strip. Default: GNOME"
 " Sushi (org.gnome.NautilusPreviewer)."
@@ -447,11 +455,11 @@ msgstr ""
 "Aplicaciones que Organizador visual ignora: quedan sueltas, fuera del escenario y de la barra "
 "lateral. Predeterminado: GNOME Sushi (org.gnome.NautilusPreviewer)."
 
-#: extension/stage-manager@wyliam/prefs.js:140
+#: extension/stage-manager@wyliam/prefs.js:141
 msgid "Pick an open window…"
 msgstr "Elegir una ventana abierta…"
 
-#: extension/stage-manager@wyliam/prefs.js:141
+#: extension/stage-manager@wyliam/prefs.js:142
 msgid ""
 "After clicking here, click the window to ignore (for apps in the strip, click its thumbnail). Esc"
 " cancels."
@@ -459,11 +467,11 @@ msgstr ""
 "Tras hacer clic aquí, haz clic en la ventana que se debe ignorar (para aplicaciones de la barra "
 "lateral, haz clic en su miniatura). Esc cancela."
 
-#: extension/stage-manager@wyliam/prefs.js:148
+#: extension/stage-manager@wyliam/prefs.js:149
 msgid "Add a class manually (WM_CLASS / app-id)"
 msgstr "Añadir una clase manualmente (WM_CLASS / app-id)"
 
-#: extension/stage-manager@wyliam/prefs.js:169
+#: extension/stage-manager@wyliam/prefs.js:170
 msgid "Manage this app again"
 msgstr "Volver a gestionar esta aplicación"
 
